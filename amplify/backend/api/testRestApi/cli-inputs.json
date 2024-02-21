@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "paths": {
+    "/about": {
+      "name": "/about",
+      "lambdaFunction": "team03amplifytesting07351419",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}
