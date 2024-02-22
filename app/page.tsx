@@ -27,7 +27,7 @@ export default function Home() {
           className="mx-auto"
         /> */}
         <p className="text-lg mt-6">
-          Welcome to <strong>Team 3's Website</strong>! We're dedicated to providing the best experience for our users. <br />
+          Welcome to <strong>Team 3&apos;s Website</strong>! We&apos;re dedicated to providing the best experience for our users. <br />
           <strong>Our mission is to innovate and inspire.</strong>
         </p>
         <p className="text-lg mt-4">
