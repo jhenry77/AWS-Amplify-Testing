@@ -1,4 +1,15 @@
 import Image from "next/image";
+import "aws-amplify/api";
+import { Amplify } from 'aws-amplify';
+// import amplifyconfig from './amplifyconfiguration.json';
+
+// Amplify.configure(amplifyconfig);
+
+// async function getAbout(){
+//   try{
+//     const 
+//   }
+// }
 
 export default function Home() {
   return (
