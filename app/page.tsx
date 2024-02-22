@@ -19,13 +19,13 @@ export default function Home() {
     <main className="min-h-screen flex flex-col items-center justify-center p-10">
       <div className="max-w-4xl w-full text-center">
         <h1 className="text-4xl font-bold mb-4">About Us</h1>
-        <Image
+        {/* <Image
           src="/teamlogo.jpg"
           alt="Team Photo"
           width={640}
           height={360}
           className="mx-auto"
-        />
+        /> */}
         <p className="text-lg mt-6">
           Welcome to <strong>Team 3's Website</strong>! We're dedicated to providing the best experience for our users. <br />
           <strong>Our mission is to innovate and inspire.</strong>
