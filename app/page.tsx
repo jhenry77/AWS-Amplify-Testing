@@ -5,11 +5,17 @@ import { Amplify } from 'aws-amplify';
 
 // Amplify.configure(amplifyconfig);
 
-// async function getAbout(){
-//   try{
-//     const 
-//   }
-// }
+const callAPI = async () => {
+	try {
+		const res = await fetch(`https://fo9xpwxinl.execute-api.us-east-1.amazonaws.com/dev/about/1`);
+		const data = await res.json();
+		console.log(data);
+	} catch (err) {
+		console.log(err);
+	}
+};
+
+callAPI()
 
 export default function Home() {
   return (
