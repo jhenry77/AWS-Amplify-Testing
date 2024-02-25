@@ -2,19 +2,19 @@ import Image from "next/image";
 
 // Amplify.configure(amplifyconfig);
 
-const callAPI = async () => {
-	try {
-		const res = await fetch(`https://fo9xpwxinl.execute-api.us-east-1.amazonaws.com/dev/about/1`);
-		const data = await res.json();
-		console.log(data);
-	} catch (err) {
-		console.log(err);
-	}
-};
-
-callAPI()
 
 export default function Home() {
+  const callAPI = async () => {
+    try {
+      const res = await fetch(`https://fo9xpwxinl.execute-api.us-east-1.amazonaws.com/dev/about/1`);
+      const data = await res.json();
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  
+  callAPI()
   return (
     <main className="min-h-screen flex flex-col items-center justify-center p-10">
       <div className="max-w-4xl w-full text-center">
