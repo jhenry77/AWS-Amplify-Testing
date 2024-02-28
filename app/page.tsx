@@ -1,5 +1,4 @@
 import Image from "next/image";
-import type { InferGetStaticPropsType, GetStaticProps } from 'next'
 
 
 type AboutData = {
