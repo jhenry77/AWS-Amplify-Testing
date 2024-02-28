@@ -20,6 +20,9 @@
       },
       "api": {
         "team03testingapi": {}
+      },
+      "auth": {
+        "team03amplifytesting": {}
       }
     }
   }
