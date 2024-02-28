@@ -14,4 +14,10 @@ export function App({ signOut, user }: WithAuthenticatorProps) {
   );
 }
 
-export default withAuthenticator(App);
+// export default withAuthenticator(App);
+
+export default function loginPage(){
+  return(
+    <h1>Login Page!</h1>
+  );
+}
