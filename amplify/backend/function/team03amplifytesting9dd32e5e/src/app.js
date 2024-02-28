@@ -33,13 +33,13 @@ app.use(function(req, res, next) {
 app.get('/about', function(req, res) {
   // Add your code here
 
-  var con = mysql.createConnection({
-    host: "team03-amplify-db.cobd8enwsupz.us-east-1.rds.amazonaws.com",
-    user: "admin",
-    password: "Spring2024Team03!",
-    port: 3306,
-    database: "team03testingDB"
-  });
+  // var con = mysql.createConnection({
+  //   host: "team03-amplify-db.cobd8enwsupz.us-east-1.rds.amazonaws.com",
+  //   user: "admin",
+  //   password: "Spring2024Team03!",
+  //   port: 3306,
+  //   database: "team03testingDB"
+  // });
 
   
 
@@ -52,17 +52,18 @@ app.get('/about', function(req, res) {
   //     else console.log("Table created");
   //   });
   // });
-  con.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected!");
+  //con.connect(function(err) {
+  //   if (err) throw err;
+  //   console.log("Connected!");
   
-    var sql = "INSERT INTO about (teamNumber, VersionNum, SprintDate, ProductName, ProductDescription) VALUES ('team03', 'Sprint3', '2/22/2024', 'TruckingCatalog','Delivering')";
-    con.query(sql, function (err, result) {
-      if (err) res.json({failure: "The error was" + err});
-      else res.json("1 record inserted");
-    });
-  });
-  
+  //   var sql = "INSERT INTO about (teamNumber, VersionNum, SprintDate, ProductName, ProductDescription) VALUES ('team03', 'Sprint3', '2/22/2024', 'TruckingCatalog','Delivering')";
+  //   con.query(sql, function (err, result) {
+  //     if (err) res.json({failure: "The error was" + err});
+  //     else res.json("1 record inserted");
+  //   });
+  // });
+  res.json({success: '!!!!!!!!!'});
+
 });
 
 app.get('/about/*', function(req, res) {
