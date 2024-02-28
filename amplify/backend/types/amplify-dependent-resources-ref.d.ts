@@ -1,0 +1,18 @@
+export type AmplifyDependentResourcesAttributes = {
+  "api": {
+    "team03testingapi": {
+      "ApiId": "string",
+      "ApiName": "string",
+      "RootUrl": "string"
+    }
+  },
+  "function": {
+    "team03amplifytesting9dd32e5e": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    }
+  }
+}
