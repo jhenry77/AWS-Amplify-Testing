@@ -20,9 +20,9 @@
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
-        "mfaConfiguration": "OFF",
+        "mfaConfiguration": "OPTIONAL",
         "mfaTypes": [
-          "SMS"
+          "TOTP"
         ],
         "passwordProtectionSettings": {
           "passwordPolicyCharacters": [
@@ -34,11 +34,11 @@
           "passwordPolicyMinLength": 8
         },
         "signupAttributes": [
-          "EMAIL",
-          "BIRTHDATE",
-          "ADDRESS",
           "NAME",
-          "FAMILY_NAME"
+          "FAMILY_NAME",
+          "BIRTHDATE",
+          "EMAIL",
+          "ADDRESS"
         ],
         "socialProviders": [],
         "usernameAttributes": [
