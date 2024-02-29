@@ -1,5 +1,6 @@
 "use client";
 import React from 'react';
+import Navbar from "../components/AppNav";
 import { Amplify } from 'aws-amplify';
 
 import { Authenticator, Placeholder } from '@aws-amplify/ui-react';
@@ -36,7 +37,10 @@ const signUpFields = {
 export default function App() {
   return (
     <Authenticator formFields={signUpFields}>
-      <h1>hello</h1>
+      <div>
+        <Navbar />
+        <h1>You have logged in</h1>
+      </div>
     </Authenticator>
   );
 }
