@@ -62,7 +62,7 @@ app.get('/about', function(req, res) {
   //     else res.json("1 record inserted");
   //   });
   // });
-  res.json({success: '!!!!!!!!!'});
+  res.json({success: 'JASON!!!!'});
 
 });
 
