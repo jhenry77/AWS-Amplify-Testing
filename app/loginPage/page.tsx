@@ -2,6 +2,7 @@
 import React from 'react';
 import Navbar from "../components/AppNav";
 import { Amplify } from 'aws-amplify';
+import { useAuthenticator } from '@aws-amplify/ui-react';
 
 import { Authenticator, Placeholder } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
@@ -35,11 +36,12 @@ const signUpFields = {
 }
 
 export default function App() {
+  const { user, signOut } = useAuthenticator((context) => [context.user]);
   return (
     <Authenticator formFields={signUpFields}>
       <div>
         <Navbar />
-        <h1>You have logged in</h1>
+        <button onClick={signOut}>Sign Out</button>
       </div>
     </Authenticator>
   );
