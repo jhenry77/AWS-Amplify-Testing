@@ -1,45 +1,29 @@
-/* AppNav.tsx
+"use client";
+import Link from "next/link"
+import { useAuthenticator } from '@aws-amplify/ui-react';
+import { signOut } from "aws-amplify/auth";
 
-/* @client */
-import Link from "next/link";
-import React from 'react';
-//import React, { useState } from 'react';
-
-// Type definition for the props that Navbar component will accept
-type NavbarProps = {
-    onLeftMenuToggle: () => void; // Function to toggle the left menu
-    onRightMenuToggle: () => void; // Function to toggle the right menu
-};
-
-// The Navbar functional component
-const Navbar: React.FC<NavbarProps> = ({ onLeftMenuToggle, onRightMenuToggle }) => {
-    return (
-        // The main navigation container
-        <nav className="Navbar">
-            <div className="left-content">
-                {/* Button that when clicked, will toggle the state of the left hamburger menu */}
-                <button onClick={onLeftMenuToggle} className="hamburger-menu-button" aria-label="Open navigation menu">
-                    ☰{/* Hamburger icon */}
-                </button>
-                {/* Navigation links using anchor tags; replace with Link components for client-side routing */}
-                <Link href="/" className="nav-link">Home</Link>
-                <Link href="/about" className="nav-link">About</Link>
-                <Link href="/login" className="nav-link">Login</Link>
-            </div>
-
-            {/* Right-aligned items */}
-            <div className="right-content">
-                {/* Button that when clicked, will toggle the state of the right settings menu */}
-                <button onClick={onRightMenuToggle} className="settings-menu-button" aria-label="Open settings">
-                    ⚙️{/* Settings icon */}
-                </button>
-            </div>
-        </nav>
-    );
+export default function Navbar() {
+    const { user, signOut } = useAuthenticator((context) => [context.user]);
+    const {authStatus} = useAuthenticator((context) => [context.authStatus]);
+    return <nav className="nav flex">
+        <a href="/" className="site-title">Home</a>
+        <ul className="flex">
+            <li className="px-3">
+                <Link href="/">About</Link>
+            </li>
+            <li>
+                <>
+                {authStatus === 'configuring' && 'Loading...'}
+                {authStatus !== 'authenticated' ? <Link href="/testLogin">Login</Link> : <button className = "justify-end" onClick={signOut}>Sign Out</button>}
+                </>
+            </li>
+        </ul>
+    </nav>
 };
 
 // Exporting Navbar so it can be used in other parts of the application
-export default Navbar;
+// export default Navbar;
 
 /*
 export const Navbar:React.FC = () => {
