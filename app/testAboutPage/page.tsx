@@ -1,3 +1,4 @@
+// "use client";
 import React from 'react';
 import Navbar from "../components/AppNav";
 import { Amplify } from 'aws-amplify';
@@ -5,6 +6,7 @@ import {useAuthenticator} from '@aws-amplify/ui-react';
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { getCurrentUser } from 'aws-amplify/auth';
+import {fetchUserAttributes} from 'aws-amplify/auth';
 
 
 
@@ -24,12 +26,21 @@ type AboutData = {
   ProductDescription: string
 }
 
-
+async function handleFetchUserAttributes() {
+  try {
+    const userAttributes = await fetchUserAttributes();
+    console.log(userAttributes);
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 
 export default async function Home() {
   var data = await getAboutData();
+  // const {user, signOut} = useAuthenticator((context) => [context.user]);
 
+  // handleFetchUserAttributes();
 
   
   return (
