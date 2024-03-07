@@ -55,6 +55,7 @@ export default function Home() {
   // const {user, signOut} = useAuthenticator((context) => [context.user]);
 
 
+  // handleFetchUserAttributes();
 
   
   return (
