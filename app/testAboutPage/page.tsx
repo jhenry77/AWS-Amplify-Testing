@@ -11,7 +11,6 @@ import { UseAuthenticator, useAuthenticator } from '@aws-amplify/ui-react';
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { getCurrentUser } from 'aws-amplify/auth';
-import { fetchAuthSession } from 'aws-amplify/auth';
 
 
 
@@ -33,28 +32,20 @@ type AboutData = {
   ProductDescription: string
 }
 
+async function handleFetchUserAttributes() {
+  try {
+    const userAttributes = await fetchUserAttributes();
+    console.log(userAttributes);
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 
-export default function Home() {
-  const [data, setData] = useState<{ success: { teamNumber: any; VersionNum: any; SprintDate: any; ProductName: any; ProductDescription: any; }[]; } | null>(null);
+export default async function Home() {
+  var data = await getAboutData();
 
-  useEffect(() => {
-    getAboutData()
-      .then((formattedResponse) => {
-        // Access the formatted response here
-        console.log(formattedResponse);
-        setData(formattedResponse); // Set the data here
-      })
-      .catch((error) => {
-        // Handle any errors here
-        console.error('Error:', error);
-      });
-  }, []);
-  const {authStatus} = useAuthenticator((context) => [context.authStatus]);
-  console.log("auth status is " + {authStatus});
-  // const {user, signOut} = useAuthenticator((context) => [context.user]);
-
-
+  // handleFetchUserAttributes();
 
   
   return (
@@ -97,40 +88,17 @@ export default function Home() {
     </main>
   );
 }
-function getAboutData() {
-  return fetch('https://fo9xpwxinl.execute-api.us-east-1.amazonaws.com/dev/about/1')
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error('Failed to fetch data');
-      }
-      return res.json();
-    })
-    .then((data) => {
-      // Extract the relevant data
-      const { teamNumber, VersionNum, SprintDate, ProductName, ProductDescription } = data.success[0];
-
-      // Create a new object with the desired structure
-      const formattedResponse = {
-        success: [
-          {
-            teamNumber,
-            VersionNum,
-            SprintDate,
-            ProductName,
-            ProductDescription,
-          },
-        ],
-      };
-
-      console.log(JSON.stringify(formattedResponse));
-      
-      return formattedResponse; // Return the formatted data
-    })
-    .catch((error) => {
-      console.error('Error fetching data:', error);
-      // Handle errors
-      throw error;
-    });
+async function getAboutData() {
+  const res = await fetch('https://fo9xpwxinl.execute-api.us-east-1.amazonaws.com/dev/about/1', {cache: 'force-cache'})
+  // The return value is *not* serialized
+  // You can return Date, Map, Set, etc.
+ 
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error('Failed to fetch data')
+  }
+ 
+  return res.json()
 }
  
 
