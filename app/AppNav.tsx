@@ -2,36 +2,45 @@
 
 /* @client */
 import Link from "next/link";
-import React, { useState } from 'react';
+import React from 'react';
+//import React, { useState } from 'react';
 
+// Type definition for the props that Navbar component will accept
 type NavbarProps = {
-    onLeftMenuToggle: () => void;
-    onRightMenuToggle: () => void;
+    onLeftMenuToggle: () => void; // Function to toggle the left menu
+    onRightMenuToggle: () => void; // Function to toggle the right menu
 };
 
+// The Navbar functional component
 const Navbar: React.FC<NavbarProps> = ({ onLeftMenuToggle, onRightMenuToggle }) => {
     return (
+        // The main navigation container
         <nav className="Navbar">
             <div className="left-content">
-                <button onClick={onLeftMenuToggle} className="hamburger-menu-button">
-                    {/* Hamburger icon */}
+                {/* Button that when clicked, will toggle the state of the left hamburger menu */}
+                <button onClick={onLeftMenuToggle} className="hamburger-menu-button" aria-label="Open navigation menu">
+                    ☰ {/* Hamburger icon */}
                 </button>
-                {/* You can use Link components here as well */}
-                <a href="/" className="nav-link">Home</a>
-                <a href="/about" className="nav-link">About</a>
-                <a href="/login" className="nav-link">Login</a>
+                {/* Navigation links using anchor tags; replace with Link components for client-side routing */}
+                <Link href="/" className="nav-link">Home</Link>
+                <Link href="/about" className="nav-link">About</Link>
+                <Link href="/login" className="nav-link">Login</Link>
             </div>
 
+            {/* Right-aligned items */}
             <div className="right-content">
-                <button onClick={onRightMenuToggle} className="settings-menu-button">
-                    {/* Settings icon */}
+                {/* Button that when clicked, will toggle the state of the right settings menu */}
+                <button onClick={onRightMenuToggle} className="settings-menu-button" aria-label="Open settings">
+                    ⚙️ {/* Settings icon */}
                 </button>
             </div>
         </nav>
     );
 };
 
+// Exporting Navbar so it can be used in other parts of the application
 export default Navbar;
+
 /*
 export const Navbar:React.FC = () => {
     return <header className="navbar bg-base-100">
@@ -57,3 +66,4 @@ export const Navbar:React.FC = () => {
 
 export default Navbar
 */
+
