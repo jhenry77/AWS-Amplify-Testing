@@ -1,20 +1,29 @@
+"use client"; 
 import React from 'react';
 import Navbar from "../components/AppNav";
 import { Amplify } from 'aws-amplify';
-import {useAuthenticator} from '@aws-amplify/ui-react';
+// import  useAuthenticator  from '../components/useAuthenticator';
+import { useState, useEffect } from 'react';
+
+
+
+import { UseAuthenticator, useAuthenticator } from '@aws-amplify/ui-react';
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { getCurrentUser } from 'aws-amplify/auth';
+import { fetchAuthSession } from 'aws-amplify/auth';
 
 
 
 import { Authenticator, Placeholder } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
-import currentAuthenticatedUser from '../components/AuthUser';
+// import currentAuthenticatedUser from '../components/AuthUser';
 import AuthUser from '../components/AuthUser';
 
 import awsExports from '../../src/aws-exports';
+import AuthClient from '../components/AuthClient';
 Amplify.configure(awsExports);
+
 
 type AboutData = {
   teamNumber: string
@@ -26,9 +35,25 @@ type AboutData = {
 
 
 
+export default function Home() {
+  const [data, setData] = useState<{ success: { teamNumber: any; VersionNum: any; SprintDate: any; ProductName: any; ProductDescription: any; }[]; } | null>(null);
 
-export default async function Home() {
-  var data = await getAboutData();
+  useEffect(() => {
+    getAboutData()
+      .then((formattedResponse) => {
+        // Access the formatted response here
+        console.log(formattedResponse);
+        setData(formattedResponse); // Set the data here
+      })
+      .catch((error) => {
+        // Handle any errors here
+        console.error('Error:', error);
+      });
+  }, []);
+  const {authStatus} = useAuthenticator((context) => [context.authStatus]);
+  console.log("auth status is " + {authStatus});
+  // const {user, signOut} = useAuthenticator((context) => [context.user]);
+
 
 
   
@@ -58,31 +83,54 @@ export default async function Home() {
           With a focus on quality and community, we strive to bring you the latest in our field. Our team is made up of passionate professionals committed to excellence in everything we do.
           <br />
         </p>
-        {data ? (
-          <>
-            <h1 className="text-4xl  mb-4">teamNumber: {data.success[0].teamNumber}<br></br>VersionNum: {data.success[0].VersionNum}<br></br>SprintDate: {data.success[0].SprintDate}<br></br>Productname: {data.success[0].ProductName}<br></br>Product Description: {data.success[0].ProductDescription} </h1>
-            {/* Other HTML elements using data properties */}
-            {/* <p className="text-lg mt-6">{data.description}</p> */}
-            {/* ... */}
-          </>
-        ) : (
-          <h1>Loading...</h1>
+        {data && (
+          <h1 className="text-4xl  mb-4">
+            teamNumber: {data.success[0].teamNumber}<br></br>
+            VersionNum: {data.success[0].VersionNum}<br></br>
+            SprintDate: {data.success[0].SprintDate}<br></br>
+            Productname: {data.success[0].ProductName}<br></br>
+            Product Description: {data.success[0].ProductDescription}
+          </h1>
         )}
+       
       </div>
     </main>
   );
 }
-async function getAboutData() {
-  const res = await fetch('https://fo9xpwxinl.execute-api.us-east-1.amazonaws.com/dev/about/1', {cache: 'force-cache'})
-  // The return value is *not* serialized
-  // You can return Date, Map, Set, etc.
- 
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error('Failed to fetch data')
-  }
- 
-  return res.json()
+function getAboutData() {
+  return fetch('https://fo9xpwxinl.execute-api.us-east-1.amazonaws.com/dev/about/1')
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error('Failed to fetch data');
+      }
+      return res.json();
+    })
+    .then((data) => {
+      // Extract the relevant data
+      const { teamNumber, VersionNum, SprintDate, ProductName, ProductDescription } = data.success[0];
+
+      // Create a new object with the desired structure
+      const formattedResponse = {
+        success: [
+          {
+            teamNumber,
+            VersionNum,
+            SprintDate,
+            ProductName,
+            ProductDescription,
+          },
+        ],
+      };
+
+      console.log(JSON.stringify(formattedResponse));
+      
+      return formattedResponse; // Return the formatted data
+    })
+    .catch((error) => {
+      console.error('Error fetching data:', error);
+      // Handle errors
+      throw error;
+    });
 }
  
 
