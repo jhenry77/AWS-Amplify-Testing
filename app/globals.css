@@ -1,11 +1,16 @@
+/* globals.css */
+
+/* Tailwind CSS Directives */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Root and Theme Variables */
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  /* ... other variables ... */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -16,24 +21,229 @@
   }
 }
 
+/* Global Styles */
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-  
+  background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
 }
 
+/* Custom Utility Classes */
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+  /* ... other utility classes ... */
 }
 
-button.amplify-button--fullwidth{
-  @apply bg-amplify-blue
+.template-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
+.main-content {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* or 'center' depending on desired vertical alignment */
+  padding: 20px;
+  max-width: 800px; /* Adjust to your preferred max width */
+  margin: auto;
+}
+
+/*.MiddleColumn {
+  max-width: 800px; or whatever the typical page width you want 
+  width: 100%;
+   Your existing styling for MiddleColumn 
+}*/
+
+/* Nav Bar Menu Styles */
+.Navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* This ensures items are spaced between left and right */
+  font-size: 1rem; /* Adjusted from 32px to a standard size */
+  background-color: gray;
+  padding: 0 1rem; /* Add padding on both sides */
+  /*padding-left: 50px; 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 32px;
+  background-color: gray;*/
+}
+
+/* Align left-side content to the start */
+.Navbar .left-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* Space between items */
+}
+
+/* Place the right-side content at the end */
+.Navbar .right-content {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.left-menu-toggle,
+.right-menu-toggle {
+  padding: 0.5rem;
+}
+
+/* Hamburger Menu Styles */
+/* (If these styles are generic and reused across multiple components, otherwise use a separate CSS module) */
+.hamburger-menu-button {
+  display: inline-flex; /* Changed from fixed to inline-flex */
+  flex-direction: column;
+  justify-content: space-around;
+  width: 2rem; /* 32px */
+  height: 2rem; /* 32px */
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.hamburger-icon-bar {
+  display: block;
+  width: 100%; /* Full width of the button */
+  height: 0.25rem; /* 4px */
+  background-color: var(--foreground-rgb);
+  margin: 0.25rem 0; /* 4px top and bottom margin */
+}
+
+/* Hamburger Menu Columns */
+.hamburger-menu {
+  text-align: center;
+  position: fixed;
+  top: 2%;
+  width: 30%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 60;
+  display: none;
+}
+
+
+.hamburger-menu.open {
+  display: block;
+  background-color: gray;
+}
+
+/* Middle Column */
+.middle-column {
+  text-align: center;
+  border: 2px solid red;
+}
+
+
+/* TAKE OUT*/
+/*.menu-container {
+  position: fixed;
+  top: 51px;
+  left: 0;
+  width: 30%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 60;
+  display: none;
+}
+ TAKE OUT
+.menu-container.open {
+  display: block;
+  background-color: gray;
+}*/
+
+/* Wrapper Style */
+/*.Wrapper {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  background-color: transparent;
+}*/
+
+/* Left Hamburger Column */
+/*.LeftColumn {
+  text-align: center;
+  position: fixed;
+  top: 2%;
+  left: 0;
+  width: 30%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 60;
+  display: none;
+}*/
+
+/*.LeftColumn.open {
+  display: block;
+  background-color: gray;
+}*/
+
+/* Middle Column */
+/*.MiddleColumn {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  text-align: center;
+  border: 2px solid red;
+  flex-direction: column;
+}*/
+
+/* Right Hamburger Column */
+/*.RightColumn {
+  text-align: center;
+  position: fixed;
+  top: 2%;
+  left: 0;
+  width: 30%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 60;
+  display: none;
+}*/
+
+/* Footer */
+/* Footer Styles */
+.Footer {
+  padding: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+
+.main-content {
+  flex: 1;
+  max-width: 800px; /* Adjust to your preferred max width */
+  margin: auto; /* This centers the content */
+  padding: 20px; /* Adjust padding to your preference */
+}
+
+/* Responsive and State-Specific Styles */
+@media (max-width: 768px) {
+  .Navbar .left-content,
+  .Navbar .right-content {
+    flex-grow: 1;
+    justify-content: space-between;
+  }
+  
+  .main-content {
+    padding: 10px;
+  }
+
+  .hamburger-menu.open {
+    width: 100%;
+  }
+
+}
