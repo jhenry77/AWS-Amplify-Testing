@@ -84,7 +84,7 @@ export default async function Home() {
   );
 }
 async function getAboutData() {
-  const res = await fetch('https://fo9xpwxinl.execute-api.us-east-1.amazonaws.com/dev/about/1', {cache: 'force-cache'})
+  const res = await fetch('https://fo9xpwxinl.execute-api.us-east-1.amazonaws.com/dev/about/1')
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.
  
