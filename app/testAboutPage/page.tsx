@@ -32,14 +32,7 @@ type AboutData = {
   ProductDescription: string
 }
 
-async function handleFetchUserAttributes() {
-  try {
-    const userAttributes = await fetchUserAttributes();
-    console.log(userAttributes);
-  } catch (error) {
-    console.log(error);
-  }
-}
+
 
 
 export default async function Home() {
