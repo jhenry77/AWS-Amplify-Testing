@@ -4,12 +4,13 @@ import React, { useEffect } from 'react';
 
 type HamburgerMenuProps = {
   isOpen: boolean;
-  toggleMenu: () => void;
+  toggleMenu: () => void; // Used to open and close the menu
+  closeMenu: () => void; // Specifically used to close the menu
   position: 'left' | 'right'; // Specify that position can only be 'left' or 'right'
-  closeMenu: () => void;
+  content: JSX.Element[]; // Array of JSX Elements for menu content
 }
 
-const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ isOpen, toggleMenu, position, closeMenu }) => {
+const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ isOpen, toggleMenu, closeMenu, position, content }) => {
 
 // useEffect hook for development logging
   useEffect(() => {
@@ -17,26 +18,18 @@ const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ isOpen, toggleMenu, posit
   }, [isOpen, position]);
 
   return (
+    
     <div className={`hamburger-menu ${position} ${isOpen ? 'open' : ''}`}>
-      {/* Close button - Clicking this should close the menu */}
-      <button onClick={closeMenu} className="close-menu-button">
-        X {/* The X icon, or use an actual icon component */}
-      </button>
-
-      {/* Hamburger icon - Clicking this should toggle the menu's open state */}
-      <button onClick={toggleMenu} className="hamburger-menu-button">
-        <span className="hamburger-icon-bar"></span>
-        <span className="hamburger-icon-bar"></span>
-        <span className="hamburger-icon-bar"></span>
-      </button>
+      {/* Close Button */}
+      <button className="close-menu-button" onClick={closeMenu}>X</button>
 
       {/* Actual menu items that are shown when the menu is open */}
       {isOpen && (
-        <div className="menu-container">
-          {/* Add menu items here */}
-          <Link href="/page1"><a>Page 1</a></Link>
-          <Link href="/page2"><a>Page 2</a></Link>
-          {/* ... more menu items */}
+        <div className="menu-items">
+          {/* Render the passed content here */}
+          {content.map((item, index) => (
+            <React.Fragment key={index}>{item}</React.Fragment>
+          ))}
         </div>
       )}
     </div>

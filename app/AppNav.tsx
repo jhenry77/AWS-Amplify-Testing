@@ -19,7 +19,7 @@ const Navbar: React.FC<NavbarProps> = ({ onLeftMenuToggle, onRightMenuToggle }) 
             <div className="left-content">
                 {/* Button that when clicked, will toggle the state of the left hamburger menu */}
                 <button onClick={onLeftMenuToggle} className="hamburger-menu-button" aria-label="Open navigation menu">
-                    ☰ {/* Hamburger icon */}
+                    ☰{/* Hamburger icon */}
                 </button>
                 {/* Navigation links using anchor tags; replace with Link components for client-side routing */}
                 <Link href="/" className="nav-link">Home</Link>
@@ -31,7 +31,7 @@ const Navbar: React.FC<NavbarProps> = ({ onLeftMenuToggle, onRightMenuToggle }) 
             <div className="right-content">
                 {/* Button that when clicked, will toggle the state of the right settings menu */}
                 <button onClick={onRightMenuToggle} className="settings-menu-button" aria-label="Open settings">
-                    ⚙️ {/* Settings icon */}
+                    ⚙️{/* Settings icon */}
                 </button>
             </div>
         </nav>
@@ -66,4 +66,3 @@ export const Navbar:React.FC = () => {
 
 export default Navbar
 */
-
