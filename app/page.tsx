@@ -31,8 +31,8 @@ Amplify.configure(awsExports);
 
 type AboutData = {
   teamNumber: string
-  VersionNum : string
-  SprintDate : string
+  VersionNum: string
+  SprintDate: string
   Productname: string
   ProductDescription: string
 }
@@ -165,5 +165,6 @@ function getAboutData() {
       throw error;
     });
 }
- 
+
+export default Home;
 

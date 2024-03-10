@@ -9,6 +9,19 @@ type TemplateLayoutProps = {
     children: React.ReactNode;
 };
 
+// Define the content for the left menu
+const leftMenuContent = [
+    // You can replace these <a> tags with Link from 'next/link' or other routing components
+    <a>Left Page 1</a>,
+    <a>Left Page 2</a>,
+];
+
+// Define the content for the right menu
+const rightMenuContent = [
+    <a /*href="/right-page1" onClick={() => setIsRightMenuOpen(false)}*/>Right Page 1</a>,
+    <a /*href="/right-page2" onClick={() => setIsRightMenuOpen(false)}*/>Right Page 2</a>,
+];
+
 const TemplateLayout: React.FC<TemplateLayoutProps> = ({ children }) => {
     const [isLeftMenuOpen, setIsLeftMenuOpen] = useState(false);
     const [isRightMenuOpen, setIsRightMenuOpen] = useState(false);
@@ -19,8 +32,8 @@ const TemplateLayout: React.FC<TemplateLayoutProps> = ({ children }) => {
 
     // Close menus if backdrop is clicked
     const closeMenus = () => {
-        if(isLeftMenuOpen) setIsLeftMenuOpen(false);
-        if(isRightMenuOpen) setIsRightMenuOpen(false);
+        if (isLeftMenuOpen) setIsLeftMenuOpen(false);
+        if (isRightMenuOpen) setIsRightMenuOpen(false);
     };
 
     return (
@@ -32,26 +45,31 @@ const TemplateLayout: React.FC<TemplateLayoutProps> = ({ children }) => {
             <HamburgerMenu
                 isOpen={isLeftMenuOpen}
                 toggleMenu={toggleLeftMenu}
-                position="left"
                 closeMenu={() => setIsLeftMenuOpen(false)}
+                position="left"
+                content={leftMenuContent} // Pass the left menu content
+
             />
 
+            {/* Right Hamburger Menu Section */}
             <HamburgerMenu
                 isOpen={isRightMenuOpen}
                 toggleMenu={toggleRightMenu}
-                position="right"
                 closeMenu={() => setIsRightMenuOpen(false)}
+                position="right"
+                content={rightMenuContent} // Pass the right menu content
             />
 
             {/* Main content */}
             <main className="main-content">{children}</main>
-
+            
             {/* Backdrop */}
             {(isLeftMenuOpen || isRightMenuOpen) && (
                 <div className="backdrop" onClick={closeMenus}></div>
             )}
 
             {/* Footer */}
+            {/* <Footer /> Uncomment when Footer is ready */}
         </div>
     );
 };
