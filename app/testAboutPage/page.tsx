@@ -16,6 +16,7 @@ import { fetchAuthSession } from 'aws-amplify/auth';
 
 
 
+
 import { Authenticator, Placeholder } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 // import currentAuthenticatedUser from '../components/AuthUser';
