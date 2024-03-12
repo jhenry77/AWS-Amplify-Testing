@@ -15,6 +15,7 @@ import { fetchAuthSession } from 'aws-amplify/auth';
 
 
 
+
 import { Authenticator, Placeholder } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 // import currentAuthenticatedUser from '../components/AuthUser';
@@ -36,6 +37,11 @@ type AboutData = {
 
 
 export default function Home() {
+  const {authStatus} = useAuthenticator((context) => [context.authStatus]);
+  const router = useRouter();
+  authStatus === 'configuring' && router.push('/testLogin');
+  authStatus !== 'authenticated' ? router.push('/testLogin') : router.push('/testAboutPage');
+
   const [data, setData] = useState<{ success: { teamNumber: any; VersionNum: any; SprintDate: any; ProductName: any; ProductDescription: any; }[]; } | null>(null);
 
   useEffect(() => {
