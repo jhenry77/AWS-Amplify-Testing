@@ -42,6 +42,15 @@ export default function Home() {
   const router = useRouter();
   // authStatus === 'configuring' && router.push('/testLogin');
   // authStatus !== 'authenticated' ? router.push('/testLogin') : router.push('/testAboutPage');
+  useEffect(() => {
+    if (authStatus === 'configuring') {
+        router.push('/testLogin');
+    } else if (authStatus !== 'authenticated') {
+        router.push('/testLogin');
+    } else {
+        router.push('/testAboutPage');
+    }
+}, [authStatus]);
 
   const [data, setData] = useState<{ success: { teamNumber: any; VersionNum: any; SprintDate: any; ProductName: any; ProductDescription: any; }[]; } | null>(null);
 
