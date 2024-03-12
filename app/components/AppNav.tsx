@@ -9,7 +9,7 @@ export default function Navbar() {
             <Link href="/">Sponsors</Link>
             <Link href="/">Catalogs</Link>
             <Link href="/">Reports</Link>
-            <Link href="/loginPage">Login</Link>
+            <Link href="/login">Login</Link>
         </nav>
     );
 };
