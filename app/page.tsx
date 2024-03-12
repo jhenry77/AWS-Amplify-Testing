@@ -91,7 +91,7 @@ export default function Home() {
   }, [user]);
   
   return (
-    <Layout>
+    <main>
       <div className="max-w-4xl w-full text-center">
         <h1 className="text-4xl font-bold mb-4">About Us</h1>
         <Image
@@ -126,7 +126,7 @@ export default function Home() {
         )}
        
       </div>
-    </Layout>
+    </main>
   );
 }
 function getAboutData() {
