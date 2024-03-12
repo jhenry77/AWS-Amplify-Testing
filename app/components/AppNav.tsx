@@ -19,7 +19,6 @@ export default function Navbar() {
             </li>
             <li>
                 <>
-                {authStatus === 'configuring' && 'Loading...'}
                 {authStatus !== 'authenticated' ? <Link href="/testLogin">Login</Link> : <button className = "justify-end" onClick={signOut}>Sign Out</button>}
                 </>
             </li>
