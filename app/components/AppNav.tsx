@@ -1,16 +1,16 @@
-import Link from "next/link"
+import styles from "./styles/AppNav.module.css";
+import Link from "next/link";
 
 export default function Navbar() {
-    return <nav className="nav flex">
-        <a href="/" className="site-title">Home</a>
-        <ul className="flex">
-            <li className="px-3">
-                <a href="/">About</a>
-            </li>
-            <li>
-                <a href="/loginPage">Login</a>
-            </li>
-        </ul>
-    </nav>
+    return(
+        <nav className={styles['navbar']}>
+            <Link href="/home">Home</Link>
+            <Link href="/">About</Link>
+            <Link href="/">Sponsors</Link>
+            <Link href="/">Catalogs</Link>
+            <Link href="/">Reports</Link>
+            <Link href="/loginPage">Login</Link>
+        </nav>
+    );
 };
 
