@@ -6,6 +6,7 @@ import Image from "next/image";
 // import TemplateLayout from './components/TemplateLayout'; // Import the TemplateLayout
 import './globals.css'; // Make sure globals.css doesn't contain any client-side code
 import { UseAuthenticator, useAuthenticator } from '@aws-amplify/ui-react';
+import Footer from './components/Footer';
 
 
 

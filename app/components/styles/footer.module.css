@@ -1,0 +1,42 @@
+.footer {
+    background-color:darkslategray;
+    width: 100%;
+    position: relative;
+    left: 0;
+    bottom: 0;
+}
+
+.links {
+    display: flex;
+    padding: 8px 56px;
+    justify-content: space-between;
+
+    color: whitesmoke;
+    font-size: 150%;
+    font-family: 'Georgia', 'serif';
+    text-decoration: underline whitesmoke;
+}
+
+.title {
+    display: flex;
+    padding: 8px 56px;
+    justify-content: space-between;
+
+    color: whitesmoke;
+    font-size: 200%;
+    font-family: monospace;
+}
+
+.bottom {
+    display: flex;
+    text-wrap: nowrap;
+    justify-content: space-between;
+    background-color:rgb(34, 56, 56);
+    padding: 16px 600px;
+    
+
+    color: rgb(89, 122, 122);
+    font-size: 75%;
+    font-family: 'Georgia', 'serif';
+    text-decoration: underline darkslategray;
+}
