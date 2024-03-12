@@ -9,7 +9,7 @@ export default function Layout({ children }: LayoutProps) {
     return (
         <div>
             <Navbar/>
-            <main className = "text-justify">{ children }</main>
+            <main>{ children }</main>
             <Footer/>
         </div>
     );
