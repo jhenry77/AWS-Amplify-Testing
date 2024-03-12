@@ -67,7 +67,6 @@ export default function Home() {
   return (
     <main className="min-h-screen flex flex-col items-center justify-center p-10">
       <div className="max-w-4xl w-full text-center">
-      <Navbar />
         <h1 className="text-4xl font-bold mb-4">About Us</h1>
         <Image
           src="/teamlogo.jpg"
