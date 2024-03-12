@@ -3,7 +3,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import Image from "next/image";
-import TemplateLayout from './components/TemplateLayout'; // Import the TemplateLayout
+// import TemplateLayout from './components/TemplateLayout'; // Import the TemplateLayout
 import './globals.css'; // Make sure globals.css doesn't contain any client-side code
 import { UseAuthenticator, useAuthenticator } from '@aws-amplify/ui-react';
 
@@ -36,7 +36,7 @@ export default function Home(){
   console.log("auth status is " + {authStatus});
 
   return (
-    <TemplateLayout>
+    <main>
       {/* Middle column content */}
       <div className="middle-column">
         <div className="main-content">
@@ -75,7 +75,7 @@ export default function Home(){
         )}
         </div>
       </div>
-    </TemplateLayout>
+      </main>
   );
 };
 
