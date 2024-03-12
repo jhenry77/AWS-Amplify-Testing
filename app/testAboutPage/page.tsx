@@ -56,7 +56,6 @@ export default function Home() {
         console.error('Error:', error);
       });
   }, []);
-  const {authStatus} = useAuthenticator((context) => [context.authStatus]);
   console.log("auth status is " + {authStatus});
   // const {user, signOut} = useAuthenticator((context) => [context.user]);
 
