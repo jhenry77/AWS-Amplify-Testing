@@ -108,4 +108,3 @@ async function getAboutData(): Promise<AboutData> {
 }
 
 export default Home;
-
