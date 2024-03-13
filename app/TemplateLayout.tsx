@@ -13,15 +13,18 @@ type TemplateLayoutProps = {
 // Define the content for the left menu
 const leftMenuContent = [
     // You can replace these <a> tags with Link from 'next/link' or other routing components
-    <a key="left-page-1">Left Page 1</a>,
-    <a key="left-page-2">Left Page 2</a>,
+    <div key="left-page-1">        
+        <Link href="/page1/">Left Page 1</Link>
+    </div>,
+    <div key="left-page-2">
+        <Link href="/page2/">Left Page 2</Link>
+    </div>,
 ];
-
 // Define the content for the right menu
 const rightMenuContent = [
-    <div key="home">        
-        <Link href="../loginPage/">Home</Link>
-    </div>
+    <div key="right-home">        
+        <Link href="/home/">Home</Link>
+    </div>,
     // Add unique keys when you uncomment these
     // <Link key="reports" href="/home" onClick={() => setIsRightMenuOpen(false)}>Reports</Link>,
     // <Link key="sponsors" href="/sponsors" onClick={() => setIsRightMenuOpen(false)}>Right Page 2</Link>,
