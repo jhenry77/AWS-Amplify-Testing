@@ -31,11 +31,12 @@ const signUpFields = {
       order:6
     }
   },
+  
 }
 
 export default function App() {
   return (
-    <Authenticator formFields={signUpFields}>
+    <Authenticator formFields={signUpFields}> 
       <div>
         <h1>You have logged in</h1>
         <br/><br/><br/><br/><br/><br/><br/><br/>
