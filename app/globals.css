@@ -1,5 +1,14 @@
 @tailwind base;
 @tailwind components;
+
+
+button,
+[type='button'],
+[type='reset'],
+[type='submit'] {
+  -webkit-appearance: button; /* 1 */
+  background-image: none; /* 2 */
+}
 @tailwind utilities;
 
 :root {

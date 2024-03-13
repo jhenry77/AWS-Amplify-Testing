@@ -43,7 +43,7 @@ const AuthClient = () => {
         <Navbar />
           <>
             {authStatus === 'configuring' && 'Loading...'}
-            {authStatus !== 'authenticated' ? <Authenticator /> : router.push('/testAboutPage')}
+            {authStatus !== 'authenticated' ? <Authenticator /> : router.push('/')}
           </>
         </main>
       )}
