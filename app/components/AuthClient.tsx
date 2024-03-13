@@ -37,7 +37,7 @@ const AuthClient = () => {
   const router = useRouter()
   
     return ( 
-    <Authenticator formFields={signUpFields}>
+    <Authenticator formFields={signUpFields} className = 'remove-all'>
         {({ signOut, user }) => (
         <main>
         <Navbar />
