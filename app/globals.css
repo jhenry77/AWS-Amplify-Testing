@@ -31,3 +31,7 @@ body {
     text-wrap: balance;
   }
 }
+
+button.amplify-button--fullwidth{
+  @apply bg-amplify-blue
+}
