@@ -92,28 +92,29 @@ export default function Home() {
   
   return (
     <main>
-      <div className="max-w-4xl w-full text-center">
-        <h1 className="text-4xl font-bold mb-4">About Us</h1>
+        <h1 className={styles['title']}>About Us</h1>
         <Image
           src="/teamlogo.jpg"
           alt="Team Photo"
-          width={640}
-          height={360}
+          width={400}
+          height={400}
           className="mx-auto"
         />
-        <p className="text-lg mt-6">
+        <br/>
+        <p className={styles['text']}>
           Welcome to <strong>Team 3&apos;s Website</strong>! We&apos;re dedicated to providing the best experience for our users. <br />
           <strong>Our mission is to innovate and inspire.</strong>
         </p>
-        <p className="text-lg mt-4">
+        <p className={styles['text']}>
         <strong>Team Members:  </strong><br />
           Connor Love <br /> 
           Rinzo Martinelli <br /> 
           Jason Senf<br /> 
           Jackson Henry <br/>
           <br />
-          With a focus on quality and community, we strive to bring you the latest in our field. Our team is made up of passionate professionals committed to excellence in everything we do.
+          With a focus on quality and community, we strive to bring you the latest in our field.<br/> Our team is made up of passionate professionals committed to excellence in everything we do.
           <br />
+          <br/>
         </p>
         {data && (
           <h1 className="text-4xl  mb-4">
