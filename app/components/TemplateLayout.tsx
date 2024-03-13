@@ -1,7 +1,7 @@
 // TemplateLayout.tsx
 
 import React, { useState } from 'react';
-import Navbar from '../AppNav'; // Adjust the import path as necessary
+import Navbar from './AppNav'; // Adjust the import path as necessary
 //import Footer from './Footer'; // Adjust the import path as necessary
 import HamburgerMenu from './HamburgerMenu'; // Adjust the import path as necessary
 import Link from "next/link";
