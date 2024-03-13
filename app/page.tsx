@@ -16,6 +16,9 @@ type AboutData = {
 }
 
 const Home = () => {
+  //const [isLeftMenuOpen, setIsLeftMenuOpen] = useState(false);
+  //const [isRightMenuOpen, setIsRightMenuOpen] = useState(false);
+  //const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [data, setData] = useState<AboutData | null>(null);
 
   useEffect(() => {
@@ -61,7 +64,7 @@ const Home = () => {
             <p>Loading about data...</p>
           }
           <p className="mt-6 text-lg">
-            Welcome to <strong>Team 3&apos;s Website</strong>! We&apos;re dedicated to providing the best experience for our users. <br />
+            Welcome to <strong>Team 3's Website</strong>! We're dedicated to providing the best experience for our users. <br />
             <strong>Our mission is to innovate and inspire.</strong>
           </p>
           <p className="mt-4 text-lg">
@@ -105,6 +108,3 @@ async function getAboutData(): Promise<AboutData> {
 }
 
 export default Home;
-
-
-
