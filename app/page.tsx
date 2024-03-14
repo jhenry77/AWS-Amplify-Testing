@@ -14,6 +14,7 @@ type AboutData = {
 export default async function Home() {
   var data = await getAboutData();
   
+  
   console.log(data);
   return (
     <main>
