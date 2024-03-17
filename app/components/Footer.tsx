@@ -12,7 +12,7 @@ export default function Footer() {
                 <Link href="/">Sponsors</Link>
                 <Link href="/">Catalogs</Link>
                 <Link href="/">Reports</Link>
-                <Link href="/loginPage">Login</Link>
+                <Link href="/login">Login</Link>
             </div>
             <h1 className={styles['bottom']}>
                 <p>Contact Us</p>
