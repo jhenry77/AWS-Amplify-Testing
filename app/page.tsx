@@ -165,6 +165,4 @@ function getAboutData() {
       throw error;
     });
 }
-
-export default Home;
-
+ 
