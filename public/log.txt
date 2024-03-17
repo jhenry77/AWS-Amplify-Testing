@@ -1,0 +1,139 @@
+2024-03-17T18:50:44.681Z [INFO]: # Cloning repository: git@github.com:jhenry77/aws-amplify-testing.git
+2024-03-17T18:50:45.869Z [INFO]: 
+2024-03-17T18:50:45.870Z [INFO]: Cloning into 'aws-amplify-testing'...
+2024-03-17T18:50:45.870Z [INFO]: # Switching to commit: f20abb5dcee80405cad823a8ee439709bbcffc5c
+2024-03-17T18:50:45.902Z [INFO]: Note: switching to 'f20abb5dcee80405cad823a8ee439709bbcffc5c'.
+                                 You are in 'detached HEAD' state. You can look around, make experimental
+                                 changes and commit them, and you can discard any commits you make in this
+                                 state without impacting any branches by switching back to a branch.
+                                 If you want to create a new branch to retain commits you create, you may
+                                 do so (now or later) by using -c with the switch command. Example:
+                                 git switch -c <new-branch-name>
+                                 Or undo this operation with:
+                                 git switch -
+                                 Turn off this advice by setting config variable advice.detachedHead to false
+                                 HEAD is now at f20abb5 syncing the rebase
+2024-03-17T18:50:45.970Z [INFO]: Successfully cleaned up Git credentials
+2024-03-17T18:50:45.970Z [INFO]: # Checking for Git submodules at: /codebuild/output/src1385585525/src/aws-amplify-testing/.gitmodules
+2024-03-17T18:50:45.979Z [INFO]: # Retrieving environment cache...
+2024-03-17T18:50:46.055Z [INFO]: # Retrieved environment cache
+2024-03-17T18:50:46.055Z [INFO]: ---- Setting Up SSM Secrets ----
+2024-03-17T18:50:46.055Z [INFO]: SSM params {"Path":"/amplify/d31kl9iaxlb77r/dev/","WithDecryption":true}
+2024-03-17T18:50:49.883Z [INFO]: # Patching NPM package '@aws-amplify/cli' from 12.8.2 to 12.10.1...
+2024-03-17T18:51:18.256Z [INFO]: # Installed '@aws-amplify/cli@12.10.1'
+2024-03-17T18:51:18.363Z [INFO]: # Done patching NPM package '@aws-amplify/cli' to version 12.10.1
+2024-03-17T18:51:18.380Z [INFO]: # Retrieving cache...
+2024-03-17T18:51:25.670Z [INFO]: # Extracting cache...
+2024-03-17T18:51:30.721Z [INFO]: # Extraction completed
+2024-03-17T18:51:30.959Z [INFO]: # Retrieved cache
+2024-03-17T18:51:35.660Z [INFO]: ## Starting Backend Build
+                                 # Starting phase: build
+2024-03-17T18:51:37.979Z [INFO]: [0mAmplify AppID found: d31kl9iaxlb77r. Amplify App name is: team03amplifytesting[0m
+2024-03-17T18:51:38.054Z [INFO]: [0mBackend environment dev found in Amplify Console app: team03amplifytesting[0m
+2024-03-17T18:51:39.096Z [WARNING]: - Fetching updates to backend environment: dev from the cloud.
+2024-03-17T18:51:39.596Z [WARNING]: - Building resource api/team03testingapi
+2024-03-17T18:51:39.616Z [WARNING]: - Building resource auth/team03amplifytesting
+2024-03-17T18:51:39.716Z [WARNING]: - Building resource auth/userPoolGroups
+2024-03-17T18:51:39.828Z [WARNING]: ✔ Successfully pulled backend environment dev from the cloud.
+2024-03-17T18:51:39.886Z [INFO]: ✅
+2024-03-17T18:51:41.868Z [INFO]: [33mNote: It is recommended to run this command from the root of your app directory[39m
+2024-03-17T18:51:42.851Z [WARNING]: - Initializing your environment: dev
+2024-03-17T18:51:43.428Z [WARNING]: - Building resource api/team03testingapi
+2024-03-17T18:51:43.450Z [WARNING]: - Building resource auth/team03amplifytesting
+2024-03-17T18:51:43.553Z [WARNING]: - Building resource auth/userPoolGroups
+2024-03-17T18:51:43.644Z [WARNING]: ✔ Initialized provider successfully.
+2024-03-17T18:51:45.926Z [WARNING]: - Uploading files.
+2024-03-17T18:51:46.116Z [WARNING]: - Building resource api/team03testingapi
+2024-03-17T18:51:46.131Z [WARNING]: - Building resource auth/team03amplifytesting
+2024-03-17T18:51:46.184Z [WARNING]: - Building resource auth/userPoolGroups
+2024-03-17T18:51:52.201Z [INFO]: 
+2024-03-17T18:51:52.208Z [INFO]: UPDATE_IN_PROGRESS amplify-team03amplifytesting-dev-104425 AWS::CloudFormation::Stack Sun Mar 17 2024 18:51:46 GMT+0000 (Coordinated Universal Time) User Initiated
+                                 UPDATE_IN_PROGRESS functionteam03amplifytesting9dd32e5e    AWS::CloudFormation::Stack Sun Mar 17 2024 18:51:50 GMT+0000 (Coordinated Universal Time)
+                                 UPDATE_COMPLETE    functionteam03amplifytesting9dd32e5e    AWS::CloudFormation::Stack Sun Mar 17 2024 18:51:51 GMT+0000 (Coordinated Universal Time)
+                                 UPDATE_IN_PROGRESS authteam03amplifytesting                AWS::CloudFormation::Stack Sun Mar 17 2024 18:51:51 GMT+0000 (Coordinated Universal Time)
+                                 UPDATE_COMPLETE    authteam03amplifytesting                AWS::CloudFormation::Stack Sun Mar 17 2024 18:51:51 GMT+0000 (Coordinated Universal Time)
+2024-03-17T18:51:57.189Z [INFO]: 
+2024-03-17T18:51:57.195Z [INFO]: UPDATE_IN_PROGRESS apiteam03testingapi AWS::CloudFormation::Stack Sun Mar 17 2024 18:51:52 GMT+0000 (Coordinated Universal Time)
+                                 UPDATE_IN_PROGRESS authuserPoolGroups  AWS::CloudFormation::Stack Sun Mar 17 2024 18:51:53 GMT+0000 (Coordinated Universal Time)
+                                 UPDATE_COMPLETE    authuserPoolGroups  AWS::CloudFormation::Stack Sun Mar 17 2024 18:51:54 GMT+0000 (Coordinated Universal Time)
+2024-03-17T18:51:57.290Z [INFO]: 
+2024-03-17T18:51:57.293Z [INFO]: UPDATE_IN_PROGRESS amplify-team03amplifytesting-dev-104425-apiteam03testingapi-VL6WDO9CP2FV AWS::CloudFormation::Stack       Sun Mar 17 2024 18:51:52 GMT+0000 (Coordinated Universal Time) User Initiated
+                                 CREATE_IN_PROGRESS team03testingapiDefault5XXResponsef0456a83                               AWS::ApiGateway::GatewayResponse Sun Mar 17 2024 18:51:56 GMT+0000 (Coordinated Universal Time)
+                                 CREATE_IN_PROGRESS team03testingapiDefault4XXResponsef0456a83                               AWS::ApiGateway::GatewayResponse Sun Mar 17 2024 18:51:56 GMT+0000 (Coordinated Universal Time)
+                                 CREATE_IN_PROGRESS team03testingapiDefault5XXResponsef0456a83                               AWS::ApiGateway::GatewayResponse Sun Mar 17 2024 18:51:57 GMT+0000 (Coordinated Universal Time) Resource creation Initiated
+2024-03-17T18:52:07.302Z [INFO]: 
+2024-03-17T18:52:07.318Z [INFO]: CREATE_COMPLETE                     team03testingapiDefault5XXResponsef0456a83                               AWS::ApiGateway::GatewayResponse Sun Mar 17 2024 18:51:57 GMT+0000 (Coordinated Universal Time)
+                                 CREATE_IN_PROGRESS                  team03testingapiDefault4XXResponsef0456a83                               AWS::ApiGateway::GatewayResponse Sun Mar 17 2024 18:52:01 GMT+0000 (Coordinated Universal Time) Resource creation Initiated
+                                 CREATE_COMPLETE                     team03testingapiDefault4XXResponsef0456a83                               AWS::ApiGateway::GatewayResponse Sun Mar 17 2024 18:52:02 GMT+0000 (Coordinated Universal Time)
+                                 CREATE_IN_PROGRESS                  DeploymentAPIGWteam03testingapi3f1e94b0                                  AWS::ApiGateway::Deployment      Sun Mar 17 2024 18:52:03 GMT+0000 (Coordinated Universal Time)
+                                 CREATE_IN_PROGRESS                  DeploymentAPIGWteam03testingapi3f1e94b0                                  AWS::ApiGateway::Deployment      Sun Mar 17 2024 18:52:04 GMT+0000 (Coordinated Universal Time) Resource creation Initiated
+                                 CREATE_COMPLETE                     DeploymentAPIGWteam03testingapi3f1e94b0                                  AWS::ApiGateway::Deployment      Sun Mar 17 2024 18:52:05 GMT+0000 (Coordinated Universal Time)
+                                 UPDATE_COMPLETE_CLEANUP_IN_PROGRESS amplify-team03amplifytesting-dev-104425-apiteam03testingapi-VL6WDO9CP2FV AWS::CloudFormation::Stack       Sun Mar 17 2024 18:52:06 GMT+0000 (Coordinated Universal Time)
+2024-03-17T18:52:27.262Z [INFO]: 
+2024-03-17T18:52:27.269Z [INFO]: UPDATE_COMPLETE                     apiteam03testingapi                     AWS::CloudFormation::Stack Sun Mar 17 2024 18:52:14 GMT+0000 (Coordinated Universal Time)
+                                 UPDATE_COMPLETE_CLEANUP_IN_PROGRESS amplify-team03amplifytesting-dev-104425 AWS::CloudFormation::Stack Sun Mar 17 2024 18:52:16 GMT+0000 (Coordinated Universal Time)
+                                 UPDATE_COMPLETE                     authuserPoolGroups                      AWS::CloudFormation::Stack Sun Mar 17 2024 18:52:17 GMT+0000 (Coordinated Universal Time)
+                                 UPDATE_COMPLETE                     authteam03amplifytesting                AWS::CloudFormation::Stack Sun Mar 17 2024 18:52:18 GMT+0000 (Coordinated Universal Time)
+2024-03-17T18:52:47.309Z [INFO]: [K
+2024-03-17T18:52:47.316Z [INFO]: 
+2024-03-17T18:52:48.084Z [WARNING]: - Uploading files.
+2024-03-17T18:52:48.545Z [WARNING]: - Uploading files.
+2024-03-17T18:52:48.597Z [WARNING]: - Uploading files.
+2024-03-17T18:52:48.668Z [INFO]: 
+2024-03-17T18:52:48.669Z [INFO]: REST API endpoint: https://fo9xpwxinl.execute-api.us-east-1.amazonaws.com/dev
+2024-03-17T18:52:48.672Z [INFO]: 
+2024-03-17T18:52:48.776Z [INFO]: ✅ Initialized your environment successfully.
+2024-03-17T18:52:48.776Z [INFO]: ✅ Your project has been successfully initialized and connected to the cloud!
+                                 Some next steps:
+                                 "amplify status" will show you what you've added already and if it's locally configured or deployed
+                                 "amplify add <category>" will allow you to add features like user login or a backend API
+                                 "amplify push" will build all your local backend resources and provision it in the cloud
+                                 "amplify console" to open the Amplify Console and view your project status
+                                 "amplify publish" will build all your local backend and frontend resources (if you have hosting category added) and provision it in the cloud
+                                 Pro tip:
+                                 Try "amplify add api" to create a backend API and then "amplify push" to deploy everything
+2024-03-17T18:52:50.265Z [INFO]: # Completed phase: build
+                                 ## Completed Backend Build
+2024-03-17T18:52:50.270Z [INFO]: ## Starting Frontend Build
+                                 # Starting phase: preBuild
+2024-03-17T18:52:50.270Z [INFO]: # Executing command: npm ci
+2024-03-17T18:53:05.415Z [INFO]: added 629 packages, and audited 630 packages in 15s
+2024-03-17T18:53:05.421Z [INFO]: 140 packages are looking for funding
+                                 run `npm fund` for details
+                                 found 0 vulnerabilities
+2024-03-17T18:53:05.437Z [INFO]: # Completed phase: preBuild
+                                 # Starting phase: build
+2024-03-17T18:53:05.437Z [INFO]: # Executing command: npm run build
+2024-03-17T18:53:05.715Z [INFO]: > test-app@0.1.0 build
+                                 > next build
+2024-03-17T18:53:06.404Z [INFO]: ▲ Next.js 14.1.0
+2024-03-17T18:53:06.405Z [INFO]: 
+2024-03-17T18:53:06.474Z [INFO]: Creating an optimized production build ...
+2024-03-17T18:53:16.069Z [WARNING]: Failed to compile.
+2024-03-17T18:53:16.078Z [WARNING]: ./app/page.tsx
+                                    Error:
+                                    [31mx[0m Unexpected token `main`. Expected jsx identifier
+                                    ,-[[36;1;4m/codebuild/output/src1385585525/src/aws-amplify-testing/app/page.tsx[0m:91:1]
+                                    [2m91[0m |   }, [user]);
+                                    [2m92[0m |
+                                    [2m93[0m |   return (
+                                    [2m94[0m |     <main>
+                                    : [31;1m     ^^^^[0m
+                                    [2m95[0m |         <h1 className={styles['title']}>About Us</h1>
+                                    [2m96[0m |         <Image
+                                    [2m97[0m |           src="/teamlogo.jpg"
+                                    `----
+                                    Caused by:
+                                    Syntax Error
+                                    Import trace for requested module:
+                                    ./app/page.tsx
+2024-03-17T18:53:16.089Z [WARNING]: 
+2024-03-17T18:53:16.089Z [WARNING]: > Build failed because of webpack errors
+2024-03-17T18:53:16.163Z [ERROR]: !!! Build failed
+2024-03-17T18:53:16.164Z [INFO]: Please read more about Amplify Hosting's support for SSR frameworks to find if your build failure is related to an unsupported feature: https://docs.aws.amazon.com/amplify/latest/userguide/amplify-ssr-framework-support.html. You may also find this troubleshooting guide useful: https://docs.aws.amazon.com/amplify/latest/userguide/troubleshooting-ssr-deployment.html
+2024-03-17T18:53:16.164Z [ERROR]: !!! Error: Command failed with exit code 1
+2024-03-17T18:53:16.164Z [INFO]: # Starting environment caching...
+2024-03-17T18:53:16.164Z [INFO]: # Uploading environment cache artifact...
+2024-03-17T18:53:16.264Z [INFO]: # Uploaded environment cache artifact
+2024-03-17T18:53:16.265Z [INFO]: # Environment caching completed
+Terminating logging...
