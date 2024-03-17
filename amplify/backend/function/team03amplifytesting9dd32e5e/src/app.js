@@ -30,41 +30,41 @@ app.use(function(req, res, next) {
  * Example get method *
  **********************/
 
-app.get('/about', function(req, res) {
-  // Add your code here
+// app.get('/about', function(req, res) {
+//   // Add your code here
 
-  // var con = mysql.createConnection({
-  //   host: "team03-amplify-db.cobd8enwsupz.us-east-1.rds.amazonaws.com",
-  //   user: "admin",
-  //   password: "Spring2024Team03!",
-  //   port: 3306,
-  //   database: "team03testingDB"
-  // });
+//   var con = mysql.createConnection({
+//     host: "team03-amplify-db.cobd8enwsupz.us-east-1.rds.amazonaws.com",
+//     user: "admin",
+//     password: "Spring2024Team03!",
+//     port: 3306,
+//     database: "team03testingDB"
+//   });
 
   
 
   // con.connect(function(err) {
   //   if (err) throw err;
   //   console.log("Connected!");
-  //   var sql = "CREATE TABLE about (teamNumber VARCHAR(255), VersionNum VARCHAR(255), SprintDate VARCHAR(255), ProductName VARCHAR(255),ProductDescription VARCHAR(255)  )";
+  //   var sql = "DELETE FROM about";
   //   con.query(sql, function (err, result) {
   //     if (err) res.json({failure: "The error was" + err});
-  //     else console.log("Table created");
+  //     else res.json({success: "Table deleted"})
   //   });
   // });
-  //con.connect(function(err) {
+  // con.connect(function(err) {
   //   if (err) throw err;
   //   console.log("Connected!");
   
-  //   var sql = "INSERT INTO about (teamNumber, VersionNum, SprintDate, ProductName, ProductDescription) VALUES ('team03', 'Sprint3', '2/22/2024', 'TruckingCatalog','Delivering')";
+  //   var sql = "INSERT INTO about (teamNumber, VersionNum, SprintDate, ProductName, ProductDescription) VALUES ('team03', 'Sprint5', '3/07/2024', 'TruckingCatalog','Delivering')";
   //   con.query(sql, function (err, result) {
   //     if (err) res.json({failure: "The error was" + err});
   //     else res.json("1 record inserted");
   //   });
   // });
-  res.json({success: 'JASON!!!!'});
+  // res.json({success: 'JASON!!!!'});
 
-});
+// });
 
 app.get('/about/*', function(req, res) {
   // Add your code here
