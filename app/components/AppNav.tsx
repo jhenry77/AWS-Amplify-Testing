@@ -20,7 +20,7 @@ export default function Navbar() {
             <Link href="/">Catalogs</Link>
             <Link href="/">Reports</Link>
                 <>
-                {authStatus !== 'authenticated' ? <Link href="/testLogin">Login</Link> : <button className = "justify-end" onClick={signOut}>Sign Out</button>}
+                {authStatus !== 'authenticated' ? <Link href="/login">Login</Link> : <button className = "justify-end" onClick={signOut}>Sign Out</button>}
                 </>
     </nav>
 };

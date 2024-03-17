@@ -4,6 +4,7 @@ import Navbar from "./components/AppNav";
 import { Amplify } from 'aws-amplify';
 // import  useAuthenticator  from '../components/useAuthenticator';
 import { useState, useEffect } from 'react';
+import styles from './components/styles/about.module.css'
 
 
 
@@ -56,9 +57,9 @@ export default function Home() {
 
   useEffect(() => {
     if (authStatus === 'configuring') {
-        router.push('/loginPage');
+        router.push('/login');
     } else if (authStatus !== 'authenticated') {
-        router.push('/loginPage');
+        router.push('/login');
     } else {
         router.push('/');
     }
@@ -117,7 +118,7 @@ export default function Home() {
           <br/>
         </p>
         {data && (
-          <h1 className="text-4xl  mb-4">
+          <h1 className={styles['text']}>
             teamNumber: {data.success[0].teamNumber}<br></br>
             VersionNum: {data.success[0].VersionNum}<br></br>
             SprintDate: {data.success[0].SprintDate}<br></br>
@@ -126,7 +127,7 @@ export default function Home() {
           </h1>
         )}
        
-      </div>
+      
     </main>
   );
 }
