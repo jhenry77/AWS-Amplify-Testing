@@ -7,11 +7,13 @@ import { useState, useEffect } from 'react';
 
 
 
+
 import { UseAuthenticator, useAuthenticator } from '@aws-amplify/ui-react';
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { getCurrentUser } from 'aws-amplify/auth';
 import { fetchAuthSession } from 'aws-amplify/auth';
+import { AuthSession } from 'aws-amplify/auth';
 
 
 
@@ -39,9 +41,19 @@ type AboutData = {
 
 export default function Home() {
   const {authStatus} = useAuthenticator((context) => [context.authStatus]);
+  const user = useAuthenticator((context) => [context.user]);
   const router = useRouter();
   // authStatus === 'configuring' && router.push('/testLogin');
   // authStatus !== 'authenticated' ? router.push('/testLogin') : router.push('/testAboutPage');
+  // Auth.currentAuthenticatedUser()
+  // .then(user => {
+  //   const groups = user.signInUserSession.idToken.payload['cognito:groups'];
+  //   console.log(groups);
+  // })
+  // .catch(err => console.log(err));
+
+
+
   useEffect(() => {
     if (authStatus === 'configuring') {
         router.push('/loginPage');
@@ -51,6 +63,8 @@ export default function Home() {
         router.push('/');
     }
 }, [authStatus]);
+
+
 
   const [data, setData] = useState<{ success: { teamNumber: any; VersionNum: any; SprintDate: any; ProductName: any; ProductDescription: any; }[]; } | null>(null);
 
@@ -66,12 +80,15 @@ export default function Home() {
         console.error('Error:', error);
       });
   }, []);
-  console.log("auth status is " + {authStatus});
   // const {user, signOut} = useAuthenticator((context) => [context.user]);
 
 
   // handleFetchUserAttributes();
-
+  useEffect(() => {
+    if (user) {
+      console.log(user);
+    }
+  }, [user]);
   
   return (
     <main className="min-h-screen flex flex-col items-center justify-center p-10">

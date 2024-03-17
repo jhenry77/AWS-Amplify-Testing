@@ -15,14 +15,15 @@
       "function": {
         "team03amplifytesting9dd32e5e": {
           "deploymentBucketName": "amplify-team03amplifytesting-dev-104425-deployment",
-          "s3Key": "amplify-builds/team03amplifytesting9dd32e5e-556661482b694b665974-build.zip"
+          "s3Key": "amplify-builds/team03amplifytesting9dd32e5e-4e777857467a68612f4c-build.zip"
         }
       },
       "api": {
         "team03testingapi": {}
       },
       "auth": {
-        "team03amplifytesting": {}
+        "team03amplifytesting": {},
+        "userPoolGroups": {}
       }
     }
   }
