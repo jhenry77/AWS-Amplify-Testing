@@ -1,110 +1,169 @@
-// page.tsx
+"use client"; 
+import React from 'react';
+import Navbar from "./components/AppNav";
+import { Amplify } from 'aws-amplify';
+// import  useAuthenticator  from '../components/useAuthenticator';
+import { useState, useEffect } from 'react';
+import styles from './components/styles/about.module.css'
 
-'use client';
-import React, { useState, useEffect } from 'react';
-import Image from "next/image";
-import TemplateLayout from './components/TemplateLayout'; // Import the TemplateLayout
-import './globals.css'; // Make sure globals.css doesn't contain any client-side code
+
+
+
+import { UseAuthenticator, useAuthenticator } from '@aws-amplify/ui-react';
+import { useRouter } from 'next/navigation'
+import Image from 'next/image'
+import { getCurrentUser } from 'aws-amplify/auth';
+import { fetchAuthSession } from 'aws-amplify/auth';
+import { AuthSession } from 'aws-amplify/auth';
+
+
+
+
+
+import { Authenticator, Placeholder } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+// import currentAuthenticatedUser from '../components/AuthUser';
+import AuthUser from './components/AuthUser';
+
+import awsExports from '../src/aws-exports';
+import AuthClient from './components/AuthClient';
+Amplify.configure(awsExports);
 
 
 type AboutData = {
   teamNumber: string
-  VersionNum: string
-  SprintDate: string
+  VersionNum : string
+  SprintDate : string
   Productname: string
   ProductDescription: string
 }
 
-const Home = () => {
-  //const [isLeftMenuOpen, setIsLeftMenuOpen] = useState(false);
-  //const [isRightMenuOpen, setIsRightMenuOpen] = useState(false);
-  //const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [data, setData] = useState<AboutData | null>(null);
+
+
+export default function Home() {
+  const {authStatus} = useAuthenticator((context) => [context.authStatus]);
+  const user = useAuthenticator((context) => [context.user]);
+  const router = useRouter();
+  // authStatus === 'configuring' && router.push('/testLogin');
+  // authStatus !== 'authenticated' ? router.push('/testLogin') : router.push('/testAboutPage');
+  // Auth.currentAuthenticatedUser()
+  // .then(user => {
+  //   const groups = user.signInUserSession.idToken.payload['cognito:groups'];
+  //   console.log(groups);
+  // })
+  // .catch(err => console.log(err));
+
+
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await getAboutData();
-        console.log('Data fetched:', result); // Log the data for debugging
-        setData(result);
-      } catch (error) {
-        console.error('Failed to fetch data:', error);
-      }
-    };
+    if (authStatus === 'configuring') {
+        router.push('/login');
+    } else if (authStatus !== 'authenticated') {
+        router.push('/login');
+    } else {
+        router.push('/');
+    }
+}, [authStatus]);
 
-    fetchData();
+
+
+  const [data, setData] = useState<{ success: { teamNumber: any; VersionNum: any; SprintDate: any; ProductName: any; ProductDescription: any; }[]; } | null>(null);
+
+  useEffect(() => {
+    getAboutData()
+      .then((formattedResponse) => {
+        // Access the formatted response here
+        console.log(formattedResponse);
+        setData(formattedResponse); // Set the data here
+      })
+      .catch((error) => {
+        // Handle any errors here
+        console.error('Error:', error);
+      });
   }, []);
+  // const {user, signOut} = useAuthenticator((context) => [context.user]);
 
-  console.log(data);
 
-  // Ensure the data rendering logic is correct
-  const renderAboutData = (data: AboutData) => (
-    <div>
-      <p>{data.ProductDescription}</p>
-      {/* Render other data properties as needed */}
-    </div>
-  );
-
+  // handleFetchUserAttributes();
+  useEffect(() => {
+    if (user) {
+      console.log(user);
+    }
+  }, [user]);
+  
   return (
-    <TemplateLayout>
-      {/* Middle column content */}
-      <div className="middle-column">
-        <div className="main-content">
-          <h1 className="mb-4 text-4xl font-bold">About Us</h1>
-          <Image
-            src="/teamlogo.jpg"
-            alt="Team Photo"
-            width={640}
-            height={360}
-            priority
-          />
-          {/* Conditional rendering to handle data loading state */}
-
-          {data ? renderAboutData(data) :
-            <p>Loading about data...</p>
-          }
-          <p className="mt-6 text-lg">
-            Welcome to <strong>Team 3&apos;s Website</strong>! We&apos;re dedicated to providing the best experience for our users. <br />
-            <strong>Our mission is to innovate and inspire.</strong>
-          </p>
-          <p className="mt-4 text-lg">
-            <strong> </strong><br />
-            Connor Love <br />
-            Rinzo Martinelli <br />
-            Jason Senf<br />
-            Jackson Henry <br />
-            <br />
-            With a focus on quality and community, we strive to bring you the latest in our field. Our team is made up of passionate professionals committed to excellence in everything we do.
-            <br />
-          </p>
-          {data ? (
-            <>
-              <h1 className="mb-4 text-4xl">teamNumber: {data.success[0].teamNumber}<br></br>VersionNum: {data.success[0].VersionNum}<br></br>SprintDate: {data.success[0].SprintDate}<br></br>Productname: {data.success[0].ProductName}<br></br>Product Description: {data.success[0].ProductDescription} </h1>
-              {/* Other HTML elements using data properties */}
-              {/* <p className="mt-6 text-lg">{data.description}</p> */}
-              {/* ... */}
-            </>
-          ) : (
-            <h1>Loading...</h1>
-          )}
-        </div>
-      </div>
-    </TemplateLayout>
+    <main>
+        <h1 className={styles['title']}>About Us</h1>
+        <Image
+          src="/teamlogo.jpg"
+          alt="Team Photo"
+          width={400}
+          height={400}
+          className="mx-auto"
+        />
+        <br/>
+        <p className={styles['text']}>
+          Welcome to <strong>Team 3&apos;s Website</strong>! We&apos;re dedicated to providing the best experience for our users. <br />
+          <strong>Our mission is to innovate and inspire.</strong>
+        </p>
+        <p className={styles['text']}>
+        <strong>Team Members:  </strong><br />
+          Connor Love <br /> 
+          Rinzo Martinelli <br /> 
+          Jason Senf<br /> 
+          Jackson Henry <br/>
+          <br />
+          With a focus on quality and community, we strive to bring you the latest in our field.<br/> Our team is made up of passionate professionals committed to excellence in everything we do.
+          <br />
+          <br/>
+        </p>
+        {data && (
+          <h1 className={styles['text']}>
+            teamNumber: {data.success[0].teamNumber}<br></br>
+            VersionNum: {data.success[0].VersionNum}<br></br>
+            SprintDate: {data.success[0].SprintDate}<br></br>
+            Productname: {data.success[0].ProductName}<br></br>
+            Product Description: {data.success[0].ProductDescription}
+          </h1>
+        )}
+       
+      
+    </main>
   );
-};
-
-
-async function getAboutData(): Promise<AboutData> {
-  const res = await fetch('https://fo9xpwxinl.execute-api.us-east-1.amazonaws.com/dev/about/1', { cache: 'force-cache' });
-  // The return value is *not* serialized
-  // You can return Date, Map, Set, etc.
-
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error('Failed to fetch data');
-  }
-
-  return res.json()
 }
+function getAboutData() {
+  return fetch('https://fo9xpwxinl.execute-api.us-east-1.amazonaws.com/dev/about/1')
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error('Failed to fetch data');
+      }
+      return res.json();
+    })
+    .then((data) => {
+      // Extract the relevant data
+      const { teamNumber, VersionNum, SprintDate, ProductName, ProductDescription } = data.success[0];
 
-export default Home;
+      // Create a new object with the desired structure
+      const formattedResponse = {
+        success: [
+          {
+            teamNumber,
+            VersionNum,
+            SprintDate,
+            ProductName,
+            ProductDescription,
+          },
+        ],
+      };
+
+      console.log(JSON.stringify(formattedResponse));
+      
+      return formattedResponse; // Return the formatted data
+    })
+    .catch((error) => {
+      console.error('Error fetching data:', error);
+      // Handle errors
+      throw error;
+    });
+}
+ 

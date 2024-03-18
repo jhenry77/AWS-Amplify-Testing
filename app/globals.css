@@ -41,6 +41,9 @@ body {
   }
 }
 
+button.amplify-button--fullwidth{
+  @apply bg-amplify-blue
+}
 /* Template Layout */
 .template-layout {
   display: flex;

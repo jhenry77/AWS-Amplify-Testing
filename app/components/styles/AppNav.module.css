@@ -1,0 +1,14 @@
+.navbar {
+    background-color: dimgray;
+    padding: 8px 56px;
+    display: flex;
+    width: 100%;
+    height: 56px;
+    justify-content: space-between;
+
+    
+    color: whitesmoke;
+    font-size: 150%;
+    font-family: 'Georgia', 'serif';
+    text-decoration: underline whitesmoke;
+}
