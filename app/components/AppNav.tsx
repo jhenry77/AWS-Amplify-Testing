@@ -11,34 +11,55 @@ type NavbarProps = {
 };
 
 export default function Navbar() {
-    const { user, signOut } = useAuthenticator((context) => [context.user]);
-    const { authStatus } = useAuthenticator((context) => [context.authStatus]);
+    const { user, signOut, authStatus } = useAuthenticator((context) => [context.user, context.signOut, context.authStatus]);
+    // const { user, signOut } = useAuthenticator((context) => [context.user]);
+    // const { authStatus } = useAuthenticator((context) => [context.authStatus]);
+    const [showDropdown, setShowDropdown] = useState(false);
+
+    const toggleDropdown = () => setShowDropdown(!showDropdown);
 
     if (authStatus !== 'authenticated') {
         return null;
     }
 
-    return <nav className={styles['navbar']}>
-        <div className="left-content">
-            {/* Button that when clicked, will toggle the state of the left hamburger menu */}
-            <button /*onClick={onLeftMenuToggle}*/ className="hamburger-menu-button" aria-label="Open navigation menu">
-                ☰{/* Hamburger icon */}
-            </button>
-            <Link href="/home" className="nav-link">Home</Link>
-            <Link href="/" className="nav-link">About</Link>
-            <Link href="/" className="nav-link">Sponsors</Link>
-            <Link href="/" className="nav-link">Catalogs</Link>
-            <Link href="/" className="nav-link">Reports</Link>
-            <>
-                {authStatus !== 'authenticated' ? <Link href="/login">Login</Link> : <button className="justify-end" onClick={signOut}>Sign Out</button>}
-            </>
-        </div>
+    if (user.username == "84080458-30f1-70d4-ad73-fd0af93c8967") {
+        user.username = "connorlove0@gmail.com";
+    }
+    // Log the current user object to the console
+    console.log(user);
 
-        <div className="right-content">
-                {/* Button that when clicked, will toggle the state of the right settings menu */}
-                <button /*onClick={onRightMenuToggle}*/ className="settings-menu-button" aria-label="Open settings">
-                    ⚙️{/* Settings icon */}
-                </button>
+    const displayName = user.username;
+
+    return (
+        <nav className={styles['navbar']}>
+            <div className="left-content">
+                {/* Button that when clicked, will toggle the state of the left hamburger menu */}
+                <button className="hamburger-menu-button" aria-label="Open navigation menu">☰</button>
+                <Link href="/home" className="nav-link">Home</Link>
+                <Link href="/" className="nav-link">About</Link>
+                <Link href="/" className="nav-link">Sponsors</Link>
+                <Link href="/" className="nav-link">Catalogs</Link>
+                <Link href="/" className="nav-link">Reports</Link>
             </div>
-    </nav>
-};
+
+            <div className="right-content">
+                {authStatus === 'authenticated' && user ? (
+                    <>
+                        <span className="user-info" onClick={toggleDropdown}>
+                            {displayName} ▼  <button /*onClick={onRightMenuToggle}*/ className="settings-menu-button" aria-label="Open settings">⚙️{/* Settings icon */}
+                </button>
+                        </span>
+                        {showDropdown && (
+                            <div className={`dropdown-menu ${showDropdown ? 'show-dropdown' : ''}`} role="menu">
+                                <Link href="/profile">Profile</Link>
+                                <button onClick={signOut}>Sign Out</button>
+                            </div>
+                        )}
+                    </>
+                ) : (
+                    <Link href="/login">Sign In</Link>
+                )}
+            </div>
+        </nav>
+    );
+}
