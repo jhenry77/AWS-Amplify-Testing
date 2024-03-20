@@ -86,6 +86,8 @@ export default function Navbar() {
             <HamburgerMenu
                 showLeftMenu={showLeftMenu}
                 showRightMenu={showRightMenu}
+                onCloseLeftMenu={() => setShowLeftMenu(false)} // Close left menu
+                onCloseRightMenu={() => setShowRightMenu(false)} // Close right menu
             />
         </nav>
     );

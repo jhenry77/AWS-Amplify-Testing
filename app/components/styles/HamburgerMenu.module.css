@@ -50,3 +50,17 @@
 .a:hover {
     background-color: #ddd; /* Adjust as needed */
 }
+
+.close-button {
+    display: block;
+    padding: 10px 20px;
+    background-color: #f44336; /* Red, but choose a color that fits your design */
+    color: white;
+    border: none;
+    margin-bottom: 20px; /* Adjust as needed */
+    cursor: pointer;
+  }
+  
+  .close-button:hover {
+    background-color: #d32f2f; /* Darker shade of red for hover effect */
+  }
