@@ -18,13 +18,13 @@ const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
 }) => {
   return (
     <>
-      <div className={`${styles['left-content']} ${showLeftMenu ? styles['show-menu'] : ''}`}>
+      <div className={`${styles['left-menu-content']} ${showLeftMenu ? styles['show-menu'] : ''}`}>
         <button onClick={onCloseLeftMenu} className={styles['close-button']}>Close Left Menu</button>
         <div className={styles['menu-title']}>Dashboard</div>
         {/* <Link href="/home">Dashboard</Link> */}
       </div>
 
-      <div className={`${styles['right-content']} ${showRightMenu ? styles['show-menu'] : ''}`}>
+      <div className={`${styles['right-menu-content']} ${showRightMenu ? styles['show-menu'] : ''}`}>
         <button onClick={onCloseRightMenu} className={styles['close-button']}>Close Right Menu</button>
         <div className={styles['menu-title']}>Dev Tools</div>
         {/* Placeholder for right menu items, add as needed */}

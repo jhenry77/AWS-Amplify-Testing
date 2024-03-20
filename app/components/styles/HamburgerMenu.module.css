@@ -1,23 +1,27 @@
 /* Styles for the left menu content */
-.left-content {
-    position: fixed; /* Or absolute, depending on your layout needs */
-    top: 0;
+.left-menu-content {
+    position: fixed;
+    top: 48px;
     left: 0;
-    width: 250px; /* Adjust width as needed */
-    height: 100%;
-    background-color: #f0f0f0; /* Light grey background, adjust as needed */
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5); /* Shadow for depth, adjust as needed */
+    width: 250px;
+    height: calc(100% - 60px);
+    background-color: #f0f0f0;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
     transform: translateX(-100%);
     transition: transform 0.3s ease-in-out;
+    -webkit-transition: transform 0.3s ease-in-out;
+    -moz-transition: transform 0.3s ease-in-out;
+    -ms-transition: transform 0.3s ease-in-out;
+    -o-transition: transform 0.3s ease-in-out;
 }
 
 /* Styles for the right menu content */
-.right-content {
+.right-menu-content {
     position: fixed; /* Or absolute, depending on your layout needs */
-    top: 0;
+    top: 48px;
     right: 0;
     width: 250px; /* Adjust width as needed */
-    height: 100%;
+    height: calc(100% - 60px);
     background-color: #f0f0f0; /* Light grey background, adjust as needed */
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5); /* Shadow for depth, adjust as needed */
     transform: translateX(100%);
