@@ -1,39 +1,29 @@
 // HamburgerMenu.tsx
 import Link from "next/link";
-import React, { useEffect } from 'react';
+import React from 'react';
 import styles from "./styles/HamburgerMenu.module.css";
 
 type HamburgerMenuProps = {
-  isOpen: boolean;
-  toggleMenu: () => void; // Used to open and close the menu
-  closeMenu: () => void; // Specifically used to close the menu
-  position: 'left' | 'right'; // Specify that position can only be 'left' or 'right'
-  content: JSX.Element[]; // Array of JSX Elements for menu content
-}
+  showLeftMenu: boolean;
+  showRightMenu: boolean;
+};
 
-const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ isOpen, toggleMenu, closeMenu, position, content }) => {
-
-// useEffect hook for development logging
-  useEffect(() => {
-    console.log(`DEV_TEST: ${isOpen ? 'Opening' : 'Closing'} ${position} hamburger menu`);
-  }, [isOpen, position]);
-
+const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
+  showLeftMenu,
+  showRightMenu,
+}) => {
   return (
-    
-    <div className={`hamburger-menu ${position} ${isOpen ? 'open' : ''}`}>
-      {/* Close Button */}
-      <button className="close-menu-button" onClick={closeMenu}>X</button>
+    <>
+      <div className={`${styles['left-content']} ${showLeftMenu ? styles['show-menu'] : ''}`}>
+        <div className={styles['menu-title']}>Dashboard</div>
+        {/* <Link href="/home">Dashboard</Link> */}
+      </div>
 
-      {/* Actual menu items that are shown when the menu is open */}
-      {isOpen && (
-        <div className="menu-items">
-          {/* Render the passed content here */}
-          {content.map((item, index) => (
-            <React.Fragment key={index}>{item}</React.Fragment>
-          ))}
-        </div>
-      )}
-    </div>
+      <div className={`${styles['right-content']} ${showRightMenu ? styles['show-menu'] : ''}`}>
+        <div className={styles['menu-title']}>Dev Tools</div>
+        {/* Placeholder for right menu items, add as needed */}
+      </div>
+    </>
   );
 };
 
