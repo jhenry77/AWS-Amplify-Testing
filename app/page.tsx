@@ -20,6 +20,8 @@ import { AuthSession } from 'aws-amplify/auth';
 
 
 
+
+
 import { Authenticator, Placeholder } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 // import currentAuthenticatedUser from '../components/AuthUser';
@@ -44,6 +46,9 @@ export default function Home() {
   const {authStatus} = useAuthenticator((context) => [context.authStatus]);
   const user = useAuthenticator((context) => [context.user]);
   const router = useRouter();
+  // const session = user.
+  // const groups = session?.getAccessToken().payload["cognito:groups"];
+  // console.log(groups);
   // authStatus === 'configuring' && router.push('/testLogin');
   // authStatus !== 'authenticated' ? router.push('/testLogin') : router.push('/testAboutPage');
   // Auth.currentAuthenticatedUser()
@@ -53,7 +58,16 @@ export default function Home() {
   // })
   // .catch(err => console.log(err));
 
-
+  useEffect(() => {
+    fetchAuthSession()
+      .then(session => {
+        const { accessToken, idToken } = session.tokens ?? {};
+        // console.log(accessToken, idToken);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, []);
 
   useEffect(() => {
     if (authStatus === 'configuring') {
@@ -73,7 +87,7 @@ export default function Home() {
     getAboutData()
       .then((formattedResponse) => {
         // Access the formatted response here
-        console.log(formattedResponse);
+        // sconsole.log(formattedResponse);
         setData(formattedResponse); // Set the data here
       })
       .catch((error) => {
@@ -90,6 +104,22 @@ export default function Home() {
       console.log(user);
     }
   }, [user]);
+
+  const[userDeatails, setUserDetails] = useState(null);
+  
+  useEffect(() => {
+    fetchAuthSession({forceRefresh: true})
+      .then(({tokens}) => {
+        console.log(tokens);
+        const groups = tokens?.idToken;
+        console.log(groups);
+        // console.log(`The userId: ${userId}`);
+        // console.log(`The signInDetails: ${signInDetails}`);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, []);
   
   return (
     <main>
