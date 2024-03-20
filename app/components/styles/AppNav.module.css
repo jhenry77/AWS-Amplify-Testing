@@ -110,3 +110,7 @@
     background-color: #f5f5f5;
     /* Slight highlight on hover */
 }
+
+.settings-menu-button {
+    cursor: pointer;
+}
