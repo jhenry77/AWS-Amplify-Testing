@@ -7,6 +7,7 @@ import React, { useState, useEffect } from 'react';
 import HamburgerMenu from "./HamburgerMenu";
 
 type NavbarProps = {
+    children: React.ReactNode;
     onLeftMenuToggle: () => void; // Function to toggle the left menu
     onRightMenuToggle: () => void; // Function to toggle the right menu
 };
@@ -51,14 +52,14 @@ export default function Navbar() {
                 {authStatus === 'authenticated' && user ? (
                     <>
                         <span className="user-info">
-                            {displayName} 
+                            {displayName}
                             <button onClick={toggleDropdown} className="dropdown-menu-button" aria-label="Open dropdown">
                                 ▼{/* Dropdown menu icon */}
                             </button>
-                            <button onClick={toggleRightMenu} className="settings-menu-button" aria-label="Open settings">
-                                ⚙️{/* Settings icon */}
-                            </button>
                         </span>
+                        <button onClick={toggleRightMenu} className="settings-menu-button" aria-label="Open settings">
+                            ⚙️{/* Settings icon */}
+                        </button>
                         {showDropdown && (
                             <div className={`dropdown-menu ${showDropdown ? 'show-dropdown' : ''}`} role="menu">
                                 <Link href="/profile">Profile</Link>

@@ -1,6 +1,7 @@
 // HamburgerMenu.tsx
 import Link from "next/link";
 import React, { useEffect } from 'react';
+import styles from "./styles/HamburgerMenu.module.css";
 
 type HamburgerMenuProps = {
   isOpen: boolean;
