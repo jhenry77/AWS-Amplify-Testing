@@ -61,6 +61,12 @@ button.amplify-button--fullwidth{
   padding: 20px;
   max-width: 800px; /* Adjust to your preferred max width */
   margin: auto;
+  transition: margin-left 0.3s ease-in-out;
+}
+
+/* Class to apply when the left menu is visible */
+.main-content-with-menu {
+  margin-left: 250px; /* Adjust this value to match the width of your menu */
 }
 
 /* Navbar Styles */
@@ -354,7 +360,7 @@ button.amplify-button--fullwidth{
 /* For smaller screens */
 @media screen and (max-width: 768px) {
   .hamburger-menu-button {
-    display: flex; /* Show the hamburger menu button */
+    display: none; /* Show the hamburger menu button */
   }
 
   .Navbar .left-content,

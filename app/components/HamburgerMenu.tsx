@@ -19,15 +19,20 @@ const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
   return (
     <>
       <div className={`${styles['left-menu-content']} ${showLeftMenu ? styles['show-menu'] : ''}`}>
-        <button onClick={onCloseLeftMenu} className={styles['close-button']}>Close Left Menu</button>
-        <div className={styles['menu-title']}>Dashboard</div>
-        {/* <Link href="/home">Dashboard</Link> */}
+        <div className={styles['left-menu-header']}>
+          <div className={styles['left-menu-title']}>Dashboard</div>
+          <button onClick={onCloseLeftMenu} className={styles['left-close-button']}>×</button>
+        </div>
+        {/* Menu Items */}
       </div>
 
       <div className={`${styles['right-menu-content']} ${showRightMenu ? styles['show-menu'] : ''}`}>
-        <button onClick={onCloseRightMenu} className={styles['close-button']}>Close Right Menu</button>
-        <div className={styles['menu-title']}>Dev Tools</div>
-        {/* Placeholder for right menu items, add as needed */}
+        <div className={styles['right-menu-header']}>
+          <button onClick={onCloseRightMenu} className={styles['right-close-button']}>×</button>
+          <div className={styles['right-menu-title']}>Dev Tools</div>
+        </div>
+        
+        {/* Menu Items */}
       </div>
     </>
   );

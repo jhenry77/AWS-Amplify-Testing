@@ -12,7 +12,7 @@ export default function Navbar() {
     // const { user, signOut } = useAuthenticator((context) => [context.user]);
     // const { authStatus } = useAuthenticator((context) => [context.authStatus]);
     const [showDropdown, setShowDropdown] = useState(false);
-    const [showLeftMenu, setShowLeftMenu] = useState(false); /* change to true */
+    const [showLeftMenu, setShowLeftMenu] = useState(true); /* change to true */
     const [showRightMenu, setShowRightMenu] = useState(false);
 
     const toggleDropdown = () => {
@@ -44,7 +44,7 @@ export default function Navbar() {
 
     return (
         <nav className={styles['navbar']}>
-            <div className="left-content">
+            <div className="navbar-left-content">
                 {/* Button that when clicked, will toggle the state of the left hamburger menu */}
                 <button onClick={toggleLeftMenu} className="hamburger-menu-button" aria-label="Open navigation menu">☰</button>
                 {/* <HamburgerMenu showLeftMenu={showLeftMenu} /> */}
@@ -56,7 +56,7 @@ export default function Navbar() {
                 <Link href="/" className="nav-link">Reports</Link>
             </div>
 
-            <div className="right-content">
+            <div className="navbar-right-content">
                 {authStatus === 'authenticated' && user ? (
                     <>
                         <span className="user-info">
@@ -92,3 +92,10 @@ export default function Navbar() {
         </nav>
     );
 }
+
+// Main content component
+const MainContent = ({ showLeftMenu }) => (
+    <div className={`main-content ${showLeftMenu ? 'main-content-with-menu' : ''}`}>
+      {/* Your main content */}
+    </div>
+  );
