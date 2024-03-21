@@ -93,9 +93,9 @@ export default function Navbar() {
     );
 }
 
-// Main content component
-const MainContent = ({ showLeftMenu }) => (
-    <div className={`main-content ${showLeftMenu ? 'main-content-with-menu' : ''}`}>
-      {/* Your main content */}
-    </div>
-  );
+// // Main content component
+// const MainContent = ({ showLeftMenu }) => (
+//     <div className={`main-content ${showLeftMenu ? 'main-content-with-menu' : ''}`}>
+//       {/* Your main content */}
+//     </div>
+//   );
