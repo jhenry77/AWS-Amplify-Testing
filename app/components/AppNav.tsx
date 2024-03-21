@@ -72,8 +72,8 @@ export default function Navbar() {
 
                         {showDropdown && (
                             <div className={`dropdown-menu ${showDropdown ? 'show-dropdown' : ''}`} role="menu">
-                                {/* <Link href="/profile">Profile</Link>
-                                <button onClick={signOut}>Sign Out</button> */}
+                                <Link href="/profile">Profile</Link>
+                                <button onClick={signOut}>Sign Out</button>
                             </div>
                         )}
                     </>

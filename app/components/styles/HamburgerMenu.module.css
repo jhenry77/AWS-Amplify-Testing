@@ -9,10 +9,6 @@
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
     transform: translateX(-100%);
     transition: transform 0.3s ease-in-out;
-    -webkit-transition: transform 0.3s ease-in-out;
-    -moz-transition: transform 0.3s ease-in-out;
-    -ms-transition: transform 0.3s ease-in-out;
-    -o-transition: transform 0.3s ease-in-out;
 }
 
 /* Styles for the right menu content */
@@ -35,6 +31,7 @@
 
 /* Styles for the menu title */
 .menu-title {
+    color: black;
     font-size: 20px; /* Adjust as needed */
     font-weight: bold;
     padding: 20px; /* Adjust as needed */
