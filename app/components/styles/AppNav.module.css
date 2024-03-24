@@ -11,4 +11,5 @@
     font-size: 150%;
     font-family: 'Georgia', 'serif';
     text-decoration: underline whitesmoke;
+    position: fixed;
 }

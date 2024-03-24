@@ -9,6 +9,7 @@ import styles from './components/styles/about.module.css'
 
 
 
+
 import { UseAuthenticator, useAuthenticator } from '@aws-amplify/ui-react';
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
@@ -46,28 +47,9 @@ export default function Home() {
   const {authStatus} = useAuthenticator((context) => [context.authStatus]);
   const user = useAuthenticator((context) => [context.user]);
   const router = useRouter();
-  // const session = user.
-  // const groups = session?.getAccessToken().payload["cognito:groups"];
-  // console.log(groups);
-  // authStatus === 'configuring' && router.push('/testLogin');
-  // authStatus !== 'authenticated' ? router.push('/testLogin') : router.push('/testAboutPage');
-  // Auth.currentAuthenticatedUser()
-  // .then(user => {
-  //   const groups = user.signInUserSession.idToken.payload['cognito:groups'];
-  //   console.log(groups);
-  // })
-  // .catch(err => console.log(err));
+ 
 
-  useEffect(() => {
-    fetchAuthSession()
-      .then(session => {
-        const { accessToken, idToken } = session.tokens ?? {};
-        // console.log(accessToken, idToken);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }, []);
+
 
   useEffect(() => {
     if (authStatus === 'configuring') {
@@ -99,27 +81,27 @@ export default function Home() {
 
 
   // handleFetchUserAttributes();
-  useEffect(() => {
-    if (user) {
-      console.log(user);
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (user) {
+  //     console.log(user);
+  //   }
+  // }, [user]);
 
   const[userDeatails, setUserDetails] = useState(null);
   
-  useEffect(() => {
-    fetchAuthSession({forceRefresh: true})
-      .then(({tokens}) => {
-        console.log(tokens);
-        const groups = tokens?.idToken;
-        console.log(groups);
-        // console.log(`The userId: ${userId}`);
-        // console.log(`The signInDetails: ${signInDetails}`);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetchAuthSession({forceRefresh: true})
+  //     .then(({tokens}) => {
+  //       console.log(tokens);
+  //       const groups = tokens?.idToken;
+  //       console.log(groups);
+  //       // console.log(`The userId: ${userId}`);
+  //       // console.log(`The signInDetails: ${signInDetails}`);
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     });
+  // }, []);
   
   return (
     <main>
