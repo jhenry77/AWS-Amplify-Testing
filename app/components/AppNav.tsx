@@ -43,6 +43,7 @@ export default function Navbar() {
     const displayName = user.username;
 
     return (
+        
         <nav className={styles['navbar']}>
             <div className="navbar-left-content">
                 {/* Button that when clicked, will toggle the state of the left hamburger menu */}

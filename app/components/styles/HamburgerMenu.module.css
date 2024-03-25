@@ -3,6 +3,7 @@
     position: fixed;
     top: 48px;
     left: 0;
+    bottom: 100%;
     width: 150px;
     height: calc(100% - 60px);
     color: inherit;

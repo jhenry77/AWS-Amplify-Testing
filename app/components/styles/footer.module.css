@@ -1,42 +1,46 @@
 .footer {
-    background-color:darkslategray;
+    background-color: darkslategray;
+    color: whitesmoke;
     width: 100%;
-    position: relative;
-    left: 0;
-    bottom: 0;
+    padding: 20px 0; /* Adjust padding to suit your design */
+    text-align: center; /* Centers the footer content */
+    font-family: 'Roboto', sans-serif; /* Consistency in font usage */
 }
 
-.links {
+.links, .title {
     display: flex;
-    padding: 8px 56px;
     justify-content: space-between;
-
-    color: whitesmoke;
-    font-size: 150%;
-    font-family: 'Georgia', 'serif';
-    text-decoration: underline whitesmoke;
+    padding: 8px 5vw; /* Use viewport width for responsive padding */
+    font-size: 1rem; /* Start with a base size for links */
 }
 
 .title {
-    display: flex;
-    padding: 8px 56px;
-    justify-content: space-between;
+    font-size: 1.5rem; /* Larger size for the title */
+    font-family: 'Roboto', sans-serif; /* Consistency in font usage */
+    text-decoration: none; /* Professional designs often avoid underline */
+}
 
+.links {
+    flex-wrap: wrap;
+    text-decoration: none; /* Avoid underline for a cleaner look */
+}
+
+.links a {
     color: whitesmoke;
-    font-size: 200%;
-    font-family: monospace;
+    text-decoration: none; /* Avoid underline for a cleaner look */
+    transition: color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.links a:hover {
+    color: #a8dadc; /* Lighter shade for hover effect */
 }
 
 .bottom {
-    display: flex;
-    text-wrap: nowrap;
-    justify-content: space-between;
-    background-color:rgb(34, 56, 56);
-    padding: 16px 600px;
-    
-
+    background-color: rgb(34, 56, 56);
     color: rgb(89, 122, 122);
-    font-size: 75%;
-    font-family: 'Georgia', 'serif';
-    text-decoration: underline darkslategray;
+    padding: 16px 5vw; /* Responsive padding */
+    font-size: 0.75rem; /* Smaller text for the bottom section */
+    text-align: center; /* Center-align the text for consistency */
+    font-family: 'Roboto', sans-serif; /* Maintain font consistency */
+    text-decoration: none; /* Typically, underlines are removed for a cleaner look */
 }

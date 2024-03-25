@@ -1,4 +1,4 @@
-"use client"; 
+"use client";
 import React from 'react';
 import Navbar from "./components/AppNav";
 import { Amplify } from 'aws-amplify';
@@ -34,16 +34,14 @@ Amplify.configure(awsExports);
 
 type AboutData = {
   teamNumber: string
-  VersionNum : string
-  SprintDate : string
+  VersionNum: string
+  SprintDate: string
   Productname: string
   ProductDescription: string
 }
 
-
-
 export default function Home() {
-  const {authStatus} = useAuthenticator((context) => [context.authStatus]);
+  const { authStatus } = useAuthenticator((context) => [context.authStatus]);
   const user = useAuthenticator((context) => [context.user]);
   const router = useRouter();
   // const session = user.
@@ -71,13 +69,13 @@ export default function Home() {
 
   useEffect(() => {
     if (authStatus === 'configuring') {
-        router.push('/login');
+      router.push('/login');
     } else if (authStatus !== 'authenticated') {
-        router.push('/login');
+      router.push('/login');
     } else {
-        router.push('/');
+      router.push('/');
     }
-}, [authStatus]);
+  }, [authStatus]);
 
 
 
@@ -105,11 +103,11 @@ export default function Home() {
     }
   }, [user]);
 
-  const[userDeatails, setUserDetails] = useState(null);
-  
+  const [userDeatails, setUserDetails] = useState(null);
+
   useEffect(() => {
-    fetchAuthSession({forceRefresh: true})
-      .then(({tokens}) => {
+    fetchAuthSession({ forceRefresh: true })
+      .then(({ tokens }) => {
         console.log(tokens);
         const groups = tokens?.idToken;
         console.log(groups);
@@ -120,9 +118,10 @@ export default function Home() {
         console.log(err);
       });
   }, []);
-  
+
   return (
     <main>
+      <div className="main-content">
         <h1 className={styles['title']}>About Us</h1>
         <Image
           src="/teamlogo.jpg"
@@ -131,21 +130,21 @@ export default function Home() {
           height={400}
           className="mx-auto"
         />
-        <br/>
+        <br />
         <p className={styles['text']}>
           Welcome to <strong>Team 3&apos;s Website</strong>! We&apos;re dedicated to providing the best experience for our users. <br />
           <strong>Our mission is to innovate and inspire.</strong>
         </p>
         <p className={styles['text']}>
-        <strong>Team Members:  </strong><br />
-          Connor Love <br /> 
-          Rinzo Martinelli <br /> 
-          Jason Senf<br /> 
-          Jackson Henry <br/>
+          <strong>Team Members:  </strong><br />
+          Connor Love <br />
+          Rinzo Martinelli <br />
+          Jason Senf<br />
+          Jackson Henry <br />
           <br />
-          With a focus on quality and community, we strive to bring you the latest in our field.<br/> Our team is made up of passionate professionals committed to excellence in everything we do.
+          With a focus on quality and community, we strive to bring you the latest in our field.<br /> Our team is made up of passionate professionals committed to excellence in everything we do.
           <br />
-          <br/>
+          <br />
         </p>
         {data && (
           <h1 className={styles['text']}>
@@ -156,8 +155,7 @@ export default function Home() {
             Product Description: {data.success[0].ProductDescription}
           </h1>
         )}
-       
-      
+      </div>
     </main>
   );
 }
@@ -187,7 +185,7 @@ function getAboutData() {
       };
 
       console.log(JSON.stringify(formattedResponse));
-      
+
       return formattedResponse; // Return the formatted data
     })
     .catch((error) => {
@@ -196,4 +194,3 @@ function getAboutData() {
       throw error;
     });
 }
- 

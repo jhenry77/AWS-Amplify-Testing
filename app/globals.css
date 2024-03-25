@@ -45,23 +45,28 @@ button.amplify-button--fullwidth{
   @apply bg-amplify-blue
 }
 /* Template Layout */
-.template-layout {
+/* .template-layout {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-}
+} */
 
 /* Main Content Area */
 .main-content {
+  position: relative;
   flex-grow: 1;
   display: flex;
-  flex-direction: column; /* Stack children vertically */
-  align-items: center; /* Center children horizontally */
-  justify-content: flex-start; /* Start children from the top */
-  padding: 20px;
-  max-width: 800px; /* Adjust to your preferred max width */
-  margin: auto;
+  flex-direction: column;
+  /*Stackchildrenvertically*/align-items: center;
+  /*Centerchildrenhorizontally*/justify-content: flex-start;
+  /*Startchildrenfromthetop*/padding: 20px;
+  max-width: 800px;
+  /*Adjusttoyourpreferredmaxwidth*/margin: auto;
   transition: margin-left 0.3s ease-in-out;
+  -webkit-transition: margin-left 0.3s ease-in-out;
+  -moz-transition: margin-left 0.3s ease-in-out;
+  -ms-transition: margin-left 0.3s ease-in-out;
+  -o-transition: margin-left 0.3s ease-in-out;
 }
 
 /* Class to apply when the left menu is visible */
@@ -70,16 +75,16 @@ button.amplify-button--fullwidth{
 }
 
 /* Navbar Styles */
-.Navbar {
+/* .Navbar {
   display: flex;
   justify-content: space-between;
-  align-items: center; /* This ensures items are spaced between left and right */
+  align-items: center; 
   font-size: 1rem;
   padding: 0.5rem 1rem;
   color: #ecf0f1;
   background-color: #2c3e50;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+} */
 
 /* Assuming .settings-menu-button is the class for your settings button */
 .settings-menu-button {
@@ -87,38 +92,42 @@ button.amplify-button--fullwidth{
 }
 
 /* Navbar Items */
-.Navbar a, .Navbar button {
+/* .Navbar a, .Navbar button {
   color: inherit;
   text-decoration: none;
   padding: 0.25rem 0.5rem;
   transition: background-color 0.3s ease;
-}
+  -webkit-transition: background-color 0.3s ease;
+  -moz-transition: background-color 0.3s ease;
+  -ms-transition: background-color 0.3s ease;
+  -o-transition: background-color 0.3s ease;
+} */
 
 /* Hover effect for navigation links */
-.Navbar a:hover,
+/* .Navbar a:hover,
 .Navbar button:hover {
   background-color: #34495e;
-}
+} */
 
-.hamburger-menu-button {
-  display: inline-flex; /* Changed from fixed to inline-flex */
+/* .hamburger-menu-button {
+  display: inline-flex; 
   flex-direction: column;
   justify-content: space-around;
-  width: 2rem; /* 32px */
-  height: 2rem; /* 32px */
+  width: 2rem;
+  height: 2rem; 
   background-color: transparent;
   border: none;
   cursor: pointer;
   padding: 0;
-}
+} */
 
-.hamburger-icon-bar {
+/* .hamburger-icon-bar {
   display: block;
   width: 100%;
   height: 0.25rem;
   background-color: #ecf0f1;
   margin: 0.25rem 0;
-}
+} */
 
 /* Hamburger Menu Button
 .hamburger-menu-button {
