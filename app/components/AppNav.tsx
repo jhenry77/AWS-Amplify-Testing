@@ -4,8 +4,9 @@ import Link from "next/link"
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import { signOut } from "aws-amplify/auth";
 import styles from "./styles/AppNav.module.css";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import HamburgerMenu from "./HamburgerMenu";
+import { fetchAuthSession } from "aws-amplify/auth";
 
 export default function Navbar() {
     const { user, signOut, authStatus } = useAuthenticator((context) => [context.user, context.signOut, context.authStatus]);
@@ -14,6 +15,25 @@ export default function Navbar() {
     const [showDropdown, setShowDropdown] = useState(false);
     const [showLeftMenu, setShowLeftMenu] = useState(true); /* change to true */
     const [showRightMenu, setShowRightMenu] = useState(false);
+    const [groups, setGroups] = useState(undefined);
+    const [userName, setUserName] = useState(String);
+
+      //The call that actually finds the user details
+    useEffect(() => {
+        fetchAuthSession({ forceRefresh: true })
+        .then(({ tokens }) => {
+            const idToken = tokens?.idToken as any;
+            console.log(idToken);
+            const userGroups = idToken.payload['cognito:groups'];
+            const username = idToken.payload["name"] + " " + idToken.payload["family_name"];
+            setGroups(userGroups ? userGroups[0] : "No active Groups");
+            setUserName(username);
+            console.log(username);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    }, []);
 
     const toggleDropdown = () => {
         console.log('Toggling Dropdown Menu');
@@ -61,7 +81,7 @@ export default function Navbar() {
                 {authStatus === 'authenticated' && user ? (
                     <>
                         <span className="user-info">
-                            {displayName}
+                            {userName}
                             <button onClick={toggleDropdown} className="dropdown-menu-button" aria-label="Open dropdown">
                                 ▼{/* Dropdown menu icon */}
                             </button>
@@ -93,10 +113,3 @@ export default function Navbar() {
         </nav>
     );
 }
-
-// // Main content component
-// const MainContent = ({ showLeftMenu }) => (
-//     <div className={`main-content ${showLeftMenu ? 'main-content-with-menu' : ''}`}>
-//       {/* Your main content */}
-//     </div>
-//   );
