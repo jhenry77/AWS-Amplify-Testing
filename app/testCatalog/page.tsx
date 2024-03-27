@@ -1,10 +1,11 @@
-"use client"; 
+"use client";
 import React from 'react';
 import Navbar from "../components/AppNav";
 import { Amplify } from 'aws-amplify';
 // import  useAuthenticator  from '../components/useAuthenticator';
 import { useState, useEffect } from 'react';
 import CatalogUI from '../components/CatalogUI';
+import styles from '../components/styles/catalogpage.module.css';
 
 
 
@@ -30,44 +31,70 @@ Amplify.configure(awsExports);
 
 
 export default function Home() {
-  const {authStatus} = useAuthenticator((context) => [context.authStatus]);
-  const router = useRouter();
-//   authStatus === 'configuring' && router.push('/testLogin');
-//   authStatus !== 'authenticated' ? router.push('/testLogin') : router.push('/testCatalog');
+  const [searchTerm, setSearchTerm] = useState('');
 
-const [data, setData] = useState(null);
-
-useEffect(() => {
-  const fetchData = async () => {
-    const response = await fetch('https://itunes.apple.com/search?term=jack+johnson');
-    const data = await response.json();
-    setData(data);
-    console.log(data);
+  const handleSearchChange = (event: any) => {
+    setSearchTerm(event.target.value);
   };
 
-  fetchData();
-}, []);
+  const handleSearchSubmit = (event: any) => {
+    event.preventDefault();
+    searchiTunes(searchTerm).then(results => setData(results))
+    .catch(error => console.error(error));
+  };
+  const { authStatus } = useAuthenticator((context) => [context.authStatus]);
+  const router = useRouter();
+  //   authStatus === 'configuring' && router.push('/testLogin');
+  //   authStatus !== 'authenticated' ? router.push('/testLogin') : router.push('/testCatalog');
+
+  const [data, setData] = useState<any[]>([]);
+
+  useEffect(() => {
+    searchiTunes('').then(data => setData(data));
+    console.log("IN use effect");
+    console.log(data);
+  }, []);
+
 
   // handleFetchUserAttributes();
 
-  
   return (
-    <main className="min-h-screen flex flex-row p-14 flex-wrap justify-center">   
-      <CatalogUI/>
-      <CatalogUI/>
-      <CatalogUI/>  
-      <CatalogUI/>
-      <CatalogUI/>
-      <CatalogUI/> 
-      <CatalogUI/>
-      <CatalogUI/>
-      <CatalogUI/> 
-        
-       
+    <main className="min-h-screen flex flex-row p-12 flex-wrap justify-center">
+      <div className={styles.searchbar}>
+        <form onSubmit={handleSearchSubmit}>
+          <input className="text-black" type="text" value={searchTerm} onChange={handleSearchChange} placeholder="Search iTunes" />
+          <button type="submit">Search</button>
+        </form>
+      </div>
+      {data && data.map((item, index) => (
+      <CatalogUI
+        key={index}
+        songTitle={item.trackName}
+        albumTitle={item.collectionName}
+        albumCover={item.artworkUrl100}
+        price={item.collectionPrice}
+      />
+
+      ))}
     </main>
-  );
+  )}
+    
+
+
+
+
+function searchiTunes(term: string) {
+  const url = `https://itunes.apple.com/search?term=${term}&media=music&entity=song`;
+
+  return fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      // Return the response data
+      console.log(data.results);
+      return data.results;
+    })
+    .catch(error => {
+      // Handle the error here
+      console.error(error);
+    });
 }
-
-
- 
-

@@ -1,0 +1,6 @@
+.searchbar{
+    position: fixed;
+    right: 0;
+    padding: 1rem;
+    background-color: gray;
+}
