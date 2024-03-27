@@ -35,7 +35,18 @@ export default function Home() {
 //   authStatus === 'configuring' && router.push('/testLogin');
 //   authStatus !== 'authenticated' ? router.push('/testLogin') : router.push('/testCatalog');
 
-  
+const [data, setData] = useState(null);
+
+useEffect(() => {
+  const fetchData = async () => {
+    const response = await fetch('https://itunes.apple.com/search?term=jack+johnson');
+    const data = await response.json();
+    setData(data);
+    console.log(data);
+  };
+
+  fetchData();
+}, []);
 
   // handleFetchUserAttributes();
 
