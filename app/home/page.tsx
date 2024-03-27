@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function Homepage() {
     return(
         <main>
-            <div style={{ position: 'relative', height: '1200px' }}>
+            <div style={{ position: 'relative', height: '1200px' , zIndex: '-1'}}>
                 <Image
                     src="/trucking.jpg"
                     alt="Home Photo"
