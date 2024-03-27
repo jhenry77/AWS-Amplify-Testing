@@ -17,7 +17,7 @@
 
 /* Styles for the right menu content */
 .right-menu-content {
-    position: relative;
+    position: fixed;
     /* Or absolute, depending on your layout needs */
     top: 48px;
     right: 0;
