@@ -198,21 +198,26 @@ button.amplify-button--fullwidth{
 .hamburger-menu {
   position: fixed;
   top: 0;
-  height: 100vh; /* Full height */
-  width: 250px; /* Fixed width */
-  background-color: #fff; /* Light background for the menu */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-  z-index: 1000; /* High z-index to ensure it's above other content */
-  display: flex; /* Use flexbox to arrange children */
-  flex-direction: column; /* Align children vertically */
-  justify-content: flex-start; /* Align content to the start */
-  transform: translateX(-100%); /* Initially off-screen */
-  transition: transform 0.3s ease-in-out; /* Smooth transition */
-  padding: 1rem; /* Padding around content */
-  padding: 20px; /* Add padding inside the menu */
-  background-color: #f8f9fa; /* Light background color */
-  color: #333; /* Dark text color for contrast */
-  font-family: Arial, sans-serif; /* Choose a font-family */
+  height: 100vh;
+  /*Fullheight*/width: 250px;
+  /*Fixedwidth*/background-color: #fff;
+  /*Lightbackgroundforthemenu*/box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  /*Subtleshadowfordepth*/z-index: 1000;
+  /*Highz-indextoensureit'saboveothercontent*/display: flex;
+  /*Useflexboxtoarrangechildren*/flex-direction: column;
+  /*Alignchildrenvertically*/justify-content: flex-start;
+  /*Aligncontenttothestart*/transform: translateX(-100%);
+  /*Initiallyoff-screen*/transition: transform 0.3s ease-in-out;
+  /*Smoothtransition*/padding: 1rem;
+  /*Paddingaroundcontent*/padding: 20px;
+  /*Addpaddinginsidethemenu*/background-color: #f8f9fa;
+  /*Lightbackgroundcolor*/color: #333;
+  /*Darktextcolorforcontrast*/font-family: Arial, sans-serif;
+   /* Choose a font-family */;
+  -webkit-transform: translateX(-100%);
+  -moz-transform: translateX(-100%);
+  -ms-transform: translateX(-100%);
+  -o-transform: translateX(-100%);
 }
 
 .hamburger-menu.right {
@@ -244,11 +249,16 @@ button.amplify-button--fullwidth{
 
 /* Style for menu items */
 .menu-item {
-  padding: 10px 15px; /* Padding for each item */
-  margin: 5px 0; /* Spacing between items */
-  border-radius: 4px; /* Slight rounding of corners */
-  transition: background-color 0.2s ease; /* Smooth background transition */
-  cursor: pointer; /* Change cursor to indicate clickable */
+  padding: 10px 15px;
+  /*Paddingforeachitem*/margin: 5px 0;
+  /*Spacingbetweenitems*/border-radius: 4px;
+  /*Slightroundingofcorners*/transition: background-color 0.2s ease;
+  /*Smoothbackgroundtransition*/cursor: pointer;
+   /* Change cursor to indicate clickable */;
+  -webkit-transition: background-color 0.2s ease;
+  -moz-transition: background-color 0.2s ease;
+  -ms-transition: background-color 0.2s ease;
+  -o-transition: background-color 0.2s ease;
 }
 
 /* Hover effect for menu items */
@@ -369,7 +379,7 @@ button.amplify-button--fullwidth{
 /* For smaller screens */
 @media screen and (max-width: 768px) {
   .hamburger-menu-button {
-    display: none; /* Show the hamburger menu button */
+    display: none; /* hide the hamburger menu button */
   }
 
   .Navbar .left-content,
