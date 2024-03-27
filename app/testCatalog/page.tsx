@@ -4,6 +4,7 @@ import Navbar from "../components/AppNav";
 import { Amplify } from 'aws-amplify';
 // import  useAuthenticator  from '../components/useAuthenticator';
 import { useState, useEffect } from 'react';
+import CatalogUI from '../components/CatalogUI';
 
 
 
@@ -40,11 +41,18 @@ export default function Home() {
 
   
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center p-10">
-      <div className="max-w-4xl w-full text-center">        
+    <main className="min-h-screen flex flex-row p-14 flex-wrap justify-center">   
+      <CatalogUI/>
+      <CatalogUI/>
+      <CatalogUI/>  
+      <CatalogUI/>
+      <CatalogUI/>
+      <CatalogUI/> 
+      <CatalogUI/>
+      <CatalogUI/>
+      <CatalogUI/> 
         
        
-      </div>
     </main>
   );
 }
