@@ -40,7 +40,10 @@
     text-wrap: nowrap;
     justify-content: space-between;
     background-color:rgb(34, 56, 56);
-    padding: 16px 600px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
 
     background-color: #243241;
     font-size: 75%;
