@@ -4,13 +4,12 @@ import Image from "next/image";
 export default function Homepage() {
     return(
         <main>
-            <div style={{ position: 'relative', height: '1200px' , zIndex: '-1'}}>
+            <div className={styles['image']}>
                 <Image
                     src="/trucking.jpg"
                     alt="Home Photo"
-                    quality={100}
-                    fill
-                    style={{objectFit: 'cover'}}
+                    quality={50}
+                    fill={true}
                 />
             </div>
         </main>

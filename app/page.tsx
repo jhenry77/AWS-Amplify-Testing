@@ -15,7 +15,7 @@ import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { getCurrentUser } from 'aws-amplify/auth';
 import { fetchAuthSession } from 'aws-amplify/auth';
-import { AuthSession } from 'aws-amplify/auth';
+//import { AuthSession } from 'aws-amplify/auth';
 
 
 

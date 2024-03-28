@@ -1,9 +1,16 @@
 .footer {
     background-color:darkslategray;
     width: 100%;
-    position: relative;
-    left: 0;
+    position: fixed;
     bottom: 0;
+    margin-top: auto;
+}
+
+.phantom {
+    display: block;
+    padding-top: 150px;
+    height: 60px;
+    width: 100%;
 }
 
 .links {
