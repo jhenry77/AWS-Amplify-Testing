@@ -57,6 +57,8 @@ import { fetchAuthSession } from "aws-amplify/auth";
 //       console.log(error);
 //     }
 //   }
+
+
   
 export default function Profile(){
     const {authStatus} = useAuthenticator((context) => [context.authStatus]);
@@ -87,6 +89,44 @@ export default function Profile(){
             <h1 className={styles['title']}>Profile</h1>
             <h2 className={styles['text']}><>{groups}</></h2>
             <h3 className={styles['text']}>Hi, <>{userName}</></h3>
+            <br/><br/>
+
+            {/* Email */}
+            <div className={styles['block']}>
+                <h4 className={styles['blocktext']}>Update Email</h4>
+                <p className={styles['subtext']}>Enter New Email</p>
+                <input className={styles['input']}
+                    type="email"
+                    placeholder="johnsmith@example.com"
+                />
+                <p className={styles['subtext']}>Old Email</p>
+                <input className={styles['input']}
+                    type="email"
+                    placeholder="johnsmith@example.com"
+                />
+                <br/>
+                <button className={styles['button']}>Submit</button>
+                <br/>
+            </div>
+            <br/>
+
+            {/* Password */}
+            <div className={styles['block']}>
+                <h5 className={styles['blocktext']}>Update Password</h5>
+                <p className={styles['subtext']}>Enter New Password</p>
+                <input className={styles['input']}
+                    type="password"
+                    placeholder="New Password"
+                />
+                <p className={styles['subtext']}>Current Password</p>
+                <input className={styles['input']}
+                    type="password"
+                    placeholder="Current Password"
+                />
+                <br/>
+                <button className={styles['button']}>Submit</button>
+                <br/>
+            </div>
         </div>
     );
 };
