@@ -1,0 +1,16 @@
+.title {
+    padding-top: 10px;
+    padding-left: 160px;
+    color: white;
+    font-size: 250%;
+    text-align: left;
+    font-weight: bold;
+}
+
+.text {
+    padding-left: 160px;
+    color: white;
+    font-size: 150%;
+    text-align: left;
+
+}

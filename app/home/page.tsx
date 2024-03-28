@@ -3,13 +3,14 @@ import Image from "next/image";
 
 export default function Homepage() {
     return(
-        <main>
+        <main> 
             <div className={styles['image']}>
                 <Image
                     src="/trucking.jpg"
                     alt="Home Photo"
                     quality={50}
-                    fill={true}
+                    layout="fill"
+                    objectFit="cover"
                 />
             </div>
         </main>
