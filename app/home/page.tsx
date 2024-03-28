@@ -5,12 +5,9 @@ export default function Homepage() {
     return(
         <main> 
             <div className={styles['image']}>
-                <Image
-                    src="/trucking.jpg"
-                    alt="Home Photo"
-                    quality={50}
-                    layout="fill"
-                    objectFit="cover"
+            <img
+                src="/trucking.jpg"
+                alt="Home Photo"
                 />
             </div>
         </main>

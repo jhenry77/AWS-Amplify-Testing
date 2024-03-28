@@ -1,6 +1,5 @@
 "use client"; 
 import React from 'react';
-import Navbar from "./components/AppNav";
 import { Amplify } from 'aws-amplify';
 // import  useAuthenticator  from '../components/useAuthenticator';
 import { useState, useEffect } from 'react';
@@ -10,26 +9,20 @@ import styles from './components/styles/about.module.css'
 
 
 
-import { UseAuthenticator, useAuthenticator } from '@aws-amplify/ui-react';
+import { useAuthenticator } from '@aws-amplify/ui-react';
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
-import { getCurrentUser } from 'aws-amplify/auth';
-import { fetchAuthSession } from 'aws-amplify/auth';
+//import { getCurrentUser } from 'aws-amplify/auth';
+//import { fetchAuthSession } from 'aws-amplify/auth';
 //import { AuthSession } from 'aws-amplify/auth';
 
-
-
-
-
-
-
-import { Authenticator, Placeholder } from '@aws-amplify/ui-react';
+//import { Authenticator, Placeholder } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 // import currentAuthenticatedUser from '../components/AuthUser';
-import AuthUser from './components/AuthUser';
+//import AuthUser from './components/AuthUser';
 
 import awsExports from '../src/aws-exports';
-import AuthClient from './components/AuthClient';
+//import AuthClient from './components/AuthClient';
 Amplify.configure(awsExports);
 
 

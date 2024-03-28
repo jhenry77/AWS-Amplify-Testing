@@ -13,8 +13,9 @@
 }
 
 .image {
-    height: 89vh;
-    width: 99vw;
+    top: 48px;
+    height: 100%;
+    width: 100%;
 }
 
 

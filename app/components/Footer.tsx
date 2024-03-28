@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Footer() {
     return(
-        <div className={styles['phantom']}>
+        // <div className={styles['phantom']}>
             <div className={styles['footer']}>
                 <h1 className={styles['title']}>Crtl Alt Elt</h1>
                 <h1 className={styles['bottom']}>
@@ -12,7 +12,7 @@ export default function Footer() {
                     <p>Privacy Policy</p>
                     <p>All Rights Reserved</p>
                 </h1>
-            </div>
+            {/* </div> */}
         </div>
     );
 };
