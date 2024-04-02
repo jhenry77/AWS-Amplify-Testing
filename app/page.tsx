@@ -30,6 +30,27 @@ import AuthUser from './components/AuthUser';
 
 import awsExports from '../src/aws-exports';
 import AuthClient from './components/AuthClient';
+
+import { generateClient } from 'aws-amplify/api';
+import {createSponsor, createUser, deleteSponsor } from "../src/graphql/mutations"
+import { getUser, listSponsors, listTodos, listUsers } from '../src/graphql/queries';
+import config from '@/src/amplifyconfiguration.json';
+import Link from "next/link"
+import { signOut } from "aws-amplify/auth";
+Amplify.configure(config);
+
+const client = generateClient();
+
+
+type User = {
+    id: string;
+    name: string;
+    familyName: string;
+    email: string;
+    address: string;
+  } | null;
+
+    
 Amplify.configure(awsExports);
 
 
@@ -44,8 +65,90 @@ type AboutData = {
 
 
 export default function Home() {
+
+  const [groups, setGroups] = useState(undefined);
+    const [userName, setUserName] = useState(String);
+    const [userID, setUserID] = useState(String);
+    const [userfName, setFname] = useState(String);
+    const [userLName, setUserLName] = useState(String);
+    const [userEmail, setUserEmail] = useState(String);
+    const [userAddress, setUserAddress] = useState(String);
+
+    const [user, setUser] = useState<User>(null);
+
+
+
+    useEffect(() => {
+        fetchAuthSession({ forceRefresh: true })
+        .then(({ tokens }) => {
+            const idToken = tokens?.idToken as any;
+            console.log(idToken);
+            const userGroups = idToken.payload['cognito:groups'];
+            const username = idToken.payload["name"] + " " + idToken.payload["family_name"];
+            const fName = idToken.payload["name"];
+            const lName = idToken.payload["family_name"]
+            const id = idToken.payload["sub"];
+            const email = idToken.payload["email"]
+            const address = idToken.payload["address"];
+            setUserAddress(address);
+            setUserEmail(email);
+            setUserID(id);
+            setGroups(userGroups ? userGroups[0] : "No active Groups");
+            setUserName(username);
+            setFname(fName);
+            setUserLName(lName);
+            console.log(username);
+            const userData = {
+                id: idToken.payload["sub"],
+                name: idToken.payload["name"],
+                familyName: idToken.payload["family_name"],
+                email: idToken.payload["email"],
+                address: idToken.payload["address"]
+              };
+              setUser(userData);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    }, []);
+    useEffect(() => {
+    }, [userName]);
+
+    useEffect(() => {
+        if (!user) {
+          return;
+        }
+    client.graphql({ query: getUser, variables: { id: userID } })
+    .then(result => {
+      if (result.data.getUser) {
+        // console.log('User already exists in database');
+        return;
+      }else{
+        client.graphql({ query: createUser, variables: { input: user } })
+        .then(() => {
+          console.log('User added to database');
+        })
+        .catch(error => {
+          console.error('Error adding user to database:', error);
+        });
+      }
+      })
+
+    
+        const sponsorName = 'Sponsor1'
+
+
+client.graphql({query: listSponsors}).then(result =>{
+        console.log(result);
+      })
+      .catch(error => {
+        console.error('Error listing sponsors:', error);
+      });
+      })
+  
+
   const {authStatus} = useAuthenticator((context) => [context.authStatus]);
-  const user = useAuthenticator((context) => [context.user]);
+  const Curruser = useAuthenticator((context) => [context.user]);
   const router = useRouter();
  
 
