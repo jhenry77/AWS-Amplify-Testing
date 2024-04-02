@@ -83,7 +83,7 @@ export default function Navbar() {
         if (userName === undefined) {
             router.refresh();
         }
-    }, [userName]);
+    }, [router, userName]);
     
     // Log the current user object to the console
 
