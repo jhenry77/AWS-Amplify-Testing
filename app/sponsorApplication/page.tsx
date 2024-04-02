@@ -166,7 +166,7 @@ export default function SponsorForm() {
                     </select>
                 </label>
                 <label>
-                    Why you'd be a good fit:   
+                    Why you&apos;d be a good fit:   
                     <textarea name="reason" value={formState.reason} onChange={handleChange} className={styles['goodFit']} />
                 </label>
                 <label>
