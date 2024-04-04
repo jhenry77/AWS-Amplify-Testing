@@ -1,24 +1,69 @@
+// "use client";
+// import Link from "next/link"
+// import { useAuthenticator } from '@aws-amplify/ui-react';
+// import { signOut } from "aws-amplify/auth";
+// import styles from "./styles/AppNav.module.css";
+// import DropdownMenu from "./DropDown";
+
+// export default function Navbar() {
+//     const { user, signOut } = useAuthenticator((context) => [context.user]);
+//     const {authStatus} = useAuthenticator((context) => [context.authStatus]);
+
+//     if (authStatus !== 'authenticated'){
+//         return null;
+//     }
+    
+//     return <nav className={styles['navbar']}>
+        
+//             <Link href="/home">Home</Link>
+//             <Link href="/">About</Link>
+//             <Link href="/">Sponsors</Link>
+//             <Link href="/">Catalogs</Link>
+//             <Link href="/">Reports</Link>
+//                 <>
+//                 {authStatus !== 'authenticated' ? <Link href="/login">Login</Link> : <button className = "justify-end" onClick={signOut}>Sign Out</button>}
+//                 </>
+//             <DropdownMenu/>
+//     </nav>
+// };
 // AppNav.tsx
 "use client";
 import Link from "next/link"
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import { signOut } from "aws-amplify/auth";
 import styles from "./styles/AppNav.module.css";
-import React, { useState, useEffect } from 'react';
 import HamburgerMenu from "./HamburgerMenu";
+import React, { useState, useEffect } from 'react';
 import { fetchAuthSession } from "aws-amplify/auth";
+import { useRouter } from "next/navigation";
+
 
 export default function Navbar() {
+    const router = useRouter();
+   
     const { user, signOut, authStatus } = useAuthenticator((context) => [context.user, context.signOut, context.authStatus]);
     // const { user, signOut } = useAuthenticator((context) => [context.user]);
     // const { authStatus } = useAuthenticator((context) => [context.authStatus]);
+
     const [showDropdown, setShowDropdown] = useState(false);
     const [showLeftMenu, setShowLeftMenu] = useState(true); /* change to true */
     const [showRightMenu, setShowRightMenu] = useState(false);
+
+    const toggleDropdown = () => {
+        setShowDropdown(!showDropdown);
+    };
+
+    const toggleLeftMenu = () => {
+        setShowLeftMenu(!showLeftMenu);
+    };
+
+    const toggleRightMenu = () => {
+        setShowRightMenu(!showRightMenu);
+    };
+
     const [groups, setGroups] = useState(undefined);
     const [userName, setUserName] = useState(String);
 
-      //The call that actually finds the user details
     useEffect(() => {
         fetchAuthSession({ forceRefresh: true })
         .then(({ tokens }) => {
@@ -34,33 +79,14 @@ export default function Navbar() {
             console.log(err);
         });
     }, []);
-
-    const toggleDropdown = () => {
-        console.log('Toggling Dropdown Menu');
-        setShowDropdown(!showDropdown);
-    };
-
-    const toggleLeftMenu = () => {
-        console.log('Toggling Left Menu');
-        setShowLeftMenu(!showLeftMenu);
-    };
-
-    const toggleRightMenu = () => {
-        console.log('Toggling Right Menu');
-        setShowRightMenu(!showRightMenu);
-    };
-
-    if (authStatus !== 'authenticated') {
-        return null;
-    }
-
-    if (user.username == "84080458-30f1-70d4-ad73-fd0af93c8967") {
-        user.username = "BUG:connorlove0@gmail.com";
-    }
+    useEffect(() => {
+        if (userName === undefined) {
+            router.refresh();
+        }
+    }, [router, userName]);
+    
     // Log the current user object to the console
-    console.log(user);
 
-    const displayName = user.username;
 
     return (
         
@@ -72,12 +98,12 @@ export default function Navbar() {
 
                 <Link href="/home" className="nav-link">Home</Link>
                 <Link href="/" className="nav-link">About</Link>
-                <Link href="/" className="nav-link">Sponsors</Link>
-                <Link href="/" className="nav-link">Catalogs</Link>
+                <Link href="/sponsorApplication" className="nav-link">Sponsor Applications</Link>
+                <Link href="/testCatalog" className="nav-link">Catalogs</Link>
                 <Link href="/" className="nav-link">Reports</Link>
             </div>
 
-            <div className="navbar-right-content">
+            <div className={styles["navbar-right-content"]}>
                 {authStatus === 'authenticated' && user ? (
                     <>
                         <span className="user-info">
@@ -92,7 +118,7 @@ export default function Navbar() {
                         {/* <HamburgerMenu showRightMenu={showRightMenu} /> */}
 
                         {showDropdown && (
-                            <div className={`dropdown-menu ${showDropdown ? 'show-dropdown' : ''}`} role="menu">
+                            <div className={`${styles['dropdown-menu']} ${showDropdown ? styles['show-dropdown'] : ''}`} role="menu">
                                 <Link href="/profile">Profile</Link>
                                 <button onClick={signOut}>Sign Out</button>
                             </div>
@@ -113,3 +139,10 @@ export default function Navbar() {
         </nav>
     );
 }
+
+// // Main content component
+// const MainContent = ({ showLeftMenu }) => (
+//     <div className={`main-content ${showLeftMenu ? 'main-content-with-menu' : ''}`}>
+//       {/* Your main content */}
+//     </div>
+//   );

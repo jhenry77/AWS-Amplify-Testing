@@ -1,6 +1,5 @@
-"use client";
+"use client"; 
 import React from 'react';
-import Navbar from "./components/AppNav";
 import { Amplify } from 'aws-amplify';
 // import  useAuthenticator  from '../components/useAuthenticator';
 import { useState, useEffect } from 'react';
@@ -9,73 +8,154 @@ import styles from './components/styles/about.module.css'
 
 
 
-import { UseAuthenticator, useAuthenticator } from '@aws-amplify/ui-react';
+
+import { useAuthenticator } from '@aws-amplify/ui-react';
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
-import { getCurrentUser } from 'aws-amplify/auth';
+//import { getCurrentUser } from 'aws-amplify/auth';
 import { fetchAuthSession } from 'aws-amplify/auth';
-import { AuthSession } from 'aws-amplify/auth';
+//import { AuthSession } from 'aws-amplify/auth';
 
-
-
-
-
-
-
-import { Authenticator, Placeholder } from '@aws-amplify/ui-react';
+//import { Authenticator, Placeholder } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 // import currentAuthenticatedUser from '../components/AuthUser';
-import AuthUser from './components/AuthUser';
+//import AuthUser from './components/AuthUser';
 
 import awsExports from '../src/aws-exports';
 import AuthClient from './components/AuthClient';
+
+import { generateClient } from 'aws-amplify/api';
+import {createSponsor, createUser, deleteSponsor } from "../src/graphql/mutations"
+import { getUser, listSponsors, listTodos, listUsers } from '../src/graphql/queries';
+import config from '@/src/amplifyconfiguration.json';
+import Link from "next/link"
+import { signOut } from "aws-amplify/auth";
+Amplify.configure(config);
+
+const client = generateClient();
+
+
+type User = {
+    id: string;
+    name: string;
+    familyName: string;
+    email: string;
+    address: string;
+  } | null;
+
+    
 Amplify.configure(awsExports);
 
 
 type AboutData = {
   teamNumber: string
-  VersionNum: string
-  SprintDate: string
+  VersionNum : string
+  SprintDate : string
   Productname: string
   ProductDescription: string
 }
 
-export default function Home() {
-  const { authStatus } = useAuthenticator((context) => [context.authStatus]);
-  const user = useAuthenticator((context) => [context.user]);
-  const router = useRouter();
-  // const session = user.
-  // const groups = session?.getAccessToken().payload["cognito:groups"];
-  // console.log(groups);
-  // authStatus === 'configuring' && router.push('/testLogin');
-  // authStatus !== 'authenticated' ? router.push('/testLogin') : router.push('/testAboutPage');
-  // Auth.currentAuthenticatedUser()
-  // .then(user => {
-  //   const groups = user.signInUserSession.idToken.payload['cognito:groups'];
-  //   console.log(groups);
-  // })
-  // .catch(err => console.log(err));
 
-  useEffect(() => {
-    fetchAuthSession()
-      .then(session => {
-        const { accessToken, idToken } = session.tokens ?? {};
-        // console.log(accessToken, idToken);
+
+export default function Home() {
+
+  const [groups, setGroups] = useState(undefined);
+    const [userName, setUserName] = useState(String);
+    const [userID, setUserID] = useState(String);
+    const [userfName, setFname] = useState(String);
+    const [userLName, setUserLName] = useState(String);
+    const [userEmail, setUserEmail] = useState(String);
+    const [userAddress, setUserAddress] = useState(String);
+
+    const [user, setUser] = useState<User>(null);
+
+
+
+    useEffect(() => {
+        fetchAuthSession({ forceRefresh: true })
+        .then(({ tokens }) => {
+            const idToken = tokens?.idToken as any;
+            console.log(idToken);
+            const userGroups = idToken.payload['cognito:groups'];
+            const username = idToken.payload["name"] + " " + idToken.payload["family_name"];
+            const fName = idToken.payload["name"];
+            const lName = idToken.payload["family_name"]
+            const id = idToken.payload["sub"];
+            const email = idToken.payload["email"]
+            const address = idToken.payload["address"];
+            setUserAddress(address);
+            setUserEmail(email);
+            setUserID(id);
+            setGroups(userGroups ? userGroups[0] : "No active Groups");
+            setUserName(username);
+            setFname(fName);
+            setUserLName(lName);
+            console.log(username);
+            const userData = {
+                id: idToken.payload["sub"],
+                name: idToken.payload["name"],
+                familyName: idToken.payload["family_name"],
+                email: idToken.payload["email"],
+                address: idToken.payload["address"]
+              };
+              setUser(userData);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    }, []);
+    useEffect(() => {
+    }, [userName]);
+
+    useEffect(() => {
+        if (!user) {
+          return;
+        }
+    client.graphql({ query: getUser, variables: { id: userID } })
+    .then(result => {
+      if (result.data.getUser) {
+        // console.log('User already exists in database');
+        return;
+      }else{
+        client.graphql({ query: createUser, variables: { input: user } })
+        .then(() => {
+          console.log('User added to database');
+        })
+        .catch(error => {
+          console.error('Error adding user to database:', error);
+        });
+      }
       })
-      .catch(err => {
-        console.log(err);
+
+    
+        const sponsorName = 'Sponsor1'
+
+
+client.graphql({query: listSponsors}).then(result =>{
+        console.log(result);
+      })
+      .catch(error => {
+        console.error('Error listing sponsors:', error);
       });
-  }, []);
+      })
+  
+
+  const {authStatus} = useAuthenticator((context) => [context.authStatus]);
+  const Curruser = useAuthenticator((context) => [context.user]);
+  const router = useRouter();
+ 
+
+
 
   useEffect(() => {
     if (authStatus === 'configuring') {
-      router.push('/login');
+        router.push('/login');
     } else if (authStatus !== 'authenticated') {
-      router.push('/login');
+        router.push('/login');
     } else {
-      router.push('/');
+        router.push('/');
     }
-  }, [authStatus]);
+}, [authStatus, router]);
 
 
 
@@ -97,31 +177,30 @@ export default function Home() {
 
 
   // handleFetchUserAttributes();
-  useEffect(() => {
-    if (user) {
-      console.log(user);
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (user) {
+  //     console.log(user);
+  //   }
+  // }, [user]);
 
-  const [userDeatails, setUserDetails] = useState(null);
-
-  useEffect(() => {
-    fetchAuthSession({ forceRefresh: true })
-      .then(({ tokens }) => {
-        console.log(tokens);
-        const groups = tokens?.idToken;
-        console.log(groups);
-        // console.log(`The userId: ${userId}`);
-        // console.log(`The signInDetails: ${signInDetails}`);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }, []);
-
+  const[userDeatails, setUserDetails] = useState(null);
+  
+  // useEffect(() => {
+  //   fetchAuthSession({forceRefresh: true})
+  //     .then(({tokens}) => {
+  //       console.log(tokens);
+  //       const groups = tokens?.idToken;
+  //       console.log(groups);
+  //       // console.log(`The userId: ${userId}`);
+  //       // console.log(`The signInDetails: ${signInDetails}`);
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     });
+  // }, []);
+  
   return (
     <main>
-      <div className="main-content">
         <h1 className={styles['title']}>About Us</h1>
         <Image
           src="/teamlogo.jpg"
@@ -130,21 +209,21 @@ export default function Home() {
           height={400}
           className="mx-auto"
         />
-        <br />
+        <br/>
         <p className={styles['text']}>
           Welcome to <strong>Team 3&apos;s Website</strong>! We&apos;re dedicated to providing the best experience for our users. <br />
           <strong>Our mission is to innovate and inspire.</strong>
         </p>
         <p className={styles['text']}>
-          <strong>Team Members:  </strong><br />
-          Connor Love <br />
-          Rinzo Martinelli <br />
-          Jason Senf<br />
-          Jackson Henry <br />
+        <strong>Team Members:  </strong><br />
+          Connor Love <br /> 
+          Rinzo Martinelli <br /> 
+          Jason Senf<br /> 
+          Jackson Henry <br/>
           <br />
-          With a focus on quality and community, we strive to bring you the latest in our field.<br /> Our team is made up of passionate professionals committed to excellence in everything we do.
+          With a focus on quality and community, we strive to bring you the latest in our field.<br/> Our team is made up of passionate professionals committed to excellence in everything we do.
           <br />
-          <br />
+          <br/>
         </p>
         {data && (
           <h1 className={styles['text']}>
@@ -155,7 +234,8 @@ export default function Home() {
             Product Description: {data.success[0].ProductDescription}
           </h1>
         )}
-      </div>
+       
+      
     </main>
   );
 }
@@ -185,7 +265,7 @@ function getAboutData() {
       };
 
       console.log(JSON.stringify(formattedResponse));
-
+      
       return formattedResponse; // Return the formatted data
     })
     .catch((error) => {

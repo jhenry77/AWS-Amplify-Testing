@@ -19,7 +19,8 @@
         }
       },
       "api": {
-        "team03testingapi": {}
+        "team03testingapi": {},
+        "team03amplifytesting": {}
       },
       "auth": {
         "team03amplifytesting": {},

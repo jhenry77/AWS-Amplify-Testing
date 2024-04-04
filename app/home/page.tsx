@@ -3,14 +3,11 @@ import Image from "next/image";
 
 export default function Homepage() {
     return(
-        <main>
-            <div style={{ position: 'relative', height: '1200px' }}>
-                <Image
-                    src="/trucking.jpg"
-                    alt="Home Photo"
-                    quality={100}
-                    fill
-                    style={{objectFit: 'cover'}}
+        <main> 
+            <div className={styles['image']}>
+            <img
+                src="/trucking.jpg"
+                alt="Home Photo"
                 />
             </div>
         </main>
