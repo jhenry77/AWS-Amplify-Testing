@@ -1,42 +1,29 @@
 "use client"
 import styles from "../components/styles/profile.module.css";
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import { useAuthenticator } from "@aws-amplify/ui-react";
 import { useEffect } from "react";
 import { fetchAuthSession } from "aws-amplify/auth";
-import { updateUserAttribute, type UpdateUserAttributeOutput } from 'aws-amplify/auth';
+import { updateUserAttributes, type UpdateUserAttributesOutput } from 'aws-amplify/auth';
 import { list } from "postcss";
 //import { changePassword } from 'aws-amplify/auth';
 
 
-async function handleUpdateUserAttribute(attributeKey: string, value: string) {
+async function handleUpdateEmailAndNameAttributes(
+    updatedEmail: string,
+    updatedName: string
+  ) {
     try {
-      const output = await updateUserAttribute({
-        userAttribute: {
-          attributeKey,
-          value
+      const attributes = await updateUserAttributes({
+        userAttributes: {
+          email: updatedEmail,
+          name: updatedName
         }
       });
-      handleUpdateUserAttributeNextSteps(output);
+      // handle next steps
     } catch (error) {
       console.log(error);
-    }
-  }
-  
-  function handleUpdateUserAttributeNextSteps(output: UpdateUserAttributeOutput) {
-    const { nextStep } = output;
-  
-    switch (nextStep.updateAttributeStep) {
-      case 'CONFIRM_ATTRIBUTE_WITH_CODE':
-        const codeDeliveryDetails = nextStep.codeDeliveryDetails;
-        console.log(
-          `Confirmation code was sent to ${codeDeliveryDetails?.deliveryMedium}.`
-        );
-        // Collect the confirmation code from the user and pass to confirmUserAttribute.
-        break;
-      case 'DONE':
-        console.log(`attribute was successfully updated.`);
-        break;
     }
   }
   
@@ -50,11 +37,26 @@ export default function Profile(){
     const[birthday, setBirthday] = useState(String);
     const[address, setAddress] = useState(Array);
 
-    const newEmailRef = useRef('');
-    const updateEmail = () => {
-        const newEmail = newEmailRef.current;
-        handleUpdateUserAttribute('email', newEmail);
-    }
+    const [formState, setFormState] = useState({
+        Email: ''
+    });
+
+    const handleChange = (e: any) => {
+        setFormState({
+            ...formState,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    const handleSubmit = (e: any) => {
+        e.preventDefault();
+        // Here you would handle the form submission,
+        // possibly sending the formState object to your backend
+        const { Email } = formState;
+        console.log("data we need");
+        console.log(Email);
+ };
+
 
     useEffect(() => {
         fetchAuthSession({forceRefresh: true})
@@ -95,9 +97,9 @@ export default function Profile(){
                 <p className={styles['subtext']}>{address.toString()}</p>
                 <p className={styles['blocktext']}>Birthday</p>
                 <p className={styles['subtext']}>{birthday}</p>
-                {/* <h4 className={styles['blocktext']}>Update Email</h4>
-                <p className={styles['subtext']}>Enter New Email</p>
-                <input className={styles['input']}
+
+
+                {/* <input className={styles['input']}
                     type="email"
                     placeholder="johnsmith@example.com"
                     // ref={newEmailRef}
@@ -115,7 +117,17 @@ export default function Profile(){
 
             {/* Password */}
             <div className={styles['block']}>
-                <h5 className={styles['blocktext']}>Update Password</h5>
+                <h4 className={styles['blocktext']}>Update Email</h4>
+                    <p className={styles['subtext']}>Enter New Email</p>
+                    <form onSubmit={handleSubmit} className={styles['container']}>
+
+                        <label>
+                            Email: &nbsp;  
+                            <input name="Email" value={formState.Email} onChange={handleChange} className="text-black" />
+                        </label>
+                        <input type="submit" value="Submit" className={styles['submitButton']} />
+                    </form>
+                {/* <h5 className={styles['blocktext']}>Update Password</h5>
                 <p className={styles['subtext']}>Enter New Password</p>
                 <input className={styles['input']}
                     type="password"
@@ -127,7 +139,7 @@ export default function Profile(){
                     placeholder="Current Password"
                 />
                 <br/>
-                <button className={styles['button']}>Submit</button>
+                <button className={styles['button']}>Submit</button> */}
                 <br/>
             </div>
         </div>
