@@ -37,6 +37,11 @@ export default function Home() {
     setSearchTerm(event.target.value);
   };
 
+  const [isChecked, setIsChecked] = useState(false); // Initialize the checkbox state
+
+  const handleCheckboxChange = (event: any) => {
+    setIsChecked(event.target.checked);
+  };
   const handleSearchSubmit = (event: any) => {
     event.preventDefault();
     searchiTunes(searchTerm).then(results => setData(results))
@@ -63,6 +68,10 @@ export default function Home() {
       <div className={styles.searchbar}>
         <form onSubmit={handleSearchSubmit}>
           <input className="text-black" type="text" value={searchTerm} onChange={handleSearchChange} placeholder="Search iTunes" />
+            <label>
+              <input type="checkbox" checked={isChecked} onChange={handleCheckboxChange} />
+              Include additional options
+            </label>
           <button type="submit">Search</button>
         </form>
       </div>

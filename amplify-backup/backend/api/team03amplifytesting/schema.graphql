@@ -1,0 +1,63 @@
+# This "input" configures a global authorization rule to enable public access to
+# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
+input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
+type Todo @model {
+  id: ID!
+  name: String!
+  description: String
+}
+type User @model {
+  id: ID!
+  name: String!
+  familyName: String!
+  email: String!
+  address: String!
+  applications: [SponsorApplication] @hasMany(fields: ["id"])
+  sponsors: [UserSponsor] @hasMany(fields: ["id"])
+}
+
+type SponsorApplication @model {
+  id: ID!
+  userId: ID!
+  user: User @belongsTo(fields: ["userId"])
+  sponsorId: ID!
+  sponsor: Sponsor @belongsTo(fields: ["sponsorId"])
+  reason: String!
+  additionalInfo: String!
+}
+
+
+# type User @model {
+#   id: ID!
+#   name: String!
+#   familyName: String!
+#   email: String!
+#   address: String!
+#   applications: [SponsorApplication] @hasMany(fields: ["id"])
+#   sponsors: [UserSponsor] @hasMany(fields: ["id"])
+# }
+
+type Sponsor @model {
+  id: ID!
+  name: String!
+  applications: [SponsorApplication] @hasMany(fields: ["id"])
+  users: [UserSponsor] @hasMany(fields: ["id"])
+}
+
+# type SponsorApplication @model {
+#   id: ID!
+#   userId: ID!
+#   user: User @belongsTo(fields: ["userId"])
+#   sponsorId: ID!
+#   sponsor: Sponsor @belongsTo(fields: ["sponsorId"])
+#   reason: String!
+#   additionalInfo: String
+# }
+
+type UserSponsor @model {
+  id: ID!
+  userId: ID!
+  user: User @belongsTo(fields: ["userId"])
+  sponsorId: ID!
+  sponsor: Sponsor @belongsTo(fields: ["sponsorId"])
+}

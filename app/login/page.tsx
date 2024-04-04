@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation';
 import { Authenticator, Placeholder } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import '../components/styles/aboutpage.module.css';
+import '../components/styles/login.module.css';
 
 import awsExports from '../../src/aws-exports';
 import AuthClient from '../components/AuthClient';
