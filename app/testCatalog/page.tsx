@@ -37,15 +37,17 @@ export default function Home() {
     setSearchTerm(event.target.value);
   };
 
-  const [isChecked, setIsChecked] = useState(false); // Initialize the checkbox state
+  const [isChecked, setIsChecked] = useState(true); // Initialize the checkbox state
 
   const handleCheckboxChange = (event: any) => {
     setIsChecked(event.target.checked);
+    console.log('Checkbox checked:', event.target.checked);
   };
   const handleSearchSubmit = (event: any) => {
     event.preventDefault();
-    searchiTunes(searchTerm).then(results => setData(results))
-    .catch(error => console.error(error));
+    searchiTunes(searchTerm)
+      .then(results => setData(results))
+      .catch(error => console.error(error));
   };
   const { authStatus } = useAuthenticator((context) => [context.authStatus]);
   const router = useRouter();
@@ -55,11 +57,15 @@ export default function Home() {
   const [data, setData] = useState<any[]>([]);
 
   useEffect(() => {
-    searchiTunes('').then(data => setData(data));
-    console.log("IN use effect");
-    console.log(data);
-  }, []);
-
+    // Fetch all results regardless of explicit content filtering
+    searchiTunes(searchTerm)
+      .then(results => {
+        // Filter results based on trackExplicitness attribute
+        const filteredResults = isChecked ? results.filter(item => item.trackExplicitness === 'notExplicit') : results;
+        setData(filteredResults);
+      })
+      .catch(error => console.error(error));
+  }, [searchTerm, isChecked]);
 
   // handleFetchUserAttributes();
 
@@ -70,7 +76,7 @@ export default function Home() {
           <input className="text-black" type="text" value={searchTerm} onChange={handleSearchChange} placeholder="Search iTunes" />
             <label>
               <input type="checkbox" checked={isChecked} onChange={handleCheckboxChange} />
-              Include additional options
+              Include explicit content
             </label>
           <button type="submit">Search</button>
         </form>
@@ -92,18 +98,14 @@ export default function Home() {
 
 
 
-function searchiTunes(term: string) {
-  const url = `https://itunes.apple.com/search?term=${term}&media=music&entity=song`;
-
-  return fetch(url)
-    .then(response => response.json())
-    .then(data => {
-      // Return the response data
-      console.log(data.results);
-      return data.results;
-    })
-    .catch(error => {
-      // Handle the error here
-      console.error(error);
-    });
-}
+  function searchiTunes(term: string) {
+    let url = `https://itunes.apple.com/search?term=${encodeURIComponent(term)}&media=music&entity=song`;
+    
+    return fetch(url)
+      .then(response => response.json())
+      .then(data => data.results)
+      .catch(error => {
+        console.error(error);
+        return [];
+      });
+  }
