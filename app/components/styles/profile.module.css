@@ -12,7 +12,6 @@
     color: white;
     font-size: 150%;
     text-align: left;
-
 }
 
 .blocktext {
@@ -44,7 +43,7 @@
 .button {
     margin-top: 20px;
     color: white;
-    font-size: 150%;
+    font-size: 125%;
     text-align: left;
     background-color: gray;
     border: none;
@@ -60,4 +59,12 @@
     background-color: rgb(52, 52, 52);
     border: none;
     border-radius: 8px;
+}
+
+.inline{
+    padding-left: 4px;
+    padding-right: 30px;
+    color: black;
+    font-size: 100%;
+    text-align: left;
 }

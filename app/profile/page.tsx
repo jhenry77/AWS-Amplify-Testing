@@ -53,9 +53,8 @@ export default function Profile(){
         // Here you would handle the form submission,
         // possibly sending the formState object to your backend
         const { Email } = formState;
-        console.log("data we need");
-        console.log(Email);
- };
+        handleUpdateEmailAndNameAttributes(Email, userName);
+    };
 
 
     useEffect(() => {
@@ -123,9 +122,10 @@ export default function Profile(){
 
                         <label>
                             Email: &nbsp;  
-                            <input name="Email" value={formState.Email} onChange={handleChange} className="text-black" />
+                            <input name="Email" value={formState.Email} onChange={handleChange} className={styles['inline']}/>
                         </label>
-                        <input type="submit" value="Submit" className={styles['submitButton']} />
+                        <br/>
+                        <input type="submit" value="Submit" className={styles['button']}/>
                     </form>
                 {/* <h5 className={styles['blocktext']}>Update Password</h5>
                 <p className={styles['subtext']}>Enter New Password</p>
@@ -142,6 +142,7 @@ export default function Profile(){
                 <button className={styles['button']}>Submit</button> */}
                 <br/>
             </div>
+            <br/><br/><br/><br/><br/><br/><br/><br/>
         </div>
     );
 };
