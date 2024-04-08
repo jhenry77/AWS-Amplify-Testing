@@ -887,10 +887,25 @@ export type GetUserQuery = {
     address: string,
     applications?:  {
       __typename: "ModelSponsorApplicationConnection",
+      items?:  {
+        __typename: "SponsorApplication",
+        id: string,
+        reason: string,
+      }[] | null,
       nextToken?: string | null,
     } | null,
     sponsors?:  {
       __typename: "ModelUserSponsorConnection",
+      items?:  {
+        __typename: "UserSponsor",
+        id: string,
+        points: number,
+        sponsor: {
+          __typename: "Sponsor",
+          id: string,
+          name: string,
+        },
+      }[] | null,
       nextToken?: string | null,
     } | null,
     createdAt: string,

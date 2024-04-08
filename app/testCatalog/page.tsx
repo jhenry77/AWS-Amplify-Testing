@@ -39,7 +39,7 @@ Amplify.configure(awsExports);
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState('');
   const [userId, setUserId] = useState(null);
-  const [userPoints, setPoints] = useState(null);
+  const [userPoints, setPoints] = useState(0);
   const { cart, addItem, removeItem } = useContext(CartContext);
 
   const handleSearchChange = (event: any) => {
@@ -89,7 +89,7 @@ useEffect(() =>{
       .then(result => {
         console.log("got this userSponsor")
           console.log(result);
-          if (result.data.getUser && result.data.getUser.sponsors) {
+          if (result.data.getUser && result.data.getUser.sponsors?.items) {
             console.log(result.data.getUser.sponsors);
             const points = result.data.getUser.sponsors.items[0].points;
             setPoints(points);
