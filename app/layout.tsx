@@ -6,6 +6,7 @@ import Auth from "@/app/components/Auth"
 import Navbar from "./components/AppNav";
 import Footer from './components/Footer';
 import styles from './components/styles/background.module.css';
+import { CartProvider } from "./components/cartProvider";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -21,7 +22,7 @@ export default function RootLayout({
     <html lang="en">
         <body className={inter.className}>
           <div className={styles['background']}>
-            <Auth><Navbar />{children}<Footer/></Auth>
+            <CartProvider><Auth><Navbar />{children}<Footer/></Auth></CartProvider>
           </div>
         </body>
     </html>

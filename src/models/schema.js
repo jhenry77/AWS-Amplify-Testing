@@ -369,6 +369,13 @@ export const schema = {
                         ]
                     }
                 },
+                "points": {
+                    "name": "points",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": true,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -399,5 +406,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "22ab8b922859e03366b429e812252ed0"
+    "version": "dda59ab1a6e863d3f203405804f0f80e"
 };

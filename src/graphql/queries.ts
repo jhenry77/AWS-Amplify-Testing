@@ -13,11 +13,9 @@ export const getTodo = /* GraphQL */ `query GetTodo($id: ID!) {
     id
     name
     description
+    extraDesciprtion
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -32,48 +30,16 @@ export const listTodos = /* GraphQL */ `query ListTodos(
       id
       name
       description
+      extraDesciprtion
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     nextToken
-    startedAt
     __typename
   }
 }
 ` as GeneratedQuery<APITypes.ListTodosQueryVariables, APITypes.ListTodosQuery>;
-export const syncTodos = /* GraphQL */ `query SyncTodos(
-  $filter: ModelTodoFilterInput
-  $limit: Int
-  $nextToken: String
-  $lastSync: AWSTimestamp
-) {
-  syncTodos(
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-    lastSync: $lastSync
-  ) {
-    items {
-      id
-      name
-      description
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      __typename
-    }
-    nextToken
-    startedAt
-    __typename
-  }
-}
-` as GeneratedQuery<APITypes.SyncTodosQueryVariables, APITypes.SyncTodosQuery>;
 export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
   getUser(id: $id) {
     id
@@ -82,20 +48,28 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
     email
     address
     applications {
+      items {
+        id
+        reason
+        
+      }
       nextToken
-      startedAt
       __typename
     }
     sponsors {
+      items {
+        id
+        points
+        sponsor {
+          id
+          name
+        }
+      }
       nextToken
-      startedAt
       __typename
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -114,48 +88,13 @@ export const listUsers = /* GraphQL */ `query ListUsers(
       address
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     nextToken
-    startedAt
     __typename
   }
 }
 ` as GeneratedQuery<APITypes.ListUsersQueryVariables, APITypes.ListUsersQuery>;
-export const syncUsers = /* GraphQL */ `query SyncUsers(
-  $filter: ModelUserFilterInput
-  $limit: Int
-  $nextToken: String
-  $lastSync: AWSTimestamp
-) {
-  syncUsers(
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-    lastSync: $lastSync
-  ) {
-    items {
-      id
-      name
-      familyName
-      email
-      address
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      __typename
-    }
-    nextToken
-    startedAt
-    __typename
-  }
-}
-` as GeneratedQuery<APITypes.SyncUsersQueryVariables, APITypes.SyncUsersQuery>;
 export const getSponsorApplication = /* GraphQL */ `query GetSponsorApplication($id: ID!) {
   getSponsorApplication(id: $id) {
     id
@@ -168,9 +107,6 @@ export const getSponsorApplication = /* GraphQL */ `query GetSponsorApplication(
       address
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     sponsorId
@@ -179,18 +115,12 @@ export const getSponsorApplication = /* GraphQL */ `query GetSponsorApplication(
       name
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     reason
     additionalInfo
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -219,9 +149,6 @@ export const listSponsorApplications = /* GraphQL */ `query ListSponsorApplicati
         address
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
         __typename
       }
       sponsorId
@@ -229,13 +156,9 @@ export const listSponsorApplications = /* GraphQL */ `query ListSponsorApplicati
       additionalInfo
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     nextToken
-    startedAt
     __typename
   }
 }
@@ -243,59 +166,20 @@ export const listSponsorApplications = /* GraphQL */ `query ListSponsorApplicati
   APITypes.ListSponsorApplicationsQueryVariables,
   APITypes.ListSponsorApplicationsQuery
 >;
-export const syncSponsorApplications = /* GraphQL */ `query SyncSponsorApplications(
-  $filter: ModelSponsorApplicationFilterInput
-  $limit: Int
-  $nextToken: String
-  $lastSync: AWSTimestamp
-) {
-  syncSponsorApplications(
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-    lastSync: $lastSync
-  ) {
-    items {
-      id
-      userId
-      sponsorId
-      reason
-      additionalInfo
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      __typename
-    }
-    nextToken
-    startedAt
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.SyncSponsorApplicationsQueryVariables,
-  APITypes.SyncSponsorApplicationsQuery
->;
 export const getSponsor = /* GraphQL */ `query GetSponsor($id: ID!) {
   getSponsor(id: $id) {
     id
     name
     applications {
       nextToken
-      startedAt
       __typename
     }
     users {
       nextToken
-      startedAt
       __typename
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -314,50 +198,15 @@ export const listSponsors = /* GraphQL */ `query ListSponsors(
       name
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     nextToken
-    startedAt
     __typename
   }
 }
 ` as GeneratedQuery<
   APITypes.ListSponsorsQueryVariables,
   APITypes.ListSponsorsQuery
->;
-export const syncSponsors = /* GraphQL */ `query SyncSponsors(
-  $filter: ModelSponsorFilterInput
-  $limit: Int
-  $nextToken: String
-  $lastSync: AWSTimestamp
-) {
-  syncSponsors(
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-    lastSync: $lastSync
-  ) {
-    items {
-      id
-      name
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      __typename
-    }
-    nextToken
-    startedAt
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.SyncSponsorsQueryVariables,
-  APITypes.SyncSponsorsQuery
 >;
 export const getUserSponsor = /* GraphQL */ `query GetUserSponsor($id: ID!) {
   getUserSponsor(id: $id) {
@@ -371,9 +220,6 @@ export const getUserSponsor = /* GraphQL */ `query GetUserSponsor($id: ID!) {
       address
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     sponsorId
@@ -382,16 +228,11 @@ export const getUserSponsor = /* GraphQL */ `query GetUserSponsor($id: ID!) {
       name
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
+    points
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -409,51 +250,16 @@ export const listUserSponsors = /* GraphQL */ `query ListUserSponsors(
       id
       userId
       sponsorId
+      points
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     nextToken
-    startedAt
     __typename
   }
 }
 ` as GeneratedQuery<
   APITypes.ListUserSponsorsQueryVariables,
   APITypes.ListUserSponsorsQuery
->;
-export const syncUserSponsors = /* GraphQL */ `query SyncUserSponsors(
-  $filter: ModelUserSponsorFilterInput
-  $limit: Int
-  $nextToken: String
-  $lastSync: AWSTimestamp
-) {
-  syncUserSponsors(
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-    lastSync: $lastSync
-  ) {
-    items {
-      id
-      userId
-      sponsorId
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      __typename
-    }
-    nextToken
-    startedAt
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.SyncUserSponsorsQueryVariables,
-  APITypes.SyncUserSponsorsQuery
 >;

@@ -5,4 +5,10 @@
  **************************************************************************/
 
 export { default as CatalogUI } from "./CatalogUI";
+export { default as SponsorCreateForm } from "./SponsorCreateForm";
+export { default as SponsorUpdateForm } from "./SponsorUpdateForm";
+export { default as TodoCreateForm } from "./TodoCreateForm";
+export { default as TodoUpdateForm } from "./TodoUpdateForm";
+export { default as UpdateEmail } from "./UpdateEmail";
+export { default as UserCreateForm } from "./UserCreateForm";
 export { default as studioTheme } from "./studioTheme";

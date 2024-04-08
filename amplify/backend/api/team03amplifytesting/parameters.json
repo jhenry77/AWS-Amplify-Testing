@@ -1,5 +1,6 @@
 {
   "AppSyncApiName": "team03amplifytesting",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
-  "DynamoDBEnableServerSideEncryption": false
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthModeLastUpdated": "2024-04-07T19:30:39.839Z"
 }

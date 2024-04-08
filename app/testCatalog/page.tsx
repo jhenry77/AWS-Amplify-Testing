@@ -1,11 +1,12 @@
 "use client";
-import React from 'react';
+import React,{useContext} from 'react';
 import Navbar from "../components/AppNav";
 import { Amplify } from 'aws-amplify';
 // import  useAuthenticator  from '../components/useAuthenticator';
 import { useState, useEffect } from 'react';
 import CatalogUI from '../components/CatalogUI';
 import styles from '../components/styles/catalogpage.module.css';
+import { generateClient } from 'aws-amplify/api';
 
 
 
@@ -13,6 +14,7 @@ import { UseAuthenticator, useAuthenticator } from '@aws-amplify/ui-react';
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { getCurrentUser } from 'aws-amplify/auth';
+import { fetchAuthSession } from 'aws-amplify/auth';
 
 
 
@@ -24,6 +26,10 @@ import AuthUser from '../components/AuthUser';
 
 import awsExports from '../../src/aws-exports';
 import AuthClient from '../components/AuthClient';
+import { getUser } from '@/src/graphql/queries';
+import CartContext from '../components/cart';
+const client = generateClient();
+
 Amplify.configure(awsExports);
 
 
@@ -32,6 +38,9 @@ Amplify.configure(awsExports);
 
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState('');
+  const [userId, setUserId] = useState(null);
+  const [userPoints, setPoints] = useState(0);
+  const { cart, addItem, removeItem } = useContext(CartContext);
 
   const handleSearchChange = (event: any) => {
     setSearchTerm(event.target.value);
@@ -56,11 +65,48 @@ export default function Home() {
   }, []);
 
 
+  useEffect(() => {
+    fetchAuthSession({ forceRefresh: true })
+    .then(({ tokens }) => {
+        const idToken = tokens?.idToken as any;
+        const id = idToken.payload["sub"];
+        setUserId(id);
+    })
+    .catch(err => {
+        console.log(err);
+    });
+}, [])
+
+
+useEffect(() =>{
+  console.log("In use effect");
+  if (userId){
+      client.graphql({ query: getUser, 
+          variables: {
+                id: userId
+          }
+      })
+      .then(result => {
+        console.log("got this userSponsor")
+          console.log(result);
+          if (result.data.getUser && result.data.getUser.sponsors?.items) {
+            console.log(result.data.getUser.sponsors);
+            const points = result.data.getUser.sponsors.items[0].points;
+            setPoints(points);
+          }
+      })
+      .catch(error => {
+          console.error('Error fetching sponsor applications:', error);
+      });
+    }
+}, [userId])
+
   // handleFetchUserAttributes();
 
   return (
     <main className="min-h-screen flex flex-row p-12 flex-wrap justify-center">
       <div className={styles.searchbar}>
+        Points: {userPoints}
         <form onSubmit={handleSearchSubmit}>
           <input className="text-black" type="text" value={searchTerm} onChange={handleSearchChange} placeholder="Search iTunes" />
           <button type="submit">Search</button>
@@ -73,6 +119,7 @@ export default function Home() {
         albumTitle={item.collectionName}
         albumCover={item.artworkUrl100}
         price={item.collectionPrice}
+        trackId={item.trackId}
       />
 
       ))}

@@ -3,7 +3,8 @@
 import {Authenticator} from '@aws-amplify/ui-react'
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import Navbar from "../components/AppNav";
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation';
+import styles from '../components/styles/LoginStyles.module.css'
 
 
 const signUpFields = {
@@ -37,7 +38,7 @@ const AuthClient = () => {
   const router = useRouter()
   
     return ( 
-    <Authenticator formFields={signUpFields}>
+    <Authenticator formFields={signUpFields} className={styles['container']}>
         {({ signOut, user }) => (
         <main>
         <Navbar />

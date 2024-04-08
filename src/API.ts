@@ -6,16 +6,16 @@ export type CreateTodoInput = {
   id?: string | null,
   name: string,
   description?: string | null,
-  _version?: number | null,
+  extraDesciprtion?: string | null,
 };
 
 export type ModelTodoConditionInput = {
   name?: ModelStringInput | null,
   description?: ModelStringInput | null,
+  extraDesciprtion?: ModelStringInput | null,
   and?: Array< ModelTodoConditionInput | null > | null,
   or?: Array< ModelTodoConditionInput | null > | null,
   not?: ModelTodoConditionInput | null,
-  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelStringInput = {
@@ -58,35 +58,25 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
-export type ModelBooleanInput = {
-  ne?: boolean | null,
-  eq?: boolean | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-};
-
 export type Todo = {
   __typename: "Todo",
   id: string,
   name: string,
   description?: string | null,
+  extraDesciprtion?: string | null,
   createdAt: string,
   updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
 };
 
 export type UpdateTodoInput = {
   id: string,
   name?: string | null,
   description?: string | null,
-  _version?: number | null,
+  extraDesciprtion?: string | null,
 };
 
 export type DeleteTodoInput = {
   id: string,
-  _version?: number | null,
 };
 
 export type CreateUserInput = {
@@ -95,7 +85,6 @@ export type CreateUserInput = {
   familyName: string,
   email: string,
   address: string,
-  _version?: number | null,
 };
 
 export type ModelUserConditionInput = {
@@ -106,7 +95,6 @@ export type ModelUserConditionInput = {
   and?: Array< ModelUserConditionInput | null > | null,
   or?: Array< ModelUserConditionInput | null > | null,
   not?: ModelUserConditionInput | null,
-  _deleted?: ModelBooleanInput | null,
 };
 
 export type User = {
@@ -120,16 +108,12 @@ export type User = {
   sponsors?: ModelUserSponsorConnection | null,
   createdAt: string,
   updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
 };
 
 export type ModelSponsorApplicationConnection = {
   __typename: "ModelSponsorApplicationConnection",
   items:  Array<SponsorApplication | null >,
   nextToken?: string | null,
-  startedAt?: number | null,
 };
 
 export type SponsorApplication = {
@@ -143,9 +127,6 @@ export type SponsorApplication = {
   additionalInfo: string,
   createdAt: string,
   updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
 };
 
 export type Sponsor = {
@@ -156,16 +137,12 @@ export type Sponsor = {
   users?: ModelUserSponsorConnection | null,
   createdAt: string,
   updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
 };
 
 export type ModelUserSponsorConnection = {
   __typename: "ModelUserSponsorConnection",
   items:  Array<UserSponsor | null >,
   nextToken?: string | null,
-  startedAt?: number | null,
 };
 
 export type UserSponsor = {
@@ -175,11 +152,9 @@ export type UserSponsor = {
   user?: User | null,
   sponsorId: string,
   sponsor?: Sponsor | null,
+  points: number,
   createdAt: string,
   updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
 };
 
 export type UpdateUserInput = {
@@ -188,12 +163,10 @@ export type UpdateUserInput = {
   familyName?: string | null,
   email?: string | null,
   address?: string | null,
-  _version?: number | null,
 };
 
 export type DeleteUserInput = {
   id: string,
-  _version?: number | null,
 };
 
 export type CreateSponsorApplicationInput = {
@@ -202,7 +175,6 @@ export type CreateSponsorApplicationInput = {
   sponsorId: string,
   reason: string,
   additionalInfo: string,
-  _version?: number | null,
 };
 
 export type ModelSponsorApplicationConditionInput = {
@@ -213,7 +185,6 @@ export type ModelSponsorApplicationConditionInput = {
   and?: Array< ModelSponsorApplicationConditionInput | null > | null,
   or?: Array< ModelSponsorApplicationConditionInput | null > | null,
   not?: ModelSponsorApplicationConditionInput | null,
-  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelIDInput = {
@@ -238,18 +209,15 @@ export type UpdateSponsorApplicationInput = {
   sponsorId?: string | null,
   reason?: string | null,
   additionalInfo?: string | null,
-  _version?: number | null,
 };
 
 export type DeleteSponsorApplicationInput = {
   id: string,
-  _version?: number | null,
 };
 
 export type CreateSponsorInput = {
   id?: string | null,
   name: string,
-  _version?: number | null,
 };
 
 export type ModelSponsorConditionInput = {
@@ -257,63 +225,70 @@ export type ModelSponsorConditionInput = {
   and?: Array< ModelSponsorConditionInput | null > | null,
   or?: Array< ModelSponsorConditionInput | null > | null,
   not?: ModelSponsorConditionInput | null,
-  _deleted?: ModelBooleanInput | null,
 };
 
 export type UpdateSponsorInput = {
   id: string,
   name?: string | null,
-  _version?: number | null,
 };
 
 export type DeleteSponsorInput = {
   id: string,
-  _version?: number | null,
 };
 
 export type CreateUserSponsorInput = {
   id?: string | null,
   userId: string,
   sponsorId: string,
-  _version?: number | null,
+  points: number,
 };
 
 export type ModelUserSponsorConditionInput = {
   userId?: ModelIDInput | null,
   sponsorId?: ModelIDInput | null,
+  points?: ModelIntInput | null,
   and?: Array< ModelUserSponsorConditionInput | null > | null,
   or?: Array< ModelUserSponsorConditionInput | null > | null,
   not?: ModelUserSponsorConditionInput | null,
-  _deleted?: ModelBooleanInput | null,
+};
+
+export type ModelIntInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
 };
 
 export type UpdateUserSponsorInput = {
   id: string,
   userId?: string | null,
   sponsorId?: string | null,
-  _version?: number | null,
+  points?: number | null,
 };
 
 export type DeleteUserSponsorInput = {
   id: string,
-  _version?: number | null,
 };
 
 export type ModelTodoFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
   description?: ModelStringInput | null,
+  extraDesciprtion?: ModelStringInput | null,
   and?: Array< ModelTodoFilterInput | null > | null,
   or?: Array< ModelTodoFilterInput | null > | null,
   not?: ModelTodoFilterInput | null,
-  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelTodoConnection = {
   __typename: "ModelTodoConnection",
   items:  Array<Todo | null >,
   nextToken?: string | null,
-  startedAt?: number | null,
 };
 
 export type ModelUserFilterInput = {
@@ -325,14 +300,12 @@ export type ModelUserFilterInput = {
   and?: Array< ModelUserFilterInput | null > | null,
   or?: Array< ModelUserFilterInput | null > | null,
   not?: ModelUserFilterInput | null,
-  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelUserConnection = {
   __typename: "ModelUserConnection",
   items:  Array<User | null >,
   nextToken?: string | null,
-  startedAt?: number | null,
 };
 
 export type ModelSponsorApplicationFilterInput = {
@@ -344,7 +317,6 @@ export type ModelSponsorApplicationFilterInput = {
   and?: Array< ModelSponsorApplicationFilterInput | null > | null,
   or?: Array< ModelSponsorApplicationFilterInput | null > | null,
   not?: ModelSponsorApplicationFilterInput | null,
-  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelSponsorFilterInput = {
@@ -353,33 +325,31 @@ export type ModelSponsorFilterInput = {
   and?: Array< ModelSponsorFilterInput | null > | null,
   or?: Array< ModelSponsorFilterInput | null > | null,
   not?: ModelSponsorFilterInput | null,
-  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelSponsorConnection = {
   __typename: "ModelSponsorConnection",
   items:  Array<Sponsor | null >,
   nextToken?: string | null,
-  startedAt?: number | null,
 };
 
 export type ModelUserSponsorFilterInput = {
   id?: ModelIDInput | null,
   userId?: ModelIDInput | null,
   sponsorId?: ModelIDInput | null,
+  points?: ModelIntInput | null,
   and?: Array< ModelUserSponsorFilterInput | null > | null,
   or?: Array< ModelUserSponsorFilterInput | null > | null,
   not?: ModelUserSponsorFilterInput | null,
-  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelSubscriptionTodoFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   name?: ModelSubscriptionStringInput | null,
   description?: ModelSubscriptionStringInput | null,
+  extraDesciprtion?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionTodoFilterInput | null > | null,
   or?: Array< ModelSubscriptionTodoFilterInput | null > | null,
-  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelSubscriptionIDInput = {
@@ -420,7 +390,6 @@ export type ModelSubscriptionUserFilterInput = {
   address?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionUserFilterInput | null > | null,
   or?: Array< ModelSubscriptionUserFilterInput | null > | null,
-  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelSubscriptionSponsorApplicationFilterInput = {
@@ -431,7 +400,6 @@ export type ModelSubscriptionSponsorApplicationFilterInput = {
   additionalInfo?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionSponsorApplicationFilterInput | null > | null,
   or?: Array< ModelSubscriptionSponsorApplicationFilterInput | null > | null,
-  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelSubscriptionSponsorFilterInput = {
@@ -439,16 +407,27 @@ export type ModelSubscriptionSponsorFilterInput = {
   name?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionSponsorFilterInput | null > | null,
   or?: Array< ModelSubscriptionSponsorFilterInput | null > | null,
-  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelSubscriptionUserSponsorFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   userId?: ModelSubscriptionIDInput | null,
   sponsorId?: ModelSubscriptionIDInput | null,
+  points?: ModelSubscriptionIntInput | null,
   and?: Array< ModelSubscriptionUserSponsorFilterInput | null > | null,
   or?: Array< ModelSubscriptionUserSponsorFilterInput | null > | null,
-  _deleted?: ModelBooleanInput | null,
+};
+
+export type ModelSubscriptionIntInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  in?: Array< number | null > | null,
+  notIn?: Array< number | null > | null,
 };
 
 export type CreateTodoMutationVariables = {
@@ -462,11 +441,9 @@ export type CreateTodoMutation = {
     id: string,
     name: string,
     description?: string | null,
+    extraDesciprtion?: string | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -481,11 +458,9 @@ export type UpdateTodoMutation = {
     id: string,
     name: string,
     description?: string | null,
+    extraDesciprtion?: string | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -500,11 +475,9 @@ export type DeleteTodoMutation = {
     id: string,
     name: string,
     description?: string | null,
+    extraDesciprtion?: string | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -524,18 +497,13 @@ export type CreateUserMutation = {
     applications?:  {
       __typename: "ModelSponsorApplicationConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     sponsors?:  {
       __typename: "ModelUserSponsorConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -555,18 +523,13 @@ export type UpdateUserMutation = {
     applications?:  {
       __typename: "ModelSponsorApplicationConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     sponsors?:  {
       __typename: "ModelUserSponsorConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -586,18 +549,13 @@ export type DeleteUserMutation = {
     applications?:  {
       __typename: "ModelSponsorApplicationConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     sponsors?:  {
       __typename: "ModelUserSponsorConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -620,9 +578,6 @@ export type CreateSponsorApplicationMutation = {
       address: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     sponsorId: string,
     sponsor?:  {
@@ -631,17 +586,11 @@ export type CreateSponsorApplicationMutation = {
       name: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     reason: string,
     additionalInfo: string,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -664,9 +613,6 @@ export type UpdateSponsorApplicationMutation = {
       address: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     sponsorId: string,
     sponsor?:  {
@@ -675,17 +621,11 @@ export type UpdateSponsorApplicationMutation = {
       name: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     reason: string,
     additionalInfo: string,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -708,9 +648,6 @@ export type DeleteSponsorApplicationMutation = {
       address: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     sponsorId: string,
     sponsor?:  {
@@ -719,17 +656,11 @@ export type DeleteSponsorApplicationMutation = {
       name: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     reason: string,
     additionalInfo: string,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -746,18 +677,13 @@ export type CreateSponsorMutation = {
     applications?:  {
       __typename: "ModelSponsorApplicationConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     users?:  {
       __typename: "ModelUserSponsorConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -774,18 +700,13 @@ export type UpdateSponsorMutation = {
     applications?:  {
       __typename: "ModelSponsorApplicationConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     users?:  {
       __typename: "ModelUserSponsorConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -802,18 +723,13 @@ export type DeleteSponsorMutation = {
     applications?:  {
       __typename: "ModelSponsorApplicationConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     users?:  {
       __typename: "ModelUserSponsorConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -836,9 +752,6 @@ export type CreateUserSponsorMutation = {
       address: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     sponsorId: string,
     sponsor?:  {
@@ -847,15 +760,10 @@ export type CreateUserSponsorMutation = {
       name: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
+    points: number,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -878,9 +786,6 @@ export type UpdateUserSponsorMutation = {
       address: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     sponsorId: string,
     sponsor?:  {
@@ -889,15 +794,10 @@ export type UpdateUserSponsorMutation = {
       name: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
+    points: number,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -920,9 +820,6 @@ export type DeleteUserSponsorMutation = {
       address: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     sponsorId: string,
     sponsor?:  {
@@ -931,15 +828,10 @@ export type DeleteUserSponsorMutation = {
       name: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
+    points: number,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -953,11 +845,9 @@ export type GetTodoQuery = {
     id: string,
     name: string,
     description?: string | null,
+    extraDesciprtion?: string | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -975,40 +865,11 @@ export type ListTodosQuery = {
       id: string,
       name: string,
       description?: string | null,
+      extraDesciprtion?: string | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type SyncTodosQueryVariables = {
-  filter?: ModelTodoFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncTodosQuery = {
-  syncTodos?:  {
-    __typename: "ModelTodoConnection",
-    items:  Array< {
-      __typename: "Todo",
-      id: string,
-      name: string,
-      description?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
 };
 
@@ -1026,19 +887,29 @@ export type GetUserQuery = {
     address: string,
     applications?:  {
       __typename: "ModelSponsorApplicationConnection",
+      items?:  {
+        __typename: "SponsorApplication",
+        id: string,
+        reason: string,
+      }[] | null,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     sponsors?:  {
       __typename: "ModelUserSponsorConnection",
+      items?:  {
+        __typename: "UserSponsor",
+        id: string,
+        points: number,
+        sponsor: {
+          __typename: "Sponsor",
+          id: string,
+          name: string,
+        },
+      }[] | null,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1060,40 +931,8 @@ export type ListUsersQuery = {
       address: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type SyncUsersQueryVariables = {
-  filter?: ModelUserFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncUsersQuery = {
-  syncUsers?:  {
-    __typename: "ModelUserConnection",
-    items:  Array< {
-      __typename: "User",
-      id: string,
-      name: string,
-      familyName: string,
-      email: string,
-      address: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
 };
 
@@ -1115,9 +954,6 @@ export type GetSponsorApplicationQuery = {
       address: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     sponsorId: string,
     sponsor?:  {
@@ -1126,17 +962,11 @@ export type GetSponsorApplicationQuery = {
       name: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     reason: string,
     additionalInfo: string,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1158,40 +988,8 @@ export type ListSponsorApplicationsQuery = {
       additionalInfo: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type SyncSponsorApplicationsQueryVariables = {
-  filter?: ModelSponsorApplicationFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncSponsorApplicationsQuery = {
-  syncSponsorApplications?:  {
-    __typename: "ModelSponsorApplicationConnection",
-    items:  Array< {
-      __typename: "SponsorApplication",
-      id: string,
-      userId: string,
-      sponsorId: string,
-      reason: string,
-      additionalInfo: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
 };
 
@@ -1207,18 +1005,13 @@ export type GetSponsorQuery = {
     applications?:  {
       __typename: "ModelSponsorApplicationConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     users?:  {
       __typename: "ModelUserSponsorConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1237,37 +1030,8 @@ export type ListSponsorsQuery = {
       name: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type SyncSponsorsQueryVariables = {
-  filter?: ModelSponsorFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncSponsorsQuery = {
-  syncSponsors?:  {
-    __typename: "ModelSponsorConnection",
-    items:  Array< {
-      __typename: "Sponsor",
-      id: string,
-      name: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
 };
 
@@ -1289,9 +1053,6 @@ export type GetUserSponsorQuery = {
       address: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     sponsorId: string,
     sponsor?:  {
@@ -1300,15 +1061,10 @@ export type GetUserSponsorQuery = {
       name: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
+    points: number,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1326,40 +1082,11 @@ export type ListUserSponsorsQuery = {
       id: string,
       userId: string,
       sponsorId: string,
+      points: number,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type SyncUserSponsorsQueryVariables = {
-  filter?: ModelUserSponsorFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncUserSponsorsQuery = {
-  syncUserSponsors?:  {
-    __typename: "ModelUserSponsorConnection",
-    items:  Array< {
-      __typename: "UserSponsor",
-      id: string,
-      userId: string,
-      sponsorId: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
 };
 
@@ -1373,11 +1100,9 @@ export type OnCreateTodoSubscription = {
     id: string,
     name: string,
     description?: string | null,
+    extraDesciprtion?: string | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1391,11 +1116,9 @@ export type OnUpdateTodoSubscription = {
     id: string,
     name: string,
     description?: string | null,
+    extraDesciprtion?: string | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1409,11 +1132,9 @@ export type OnDeleteTodoSubscription = {
     id: string,
     name: string,
     description?: string | null,
+    extraDesciprtion?: string | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1432,18 +1153,13 @@ export type OnCreateUserSubscription = {
     applications?:  {
       __typename: "ModelSponsorApplicationConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     sponsors?:  {
       __typename: "ModelUserSponsorConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1462,18 +1178,13 @@ export type OnUpdateUserSubscription = {
     applications?:  {
       __typename: "ModelSponsorApplicationConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     sponsors?:  {
       __typename: "ModelUserSponsorConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1492,18 +1203,13 @@ export type OnDeleteUserSubscription = {
     applications?:  {
       __typename: "ModelSponsorApplicationConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     sponsors?:  {
       __typename: "ModelUserSponsorConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1525,9 +1231,6 @@ export type OnCreateSponsorApplicationSubscription = {
       address: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     sponsorId: string,
     sponsor?:  {
@@ -1536,17 +1239,11 @@ export type OnCreateSponsorApplicationSubscription = {
       name: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     reason: string,
     additionalInfo: string,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1568,9 +1265,6 @@ export type OnUpdateSponsorApplicationSubscription = {
       address: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     sponsorId: string,
     sponsor?:  {
@@ -1579,17 +1273,11 @@ export type OnUpdateSponsorApplicationSubscription = {
       name: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     reason: string,
     additionalInfo: string,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1611,9 +1299,6 @@ export type OnDeleteSponsorApplicationSubscription = {
       address: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     sponsorId: string,
     sponsor?:  {
@@ -1622,17 +1307,11 @@ export type OnDeleteSponsorApplicationSubscription = {
       name: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     reason: string,
     additionalInfo: string,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1648,18 +1327,13 @@ export type OnCreateSponsorSubscription = {
     applications?:  {
       __typename: "ModelSponsorApplicationConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     users?:  {
       __typename: "ModelUserSponsorConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1675,18 +1349,13 @@ export type OnUpdateSponsorSubscription = {
     applications?:  {
       __typename: "ModelSponsorApplicationConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     users?:  {
       __typename: "ModelUserSponsorConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1702,18 +1371,13 @@ export type OnDeleteSponsorSubscription = {
     applications?:  {
       __typename: "ModelSponsorApplicationConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     users?:  {
       __typename: "ModelUserSponsorConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1735,9 +1399,6 @@ export type OnCreateUserSponsorSubscription = {
       address: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     sponsorId: string,
     sponsor?:  {
@@ -1746,15 +1407,10 @@ export type OnCreateUserSponsorSubscription = {
       name: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
+    points: number,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1776,9 +1432,6 @@ export type OnUpdateUserSponsorSubscription = {
       address: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     sponsorId: string,
     sponsor?:  {
@@ -1787,15 +1440,10 @@ export type OnUpdateUserSponsorSubscription = {
       name: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
+    points: number,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1817,9 +1465,6 @@ export type OnDeleteUserSponsorSubscription = {
       address: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     sponsorId: string,
     sponsor?:  {
@@ -1828,14 +1473,9 @@ export type OnDeleteUserSponsorSubscription = {
       name: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
+    points: number,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };

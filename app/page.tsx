@@ -25,8 +25,8 @@ import awsExports from '../src/aws-exports';
 import AuthClient from './components/AuthClient';
 
 import { generateClient } from 'aws-amplify/api';
-import {createSponsor, createUser, deleteSponsor } from "../src/graphql/mutations"
-import { getUser, listSponsors, listTodos, listUsers } from '../src/graphql/queries';
+import {createSponsor, createUser, deleteSponsor, deleteUserSponsor } from "../src/graphql/mutations"
+import { getUser, listSponsorApplications, listSponsors, listTodos, listUsers, listUserSponsors } from '../src/graphql/queries';
 import config from '@/src/amplifyconfiguration.json';
 import Link from "next/link"
 import { signOut } from "aws-amplify/auth";
@@ -74,6 +74,7 @@ export default function Home() {
     useEffect(() => {
         fetchAuthSession({ forceRefresh: true })
         .then(({ tokens }) => {
+          console.log("in fetch auth session");
             const idToken = tokens?.idToken as any;
             console.log(idToken);
             const userGroups = idToken.payload['cognito:groups'];
@@ -96,7 +97,7 @@ export default function Home() {
                 name: idToken.payload["name"],
                 familyName: idToken.payload["family_name"],
                 email: idToken.payload["email"],
-                address: idToken.payload["address"]
+                address: idToken.payload["address"].formatted
               };
               setUser(userData);
         })
@@ -111,10 +112,13 @@ export default function Home() {
         if (!user) {
           return;
         }
+        console.log("right before get user")
     client.graphql({ query: getUser, variables: { id: userID } })
     .then(result => {
+      console.log("Inside of get user");
       if (result.data.getUser) {
-        // console.log('User already exists in database');
+        console.log('User already exists in database');
+        console.log(result.data.getUser);
         return;
       }else{
         client.graphql({ query: createUser, variables: { input: user } })
@@ -127,18 +131,20 @@ export default function Home() {
       }
       })
 
-    
-        const sponsorName = 'Sponsor1'
+      
+
+  
 
 
-client.graphql({query: listSponsors}).then(result =>{
-        console.log(result);
-      })
-      .catch(error => {
-        console.error('Error listing sponsors:', error);
-      });
+// client.graphql({query: listSponsors}).then(result =>{
+//         console.log(result);
+//       })
+//       .catch(error => {
+//         console.error('Error listing sponsors:', error);
+//       });
       })
   
+     
 
   const {authStatus} = useAuthenticator((context) => [context.authStatus]);
   const Curruser = useAuthenticator((context) => [context.user]);
@@ -198,6 +204,25 @@ client.graphql({query: listSponsors}).then(result =>{
   //       console.log(err);
   //     });
   // }, []);
+
+  client.graphql({ query:listUserSponsors })
+  .then(result => {
+  console.log("UserSponsor");
+  console.log(result);
+  })
+    .catch(error => {
+      console.error('Error listing user Sponsors', error);
+    });
+
+    client.graphql({ query:listSponsorApplications })
+  .then(result => {
+  console.log("Sponsor Applications");
+  console.log(result);
+  })
+    .catch(error => {
+      console.error('Error listing user Sponsors', error);
+    });
+
   
   return (
     <main>
