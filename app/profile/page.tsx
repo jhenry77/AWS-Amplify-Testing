@@ -143,7 +143,7 @@ export default function Profile(){
     const handleSubmitBirthday = (e: any) => {
         e.preventDefault();
         const { birthday } = formState;
-        handleUpdateAddressAttributes(birthday);
+        handleUpdateBirthdayAttributes(birthday);
         window.location.reload();
     };
 
