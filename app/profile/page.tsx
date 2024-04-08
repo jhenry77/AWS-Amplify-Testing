@@ -8,13 +8,35 @@ import { updateUserAttributes, UpdateUserAttributesOutput } from 'aws-amplify/au
 import { updatePassword, type UpdatePasswordInput } from 'aws-amplify/auth';
 
 
-async function handleUpdateEmailAttributes(
-    updatedEmail: string
-  ) {
+async function handleUpdateEmailAttributes(updatedEmail: string) {
     try {
       const attributes = await updateUserAttributes({
         userAttributes: {
           email: updatedEmail
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+}
+
+async function handleUpdateFirstNameAttributes(updatedName: string) {
+    try {
+      const attributes = await updateUserAttributes({
+        userAttributes: {
+          name: updatedName
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+}
+
+async function handleUpdateLastNameAttributes(updatedName: string) {
+    try {
+      const attributes = await updateUserAttributes({
+        userAttributes: {
+          family_name: updatedName
         }
       });
     } catch (error) {
@@ -43,7 +65,9 @@ export default function Profile(){
     const [formState, setFormState] = useState({
         Email: '',
         oldPassword: '',
-        newPassword: ''
+        newPassword: '',
+        firstName: '',
+        lastName: ''
     });
 
     const handleChange = (e: any) => {
@@ -57,6 +81,7 @@ export default function Profile(){
         e.preventDefault();
         const { Email } = formState;
         handleUpdateEmailAttributes(Email);
+        window.location.reload();
     };
 
     const handleSubmitPassword = (e: any) => {
@@ -64,6 +89,21 @@ export default function Profile(){
         const { oldPassword, newPassword } = formState;
         const passwords = { oldPassword, newPassword };
         handleUpdatePassword(passwords);
+        window.location.reload();
+    };
+
+    const handleSubmitFirstName = (e: any) => {
+        e.preventDefault();
+        const { firstName } = formState;
+        handleUpdateFirstNameAttributes(firstName);
+        window.location.reload();
+    };
+
+    const handleSubmitLastName = (e: any) => {
+        e.preventDefault();
+        const { lastName } = formState;
+        handleUpdateLastNameAttributes(lastName);
+        window.location.reload();
     };
 
 
@@ -154,6 +194,37 @@ export default function Profile(){
                 </form>
                 <br/>
             </div>
+            <br/>
+
+            {/* First name */}
+            <div className={styles['block']}>
+                <h4 className={styles['blocktext']}>Update First Name</h4>
+                <form onSubmit={handleSubmitFirstName} className={styles['container']}>
+                    <label>
+                        New First Name: &nbsp;  
+                        <input name="firstName" value={formState.firstName} onChange={handleChange} className={styles['inline']}/>
+                    </label>
+                    <br/>
+                    <input type="submit" value="Submit" className={styles['button']}/>
+                </form>
+                <br/>
+            </div>
+            <br/>
+
+            {/* Last name */}
+            <div className={styles['block']}>
+                <h4 className={styles['blocktext']}>Update Last Name</h4>
+                <form onSubmit={handleSubmitLastName} className={styles['container']}>
+                    <label>
+                        New Last Name: &nbsp;  
+                        <input name="lastName" value={formState.lastName} onChange={handleChange} className={styles['inline']}/>
+                    </label>
+                    <br/>
+                    <input type="submit" value="Submit" className={styles['button']}/>
+                </form>
+                <br/>
+            </div>
+
             <br/><br/><br/><br/><br/><br/><br/><br/>
         </div>
     );
