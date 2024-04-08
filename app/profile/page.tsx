@@ -44,6 +44,30 @@ async function handleUpdateLastNameAttributes(updatedName: string) {
     }
 }
 
+async function handleUpdateAddressAttributes(updatedAddress: string) {
+    try {
+      const attributes = await updateUserAttributes({
+        userAttributes: {
+          address: updatedAddress
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+}
+
+async function handleUpdateBirthdayAttributes(updatedBirthday: string) {
+    try {
+      const attributes = await updateUserAttributes({
+        userAttributes: {
+          birthdate: updatedBirthday
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+}
+
 async function handleUpdatePassword({oldPassword,newPassword}: UpdatePasswordInput) {
     try {
       await updatePassword({ oldPassword, newPassword });
@@ -51,6 +75,7 @@ async function handleUpdatePassword({oldPassword,newPassword}: UpdatePasswordInp
       console.log(err);
     }
 }
+
   
 export default function Profile(){
     const {authStatus} = useAuthenticator((context) => [context.authStatus]);
@@ -67,7 +92,9 @@ export default function Profile(){
         oldPassword: '',
         newPassword: '',
         firstName: '',
-        lastName: ''
+        lastName: '',
+        address: '',
+        birthday: ''
     });
 
     const handleChange = (e: any) => {
@@ -106,6 +133,20 @@ export default function Profile(){
         window.location.reload();
     };
 
+    const handleSubmitAddress = (e: any) => {
+        e.preventDefault();
+        const { address } = formState;
+        handleUpdateAddressAttributes(address);
+        window.location.reload();
+    };
+
+    const handleSubmitBirthday = (e: any) => {
+        e.preventDefault();
+        const { birthday } = formState;
+        handleUpdateAddressAttributes(birthday);
+        window.location.reload();
+    };
+
 
     useEffect(() => {
         fetchAuthSession({forceRefresh: true})
@@ -138,7 +179,7 @@ export default function Profile(){
             <p className={styles['text']}>Hi, <>{userName}</></p>
             <br/><br/>
 
-            {/* Email */}
+            {/* User Info */}
             <div className={styles['block']}>
                 <p className={styles['blocktext']}>Email:</p>
                 <p className={styles['subtext']}>{email}</p>
@@ -146,27 +187,14 @@ export default function Profile(){
                 <p className={styles['subtext']}>{address.toString()}</p>
                 <p className={styles['blocktext']}>Birthday</p>
                 <p className={styles['subtext']}>{birthday}</p>
-
-
-                {/* <input className={styles['input']}
-                    type="email"
-                    placeholder="johnsmith@example.com"
-                    // ref={newEmailRef}
-                />
-                <p className={styles['subtext']}>Old Email</p>
-                <input className={styles['input']}
-                    type="email"
-                    placeholder="johnsmith@example.com"
-                />
-                <br/>
-                <button className={styles['button']}>Submit</button>
-                <br/> */}
             </div>
             <br/>
 
+            {/* Update User Info */}
+
             {/* Email */}
             <div className={styles['block']}>
-                <h4 className={styles['blocktext']}>Update Email</h4>
+                <p className={styles['blocktext']}>Update Email</p>
                 <form onSubmit={handleSubmitEmail} className={styles['container']}>
                     <label>
                         New Email: &nbsp;  
@@ -180,7 +208,7 @@ export default function Profile(){
 
             {/* Password */}
             <div className={styles['block']}>
-                <h4 className={styles['blocktext']}>Update Password</h4>
+                <p className={styles['blocktext']}>Update Password</p>
                 <form onSubmit={handleSubmitPassword} className={styles['container']}>
                     <label>
                         New Password: &nbsp;  
@@ -198,7 +226,7 @@ export default function Profile(){
 
             {/* First name */}
             <div className={styles['block']}>
-                <h4 className={styles['blocktext']}>Update First Name</h4>
+                <p className={styles['blocktext']}>Update First Name</p>
                 <form onSubmit={handleSubmitFirstName} className={styles['container']}>
                     <label>
                         New First Name: &nbsp;  
@@ -213,7 +241,7 @@ export default function Profile(){
 
             {/* Last name */}
             <div className={styles['block']}>
-                <h4 className={styles['blocktext']}>Update Last Name</h4>
+                <p className={styles['blocktext']}>Update Last Name</p>
                 <form onSubmit={handleSubmitLastName} className={styles['container']}>
                     <label>
                         New Last Name: &nbsp;  
@@ -224,6 +252,39 @@ export default function Profile(){
                 </form>
                 <br/>
             </div>
+            <br/>
+
+            {/* Address */}
+            <div className={styles['block']}>
+                <p className={styles['blocktext']}>Update Address</p>
+                <p className={styles['example']}>Example: 123 University Dr, Clemson, 29630</p>
+                <form onSubmit={handleSubmitAddress} className={styles['container']}>
+                    <label>
+                        New Address: &nbsp;  
+                        <input name="address" value={formState.address} onChange={handleChange} className={styles['inline']}/>
+                    </label>
+                    <br/>
+                    <input type="submit" value="Submit" className={styles['button']}/>
+                </form>
+                <br/>
+            </div>    
+            <br/>        
+
+            {/* Birthday */}
+            <div className={styles['block']}>
+                <p className={styles['blocktext']}>Update Address</p>
+                <p className={styles['example']}>YYYY-MM-DD</p>
+                <form onSubmit={handleSubmitBirthday} className={styles['container']}>
+                    <label>
+                        New Birthday: &nbsp;  
+                        <input name="birthday" value={formState.birthday} onChange={handleChange} className={styles['inline']}/>
+                    </label>
+                    <br/>
+                    <input type="submit" value="Submit" className={styles['button']}/>
+                </form>
+                <br/>
+            </div> 
+
 
             <br/><br/><br/><br/><br/><br/><br/><br/>
         </div>
