@@ -225,7 +225,7 @@ export default function Home() {
 
   
   return (
-    <main>
+    <main className={styles['body']}>
         <h1 className={styles['title']}>About Us</h1>
         <Image
           src="/teamlogo.jpg"
