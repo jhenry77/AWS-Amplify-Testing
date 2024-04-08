@@ -11,14 +11,12 @@ import { list } from "postcss";
 
 
 async function handleUpdateEmailAndNameAttributes(
-    updatedEmail: string,
-    updatedName: string
+    updatedEmail: string
   ) {
     try {
       const attributes = await updateUserAttributes({
         userAttributes: {
-          email: updatedEmail,
-          name: updatedName
+          email: updatedEmail
         }
       });
       // handle next steps
@@ -53,7 +51,7 @@ export default function Profile(){
         // Here you would handle the form submission,
         // possibly sending the formState object to your backend
         const { Email } = formState;
-        handleUpdateEmailAndNameAttributes(Email, userName);
+        handleUpdateEmailAndNameAttributes(Email);
     };
 
 
@@ -83,9 +81,9 @@ export default function Profile(){
     return(
         <div>
             <br/><br/>
-            <h1 className={styles['title']}>Profile</h1>
-            <h2 className={styles['text']}><>{groups}</></h2>
-            <h3 className={styles['text']}>Hi, <>{userName}</></h3>
+            <p className={styles['title']}>Profile</p>
+            <p className={styles['text']}><>{groups}</></p>
+            <p className={styles['text']}>Hi, <>{userName}</></p>
             <br/><br/>
 
             {/* Email */}
