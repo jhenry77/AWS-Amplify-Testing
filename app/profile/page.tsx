@@ -1,16 +1,14 @@
 "use client"
 import styles from "../components/styles/profile.module.css";
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
 import { useAuthenticator } from "@aws-amplify/ui-react";
 import { useEffect } from "react";
 import { fetchAuthSession } from "aws-amplify/auth";
-import { updateUserAttributes, type UpdateUserAttributesOutput } from 'aws-amplify/auth';
-import { list } from "postcss";
-//import { changePassword } from 'aws-amplify/auth';
+import { updateUserAttributes, UpdateUserAttributesOutput } from 'aws-amplify/auth';
+import { updatePassword, type UpdatePasswordInput } from 'aws-amplify/auth';
 
 
-async function handleUpdateEmailAndNameAttributes(
+async function handleUpdateEmailAttributes(
     updatedEmail: string
   ) {
     try {
@@ -19,11 +17,18 @@ async function handleUpdateEmailAndNameAttributes(
           email: updatedEmail
         }
       });
-      // handle next steps
     } catch (error) {
       console.log(error);
     }
-  }
+}
+
+async function handleUpdatePassword({oldPassword,newPassword}: UpdatePasswordInput) {
+    try {
+      await updatePassword({ oldPassword, newPassword });
+    } catch (err) {
+      console.log(err);
+    }
+}
   
 export default function Profile(){
     const {authStatus} = useAuthenticator((context) => [context.authStatus]);
@@ -36,7 +41,9 @@ export default function Profile(){
     const[address, setAddress] = useState(Array);
 
     const [formState, setFormState] = useState({
-        Email: ''
+        Email: '',
+        oldPassword: '',
+        newPassword: ''
     });
 
     const handleChange = (e: any) => {
@@ -46,12 +53,17 @@ export default function Profile(){
         });
     };
 
-    const handleSubmit = (e: any) => {
+    const handleSubmitEmail = (e: any) => {
         e.preventDefault();
-        // Here you would handle the form submission,
-        // possibly sending the formState object to your backend
         const { Email } = formState;
-        handleUpdateEmailAndNameAttributes(Email);
+        handleUpdateEmailAttributes(Email);
+    };
+
+    const handleSubmitPassword = (e: any) => {
+        e.preventDefault();
+        const { oldPassword, newPassword } = formState;
+        const passwords = { oldPassword, newPassword };
+        handleUpdatePassword(passwords);
     };
 
 
@@ -112,32 +124,34 @@ export default function Profile(){
             </div>
             <br/>
 
-            {/* Password */}
+            {/* Email */}
             <div className={styles['block']}>
                 <h4 className={styles['blocktext']}>Update Email</h4>
-                    <p className={styles['subtext']}>Enter New Email</p>
-                    <form onSubmit={handleSubmit} className={styles['container']}>
+                <form onSubmit={handleSubmitEmail} className={styles['container']}>
+                    <label>
+                        New Email: &nbsp;  
+                        <input name="Email" value={formState.Email} onChange={handleChange} className={styles['inline']}/>
+                    </label>
+                    <br/>
+                    <input type="submit" value="Submit" className={styles['button']}/>
+                </form>
+            </div>
+            <br/>
 
-                        <label>
-                            Email: &nbsp;  
-                            <input name="Email" value={formState.Email} onChange={handleChange} className={styles['inline']}/>
-                        </label>
-                        <br/>
-                        <input type="submit" value="Submit" className={styles['button']}/>
-                    </form>
-                {/* <h5 className={styles['blocktext']}>Update Password</h5>
-                <p className={styles['subtext']}>Enter New Password</p>
-                <input className={styles['input']}
-                    type="password"
-                    placeholder="New Password"
-                />
-                <p className={styles['subtext']}>Current Password</p>
-                <input className={styles['input']}
-                    type="password"
-                    placeholder="Current Password"
-                />
-                <br/>
-                <button className={styles['button']}>Submit</button> */}
+            {/* Password */}
+            <div className={styles['block']}>
+                <h4 className={styles['blocktext']}>Update Password</h4>
+                <form onSubmit={handleSubmitPassword} className={styles['container']}>
+                    <label>
+                        New Password: &nbsp;  
+                        <input name="newPassword" value={formState.newPassword} onChange={handleChange} className={styles['inline']}/>
+                        <br/><br/>
+                        Old Password: &nbsp;  
+                        <input name="oldPassword" value={formState.oldPassword} onChange={handleChange} className={styles['inline']}/>
+                    </label>
+                    <br/>
+                    <input type="submit" value="Submit" className={styles['button']}/>
+                </form>
                 <br/>
             </div>
             <br/><br/><br/><br/><br/><br/><br/><br/>
