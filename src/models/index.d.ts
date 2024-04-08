@@ -154,6 +154,7 @@ type EagerUserSponsor = {
   readonly user?: User | null;
   readonly sponsorId: string;
   readonly sponsor?: Sponsor | null;
+  readonly points: number;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -168,6 +169,7 @@ type LazyUserSponsor = {
   readonly user: AsyncItem<User | undefined>;
   readonly sponsorId: string;
   readonly sponsor: AsyncItem<Sponsor | undefined>;
+  readonly points: number;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

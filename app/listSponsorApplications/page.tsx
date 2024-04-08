@@ -3,11 +3,12 @@ import { useState } from 'react';
 import { Amplify } from 'aws-amplify';
 import { generateClient } from 'aws-amplify/api';
 import {createUser, createSponsorApplication } from "../../src/graphql/mutations"
-import { getSponsorApplication, getUser, listSponsorApplications, listTodos, listUsers } from '../../src/graphql/queries';
+import { getSponsorApplication, getUser, listSponsorApplications, listTodos, listUsers, listUserSponsors } from '../../src/graphql/queries';
 import config from '@/src/amplifyconfiguration.json';
 
 import React, {useEffect } from 'react';
 import { fetchAuthSession } from "aws-amplify/auth";
+import {createUserSponsor, deleteSponsorApplication, updateUser} from "../../src/graphql/mutations"
 import styles from "../components/styles/listSponsorApplications.module.css"
 Amplify.configure(config);
 
@@ -37,11 +38,13 @@ type User = {
 
 
 
+
 export default function ApplicationListing() {
    
     const [applications, setApplications] =useState<any[]>([]);
     const [userGroup, setGroup] = useState(String);
     const [userId, setUserId] =useState(null);
+    
 
     const sponsorIdMapping: { [key: string]: string } = {
         'Sponsors1': '0',
@@ -49,6 +52,73 @@ export default function ApplicationListing() {
         'Sponsors3': '2'
     };
 
+    function acceptApplication(application:any) {
+        // Check if a UserSponsor with the same userId and sponsorId already exists
+        client.graphql({
+          query: listUserSponsors,
+          variables: {
+            filter: {
+              userId: { eq: application.userId },
+              sponsorId: { eq: application.sponsorId }
+            }
+          }
+        })
+        .then(result => {
+          if (result.data.listUserSponsors.items.length > 0) {
+            console.log('A UserSponsor with the same userId and sponsorId already exists.');
+          } else {
+            // If not, create a new UserSponsor
+            const newUserSponsor = {
+              userId: application.userId,
+              sponsorId: application.sponsorId,
+              points: 100,
+            };
+            client.graphql({ query: createUserSponsor, variables: { input: newUserSponsor } })
+              .then(() => declineApplication(application)) // delete the application after it's accepted
+              .catch(error => console.error('Error creating UserSponsor:', error));
+          }
+        })
+        .catch(error => console.error('Error checking for existing UserSponsor:', error));
+        // client.graphql({
+        //   query: updateUser,
+        //   variables: {
+        //     input: {
+        //       id: {eq: application.userId}.toString(), // replace with the actual user id
+        //       sponsors: [
+        //         // replace with the actual UserSponsor objects
+        //         {
+        //           id: 'userSponsorId',
+        //           sponsor: {
+        //             id: 'sponsorId',
+        //             name: 'sponsorName'
+        //           }
+        //         },
+        //         // add more UserSponsor objects if needed
+        //       ]
+        //     }
+        //   }
+        // }).then(result => {
+        //   console.log("we update the user and our result is");
+        //   console.log(result);
+        // })
+        // .catch(error => console.error('Error updating user:', error));
+      }
+      
+      function declineApplication(application:any) {
+        client.graphql({
+          query: deleteSponsorApplication,
+          variables: {
+            input: {
+              id: application.id,
+            }
+          }
+        })
+        .then(() => {
+          // remove the application from the local state
+          setApplications(applications.filter(app => app.id !== application.id));
+        })
+        .catch(error => console.error('Error declining application:', error));
+      }
     useEffect(() => {
         fetchAuthSession({ forceRefresh: true })
         .then(({ tokens }) => {
@@ -72,8 +142,10 @@ export default function ApplicationListing() {
         const currId = sponsorIdMapping[userGroup[0]];
         console.log("currid is", currId);
         if(userGroup[0] == "Admins"){
-            client.graphql({ query: listSponsorApplications })
+            client.graphql({ query: listSponsorApplications, 
+            })
             .then(result => {
+                console.log("setting applications");
                 setApplications(result.data.listSponsorApplications.items);
                 console.log(result);
             })
@@ -82,7 +154,9 @@ export default function ApplicationListing() {
             });
         }else if(userGroup[0].toLowerCase().includes('sponsor'.toLowerCase())){
             console.log("doing the querey for sponsors");
-            client.graphql({ query: listSponsorApplications, variables: { filter: {sponsorId: {eq: currId} }} })
+            client.graphql({ query: listSponsorApplications, variables: { filter: {
+                sponsorId: {
+                    eq: currId} }} })
             .then(result => {
                 setApplications(result.data.listSponsorApplications.items);
                 console.log(result);
@@ -124,6 +198,8 @@ export default function ApplicationListing() {
                 <p className={styles["details"]}>Family Name: {application.user.familyName}</p>
                 <p className={styles["details"]}>Email: {application.user.email}</p> 
                 <p className={styles["details"]}>Address: {application.user.address}</p>
+                <button className={styles["details"]} onClick={() => acceptApplication(application)}>Accept</button>
+                <button className={styles["details"]} onClick={() => declineApplication(application)}>Decline</button>
             </div>
         ))}</div>
     );

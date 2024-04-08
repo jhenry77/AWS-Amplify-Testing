@@ -13,11 +13,9 @@ export const onCreateTodo = /* GraphQL */ `subscription OnCreateTodo($filter: Mo
     id
     name
     description
+    extraDesciprtion
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -30,11 +28,9 @@ export const onUpdateTodo = /* GraphQL */ `subscription OnUpdateTodo($filter: Mo
     id
     name
     description
+    extraDesciprtion
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -47,11 +43,9 @@ export const onDeleteTodo = /* GraphQL */ `subscription OnDeleteTodo($filter: Mo
     id
     name
     description
+    extraDesciprtion
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -68,19 +62,14 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: Mo
     address
     applications {
       nextToken
-      startedAt
       __typename
     }
     sponsors {
       nextToken
-      startedAt
       __typename
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -97,19 +86,14 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: Mo
     address
     applications {
       nextToken
-      startedAt
       __typename
     }
     sponsors {
       nextToken
-      startedAt
       __typename
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -126,19 +110,14 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: Mo
     address
     applications {
       nextToken
-      startedAt
       __typename
     }
     sponsors {
       nextToken
-      startedAt
       __typename
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -160,9 +139,6 @@ export const onCreateSponsorApplication = /* GraphQL */ `subscription OnCreateSp
       address
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     sponsorId
@@ -171,18 +147,12 @@ export const onCreateSponsorApplication = /* GraphQL */ `subscription OnCreateSp
       name
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     reason
     additionalInfo
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -204,9 +174,6 @@ export const onUpdateSponsorApplication = /* GraphQL */ `subscription OnUpdateSp
       address
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     sponsorId
@@ -215,18 +182,12 @@ export const onUpdateSponsorApplication = /* GraphQL */ `subscription OnUpdateSp
       name
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     reason
     additionalInfo
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -248,9 +209,6 @@ export const onDeleteSponsorApplication = /* GraphQL */ `subscription OnDeleteSp
       address
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     sponsorId
@@ -259,18 +217,12 @@ export const onDeleteSponsorApplication = /* GraphQL */ `subscription OnDeleteSp
       name
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     reason
     additionalInfo
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -284,19 +236,14 @@ export const onCreateSponsor = /* GraphQL */ `subscription OnCreateSponsor($filt
     name
     applications {
       nextToken
-      startedAt
       __typename
     }
     users {
       nextToken
-      startedAt
       __typename
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -310,19 +257,14 @@ export const onUpdateSponsor = /* GraphQL */ `subscription OnUpdateSponsor($filt
     name
     applications {
       nextToken
-      startedAt
       __typename
     }
     users {
       nextToken
-      startedAt
       __typename
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -336,19 +278,14 @@ export const onDeleteSponsor = /* GraphQL */ `subscription OnDeleteSponsor($filt
     name
     applications {
       nextToken
-      startedAt
       __typename
     }
     users {
       nextToken
-      startedAt
       __typename
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -370,9 +307,6 @@ export const onCreateUserSponsor = /* GraphQL */ `subscription OnCreateUserSpons
       address
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     sponsorId
@@ -381,16 +315,11 @@ export const onCreateUserSponsor = /* GraphQL */ `subscription OnCreateUserSpons
       name
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
+    points
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -412,9 +341,6 @@ export const onUpdateUserSponsor = /* GraphQL */ `subscription OnUpdateUserSpons
       address
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     sponsorId
@@ -423,16 +349,11 @@ export const onUpdateUserSponsor = /* GraphQL */ `subscription OnUpdateUserSpons
       name
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
+    points
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -454,9 +375,6 @@ export const onDeleteUserSponsor = /* GraphQL */ `subscription OnDeleteUserSpons
       address
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     sponsorId
@@ -465,16 +383,11 @@ export const onDeleteUserSponsor = /* GraphQL */ `subscription OnDeleteUserSpons
       name
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
+    points
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }

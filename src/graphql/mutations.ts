@@ -16,11 +16,9 @@ export const createTodo = /* GraphQL */ `mutation CreateTodo(
     id
     name
     description
+    extraDesciprtion
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -36,11 +34,9 @@ export const updateTodo = /* GraphQL */ `mutation UpdateTodo(
     id
     name
     description
+    extraDesciprtion
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -56,11 +52,9 @@ export const deleteTodo = /* GraphQL */ `mutation DeleteTodo(
     id
     name
     description
+    extraDesciprtion
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -80,19 +74,14 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
     address
     applications {
       nextToken
-      startedAt
       __typename
     }
     sponsors {
       nextToken
-      startedAt
       __typename
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -112,19 +101,21 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
     address
     applications {
       nextToken
-      startedAt
       __typename
     }
     sponsors {
+      items {
+        id
+        sponsor {
+          id
+          name
+        }
+      }
       nextToken
-      startedAt
       __typename
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -144,19 +135,14 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
     address
     applications {
       nextToken
-      startedAt
       __typename
     }
     sponsors {
       nextToken
-      startedAt
       __typename
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -179,9 +165,6 @@ export const createSponsorApplication = /* GraphQL */ `mutation CreateSponsorApp
       address
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     sponsorId
@@ -190,18 +173,12 @@ export const createSponsorApplication = /* GraphQL */ `mutation CreateSponsorApp
       name
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     reason
     additionalInfo
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -224,9 +201,6 @@ export const updateSponsorApplication = /* GraphQL */ `mutation UpdateSponsorApp
       address
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     sponsorId
@@ -235,18 +209,12 @@ export const updateSponsorApplication = /* GraphQL */ `mutation UpdateSponsorApp
       name
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     reason
     additionalInfo
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -269,9 +237,6 @@ export const deleteSponsorApplication = /* GraphQL */ `mutation DeleteSponsorApp
       address
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     sponsorId
@@ -280,18 +245,12 @@ export const deleteSponsorApplication = /* GraphQL */ `mutation DeleteSponsorApp
       name
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     reason
     additionalInfo
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -308,19 +267,14 @@ export const createSponsor = /* GraphQL */ `mutation CreateSponsor(
     name
     applications {
       nextToken
-      startedAt
       __typename
     }
     users {
       nextToken
-      startedAt
       __typename
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -337,19 +291,14 @@ export const updateSponsor = /* GraphQL */ `mutation UpdateSponsor(
     name
     applications {
       nextToken
-      startedAt
       __typename
     }
     users {
       nextToken
-      startedAt
       __typename
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -366,19 +315,14 @@ export const deleteSponsor = /* GraphQL */ `mutation DeleteSponsor(
     name
     applications {
       nextToken
-      startedAt
       __typename
     }
     users {
       nextToken
-      startedAt
       __typename
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -401,9 +345,15 @@ export const createUserSponsor = /* GraphQL */ `mutation CreateUserSponsor(
       address
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
+      sponsors {
+        items {
+          id
+          sponsor {
+            id
+            name
+          }
+        }
+      }
       __typename
     }
     sponsorId
@@ -412,16 +362,11 @@ export const createUserSponsor = /* GraphQL */ `mutation CreateUserSponsor(
       name
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
+    points
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -444,9 +389,6 @@ export const updateUserSponsor = /* GraphQL */ `mutation UpdateUserSponsor(
       address
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     sponsorId
@@ -455,16 +397,11 @@ export const updateUserSponsor = /* GraphQL */ `mutation UpdateUserSponsor(
       name
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
+    points
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -487,9 +424,6 @@ export const deleteUserSponsor = /* GraphQL */ `mutation DeleteUserSponsor(
       address
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     sponsorId
@@ -498,16 +432,11 @@ export const deleteUserSponsor = /* GraphQL */ `mutation DeleteUserSponsor(
       name
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
+    points
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }

@@ -36,6 +36,7 @@ import HamburgerMenu from "./HamburgerMenu";
 import React, { useState, useEffect } from 'react';
 import { fetchAuthSession } from "aws-amplify/auth";
 import { useRouter } from "next/navigation";
+import CartUi from "./CartUi";
 
 
 export default function Navbar() {
@@ -106,6 +107,7 @@ export default function Navbar() {
             <div className={styles["navbar-right-content"]}>
                 {authStatus === 'authenticated' && user ? (
                     <>
+                    <CartUi/>
                         <span className="user-info">
                             {userName}
                             <button onClick={toggleDropdown} className="dropdown-menu-button" aria-label="Open dropdown">
