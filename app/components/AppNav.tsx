@@ -47,7 +47,7 @@ export default function Navbar() {
     // const { authStatus } = useAuthenticator((context) => [context.authStatus]);
 
     const [showDropdown, setShowDropdown] = useState(false);
-    const [showLeftMenu, setShowLeftMenu] = useState(true); /* change to true */
+    const [showLeftMenu, setShowLeftMenu] = useState(false); /* change to true */
     const [showRightMenu, setShowRightMenu] = useState(false);
 
     const toggleDropdown = () => {

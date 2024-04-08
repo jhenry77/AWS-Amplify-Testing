@@ -259,8 +259,7 @@ export default function Home() {
             Product Description: {data.success[0].ProductDescription}
           </h1>
         )}
-       
-      
+       <br/><br/>
     </main>
   );
 }
