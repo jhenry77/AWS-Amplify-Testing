@@ -79,8 +79,14 @@ export default function Home() {
     <main className="min-h-screen flex flex-row p-12 flex-wrap justify-center">
       <div className={styles.searchbar}>
         Points: {userPoints}
-        <form onSubmit={handleSearchSubmit}>
-          <input className="text-black" type="text" value={searchTerm} onChange={handleSearchChange} placeholder="Search iTunes" />
+        <form onSubmit={handleSearchSubmit} className={styles.searchForm}>
+          <input
+            className={`text-black ${styles.searchInput}`} // Add or adjust your input class as needed
+            type="text"
+            value={searchTerm}
+            onChange={handleSearchChange}
+            placeholder="Search iTunes"
+          />
           <button type="submit" className={styles.searchButton}>Search</button>
         </form>
         {loading && <p>Loading...</p>}

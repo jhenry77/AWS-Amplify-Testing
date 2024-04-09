@@ -13,4 +13,10 @@
     cursor: pointer; /* Changes cursor to pointer on hover */
     /* Add any other styles you need for the button */
     margin-left: 10px
-  }
+}
+
+.searchForm {
+    display: flex; /* Establishes a flex container */
+    align-items: center; /* Vertically centers the flex items */
+    /* Add any additional styling as needed */
+}
