@@ -41,6 +41,7 @@ export default function Home() {
   const [userId, setUserId] = useState(null);
   const [userPoints, setPoints] = useState(0);
   const { cart, addItem, removeItem } = useContext(CartContext);
+  const [loading, setLoading] = useState(false);
 
   const handleSearchChange = (event: any) => {
     setSearchTerm(event.target.value);
@@ -48,8 +49,12 @@ export default function Home() {
 
   const handleSearchSubmit = (event: any) => {
     event.preventDefault();
+    setLoading(true); // Set loading to true when API call starts
     searchiTunes(searchTerm).then(results => setData(results))
-    .catch(error => console.error(error));
+    .catch(error => console.error(error))
+    .finally(() => {
+      setLoading(false); // Set loading to false when API call completes
+    });
   };
   const { authStatus } = useAuthenticator((context) => [context.authStatus]);
   const router = useRouter();
@@ -111,6 +116,7 @@ useEffect(() =>{
           <input className="text-black" type="text" value={searchTerm} onChange={handleSearchChange} placeholder="Search iTunes" />
           <button type="submit">Search</button>
         </form>
+        {loading && <p>Loading...</p>}
       </div>
       {data && data.map((item, index) => (
       <CatalogUI
