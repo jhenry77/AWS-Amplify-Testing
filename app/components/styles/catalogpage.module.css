@@ -4,3 +4,13 @@
     padding: 1rem;
     background-color: gray;
 }
+
+.searchButton {
+    border: 2px solid #464646; /* Example: solid black border */
+    padding: 4px 14px; /* Optional: Adjust padding to your preference */
+    background-color: white; /* Optional: Background color */
+    color: black; /* Optional: Text color */
+    cursor: pointer; /* Changes cursor to pointer on hover */
+    /* Add any other styles you need for the button */
+    margin-left: 10px
+  }

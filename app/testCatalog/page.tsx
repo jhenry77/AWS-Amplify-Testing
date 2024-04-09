@@ -81,7 +81,7 @@ export default function Home() {
         Points: {userPoints}
         <form onSubmit={handleSearchSubmit}>
           <input className="text-black" type="text" value={searchTerm} onChange={handleSearchChange} placeholder="Search iTunes" />
-          <button type="submit">Search</button>
+          <button type="submit" className={styles.searchButton}>Search</button>
         </form>
         {loading && <p>Loading...</p>}
       </div>
