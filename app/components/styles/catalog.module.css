@@ -1,0 +1,69 @@
+
+
+
+ 
+  .container {
+    display: flex;
+    width: 18%;
+    height: 15%;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    background: white;
+    flex-wrap: wrap;
+    margin: 40px;
+  
+  }
+  
+  .albumCover {
+    width: 40%;
+    height: 50%;
+    object-fit: cover;
+    align-self: center;
+    display: flex;
+    padding:10px;
+    
+  }
+  
+  .details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+    height: 60%;
+    width: 50%
+  }
+  
+  .songTitle {
+    font-size: 14px;
+    font-weight: bold;
+    color: black;
+  }
+  
+  .albumTitle {
+    flex-direction: column;
+    display: flex;
+    font-size: 14px;
+    color: black;
+  }
+  
+  .bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+  }
+  
+  .price {
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .button {
+    padding: 5px 10px;
+    background-color: #0070f3;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }

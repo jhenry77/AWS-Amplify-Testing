@@ -1,0 +1,42 @@
+type Todo @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String!
+  description: String
+  extraDesciprtion: String
+}
+
+type User @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String!
+  familyName: String!
+  email: String!
+  address: String!
+  applications: [SponsorApplication] @hasMany(indexName: "byUser", fields: ["id"])
+  sponsors: [UserSponsor] @hasMany(indexName: "byUser", fields: ["id"])
+}
+
+type SponsorApplication @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  userId: ID! @index(name: "byUser", sortKeyFields: ["id"])
+  user: User @belongsTo(fields: ["userId"])
+  sponsorId: ID!
+  sponsor: Sponsor @belongsTo(fields: ["sponsorId"])
+  reason: String!
+  additionalInfo: String!
+}
+
+type Sponsor @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String!
+  applications: [SponsorApplication] @hasMany(fields: ["id"])
+  users: [UserSponsor] @hasMany(fields: ["id"])
+}
+
+type UserSponsor @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  userId: ID! @index(name: "byUser", sortKeyFields: ["id"])
+  user: User @belongsTo(fields: ["userId"])
+  sponsorId: ID!
+  sponsor: Sponsor @belongsTo(fields: ["sponsorId"])
+  points: Int!
+} 

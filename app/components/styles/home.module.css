@@ -1,0 +1,24 @@
+.title {
+    color: white;
+    font-size: 250%;
+    text-align: center;
+    font-weight: bold;
+}
+
+.text {
+    color: white;
+    font-size: 150%;
+    text-align: center;
+
+}
+
+.image {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+
+/*
+Photo by Jason Senf
+*/
