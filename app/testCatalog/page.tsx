@@ -41,6 +41,7 @@ export default function Home() {
   const [userId, setUserId] = useState(null);
   const [userPoints, setPoints] = useState(0);
   const { cart, addItem, removeItem } = useContext(CartContext);
+  const [loading, setLoading] = useState(false);
 
   const handleSearchChange = (event: any) => {
     setSearchTerm(event.target.value);
@@ -48,83 +49,61 @@ export default function Home() {
 
   const handleSearchSubmit = (event: any) => {
     event.preventDefault();
-    searchiTunes(searchTerm).then(results => setData(results))
-    .catch(error => console.error(error));
+    setLoading(false); // Initially set loading to false
+
+    const timeoutId = setTimeout(() => {
+      setLoading(true); // Set loading to true if API call hasn't completed within 200ms
+    }, 200);
+
+    searchiTunes(searchTerm).then(results => {
+      setData(results);
+      clearTimeout(timeoutId); // Clear the timeout if search completes in time
+      setLoading(false); // Set loading to false as search has completed
+    })
+    .catch(error => {
+      console.error(error);
+      clearTimeout(timeoutId); // Ensure to clear timeout on error as well
+      setLoading(false); // Also, set loading to false on error
+    });
   };
-  const { authStatus } = useAuthenticator((context) => [context.authStatus]);
-  const router = useRouter();
-  //   authStatus === 'configuring' && router.push('/testLogin');
-  //   authStatus !== 'authenticated' ? router.push('/testLogin') : router.push('/testCatalog');
 
   const [data, setData] = useState<any[]>([]);
 
   useEffect(() => {
     searchiTunes('').then(data => setData(data));
-    console.log("IN use effect");
-    console.log(data);
   }, []);
 
-
-  useEffect(() => {
-    fetchAuthSession({ forceRefresh: true })
-    .then(({ tokens }) => {
-        const idToken = tokens?.idToken as any;
-        const id = idToken.payload["sub"];
-        setUserId(id);
-    })
-    .catch(err => {
-        console.log(err);
-    });
-}, [])
-
-
-useEffect(() =>{
-  console.log("In use effect");
-  if (userId){
-      client.graphql({ query: getUser, 
-          variables: {
-                id: userId
-          }
-      })
-      .then(result => {
-        console.log("got this userSponsor")
-          console.log(result);
-          if (result.data.getUser && result.data.getUser.sponsors?.items) {
-            console.log(result.data.getUser.sponsors);
-            const points = result.data.getUser.sponsors.items[0].points;
-            setPoints(points);
-          }
-      })
-      .catch(error => {
-          console.error('Error fetching sponsor applications:', error);
-      });
-    }
-}, [userId])
-
-  // handleFetchUserAttributes();
+  // Other useEffect hooks and function definitions remain unchanged
 
   return (
     <main className="min-h-screen flex flex-row p-12 flex-wrap justify-center">
       <div className={styles.searchbar}>
         Points: {userPoints}
-        <form onSubmit={handleSearchSubmit}>
-          <input className="text-black" type="text" value={searchTerm} onChange={handleSearchChange} placeholder="Search iTunes" />
-          <button type="submit">Search</button>
+        <form onSubmit={handleSearchSubmit} className={styles.searchForm}>
+          <input
+            className={`text-black ${styles.searchInput}`} // Add or adjust your input class as needed
+            type="text"
+            value={searchTerm}
+            onChange={handleSearchChange}
+            placeholder="Search iTunes"
+          />
+          <button type="submit" className={styles.searchButton}>Search</button>
         </form>
+        {loading && <p>Loading...</p>}
       </div>
       {data && data.map((item, index) => (
-      <CatalogUI
-        key={index}
-        songTitle={item.trackName}
-        albumTitle={item.collectionName}
-        albumCover={item.artworkUrl100}
-        price={item.collectionPrice}
-        trackId={item.trackId}
-      />
-
+        <CatalogUI
+          key={index}
+          songTitle={item.trackName}
+          albumTitle={item.collectionName}
+          albumCover={item.artworkUrl100}
+          price={item.collectionPrice}
+          trackId={item.trackId}
+        />
       ))}
     </main>
-  )}
+  );
+}
     
 
 
