@@ -242,7 +242,7 @@ export default function Home() {
         <p className={styles['text']}>
         <strong>Team Members:  </strong><br />
           Connor Love <br /> 
-          Rinzo Martinelli <br /> 
+          Renzo Muzzarelli <br /> 
           Jason Senf<br /> 
           Jackson Henry <br/>
           <br />
