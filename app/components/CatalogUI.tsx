@@ -40,7 +40,7 @@ const CatalogUI: React.FC<CatalogUIProps> = ({ songTitle, albumTitle, albumCover
   
   
   
-  if (!songTitle || !albumTitle || !albumCover || price === undefined || !trackId) {
+  if (!songTitle || !albumTitle || !albumCover || price === undefined || !trackId || Number.isNaN(price)) {
     return null;
   }
   return (
@@ -57,7 +57,7 @@ const CatalogUI: React.FC<CatalogUIProps> = ({ songTitle, albumTitle, albumCover
         className={styles.albumCover}
       />
       <div className={styles.bottom}>
-        <p className={styles.price}>${price}</p>
+        <p className={styles.price}>Points:{price}</p>
         <button
           className={`${styles.button} ${isAdded ? styles.addedToCart : ''}`}
           onClick={handleAddToCart}

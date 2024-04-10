@@ -6,6 +6,7 @@ import Auth from "@/app/components/Auth"
 import Navbar from "./components/AppNav";
 import Footer from './components/Footer';
 import styles from './components/styles/background.module.css';
+import {UserPointsProvider} from './components/pointsContext';
 import { CartProvider } from "./components/cartProvider";
 
 
@@ -22,7 +23,7 @@ export default function RootLayout({
     <html lang="en">
         <body className={inter.className}>
           <div className={styles['background']}>
-            <CartProvider><Auth><Navbar />{children}<Footer/></Auth></CartProvider>
+            <UserPointsProvider><CartProvider><Auth><Navbar />{children}<Footer/></Auth></CartProvider></UserPointsProvider>
           </div>
         </body>
     </html>

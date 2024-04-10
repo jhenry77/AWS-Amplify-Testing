@@ -28,6 +28,7 @@ import awsExports from '../../src/aws-exports';
 import AuthClient from '../components/AuthClient';
 import { getUser } from '@/src/graphql/queries';
 import CartContext from '../components/cart';
+import { UserPointsContext } from '../components/pointsContext';
 Amplify.configure(awsExports);
 const client = generateClient();
 
@@ -40,9 +41,10 @@ const client = generateClient();
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState('');
   const [userId, setUserId] = useState(null);
-  const [userPoints, setPoints] = useState(0);
+  const [graphuserPoints, setPoints] = useState(0);
   const { cart, addItem, removeItem } = useContext(CartContext);
   const [loading, setLoading] = useState(false);
+  const { userPoints, updateUserPoints } = useContext(UserPointsContext);
 
   const handleSearchChange = (event: any) => {
     setSearchTerm(event.target.value);
@@ -75,6 +77,42 @@ export default function Home() {
   }, []);
 
   // Other useEffect hooks and function definitions remain unchanged
+  useEffect(() => {
+    fetchAuthSession({ forceRefresh: true })
+    .then(({ tokens }) => {
+        const idToken = tokens?.idToken as any;
+        const id = idToken.payload["sub"];
+        setUserId(id);
+        console.log("USer id is", id);
+    })
+    .catch(err => {
+        console.log(err);
+    });
+}, [])
+
+  useEffect(() =>{
+    console.log("In use effect");
+    if (userId){
+      console.log("about to call getUser");
+        client.graphql({ query: getUser, 
+            variables: {
+                  id: userId
+            }
+        })
+        .then(result => {
+          console.log("got this userSponsor")
+            console.log(result);
+            if (result.data.getUser && result.data.getUser.sponsors?.items) {
+              console.log(result.data.getUser.sponsors);
+              const points = result.data.getUser.sponsors.items[0].points;
+              updateUserPoints(points);
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching sponsor applications:', error);
+        });
+      }
+  }, [userId])
 
   return (
     <main className="min-h-screen flex flex-row p-12 flex-wrap justify-center">
@@ -98,7 +136,7 @@ export default function Home() {
           songTitle={item.trackName}
           albumTitle={item.collectionName}
           albumCover={item.artworkUrl100}
-          price={item.collectionPrice}
+          price={item.collectionPrice * 100}
           trackId={item.trackId}
         />
       ))}
