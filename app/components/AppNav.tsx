@@ -26,6 +26,7 @@
 //             <DropdownMenu/>
 //     </nav>
 // };
+
 // AppNav.tsx
 "use client";
 import Link from "next/link"
@@ -47,11 +48,16 @@ export default function Navbar() {
     // const { authStatus } = useAuthenticator((context) => [context.authStatus]);
 
     const [showDropdown, setShowDropdown] = useState(false);
+    const [showPointsDropdown, setShowPointsDropdown] = useState(false);
     const [showLeftMenu, setShowLeftMenu] = useState(true); /* change to true */
     const [showRightMenu, setShowRightMenu] = useState(false);
 
     const toggleDropdown = () => {
         setShowDropdown(!showDropdown);
+    };
+
+    const togglePointsDropdown = () => {
+        setShowPointsDropdown(!showPointsDropdown);
     };
 
     const toggleLeftMenu = () => {
@@ -87,8 +93,6 @@ export default function Navbar() {
     }, [router, userName]);
     
     // Log the current user object to the console
-
-
     return (
         
         <nav className={styles['navbar']}>
@@ -107,18 +111,32 @@ export default function Navbar() {
             <div className={styles["navbar-right-content"]}>
                 {authStatus === 'authenticated' && user ? (
                     <>
-                    <CartUi/>
+                        <span className="points-info">
+                            {"0 points"}
+                            {/* {userName} */}
+                            <button onClick={togglePointsDropdown} className="points-dropdown-menu-button" aria-label="Open dropdown">
+                                ▼{/* Dropdown menu icon */}
+                            </button>
+                        </span>
                         <span className="user-info">
                             {userName}
                             <button onClick={toggleDropdown} className="dropdown-menu-button" aria-label="Open dropdown">
                                 ▼{/* Dropdown menu icon */}
                             </button>
                         </span>
+                        <CartUi/>
+                        
                         <button onClick={toggleRightMenu} className="settings-menu-button" aria-label="Open settings">
                             ⚙️{/* Settings icon */}
                         </button>
                         {/* <HamburgerMenu showRightMenu={showRightMenu} /> */}
 
+                        {showPointsDropdown && (
+                            <div className={`${styles['points-dropdown-menu']} ${showPointsDropdown ? styles['show-dropdown'] : ''}`} role="menu">
+                                <Link href="/points">My Points</Link>
+                            </div>
+                        )}
+                        
                         {showDropdown && (
                             <div className={`${styles['dropdown-menu']} ${showDropdown ? styles['show-dropdown'] : ''}`} role="menu">
                                 <Link href="/profile">Profile</Link>
