@@ -1,13 +1,10 @@
-"use client"; 
-import React from 'react';
+"use client";
+import React, { use } from 'react';
 import { Amplify } from 'aws-amplify';
 // import  useAuthenticator  from '../components/useAuthenticator';
 import { useState, useEffect } from 'react';
-import styles from './components/styles/about.module.css'
-
-
-
-
+import styles from './components/styles/about.module.css';
+// import showLeftMenu from './components/styles/HamburgerMenu.tsx';
 
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import { useRouter } from 'next/navigation'
@@ -25,143 +22,147 @@ import awsExports from '../src/aws-exports';
 import AuthClient from './components/AuthClient';
 
 import { generateClient } from 'aws-amplify/api';
-import {createSponsor, createUser, deleteSponsor, deleteUserSponsor } from "../src/graphql/mutations"
+import { createSponsor, createUser, deleteSponsor, deleteUserSponsor } from "../src/graphql/mutations"
 import { getUser, listSponsorApplications, listSponsors, listTodos, listUsers, listUserSponsors } from '../src/graphql/queries';
 import config from '@/src/amplifyconfiguration.json';
 import Link from "next/link"
 import { signOut } from "aws-amplify/auth";
+import HamburgerMenuProps from "./components/HamburgerMenu";
 Amplify.configure(config);
 
 const client = generateClient();
 
 
 type User = {
-    id: string;
-    name: string;
-    familyName: string;
-    email: string;
-    address: string;
-  } | null;
+  id: string;
+  name: string;
+  familyName: string;
+  email: string;
+  address: string;
+} | null;
 
-    
+
 Amplify.configure(awsExports);
 
 
 type AboutData = {
   teamNumber: string
-  VersionNum : string
-  SprintDate : string
+  VersionNum: string
+  SprintDate: string
   Productname: string
   ProductDescription: string
 }
 
+// HamburgerMenuProps = {
+
+// }
 
 
 export default function Home() {
-
+  // const [showLeftMenu, setShowLeftMenu] = useState('');
   const [groups, setGroups] = useState(undefined);
-    const [userName, setUserName] = useState(String);
-    const [userID, setUserID] = useState(String);
-    const [userfName, setFname] = useState(String);
-    const [userLName, setUserLName] = useState(String);
-    const [userEmail, setUserEmail] = useState(String);
-    const [userAddress, setUserAddress] = useState(String);
+  const [userName, setUserName] = useState(String);
+  const [userID, setUserID] = useState(String);
+  const [userfName, setFname] = useState(String);
+  const [userLName, setUserLName] = useState(String);
+  const [userEmail, setUserEmail] = useState(String);
+  const [userAddress, setUserAddress] = useState(String);
 
-    const [user, setUser] = useState<User>(null);
+  const [user, setUser] = useState<User>(null);
 
 
 
-    useEffect(() => {
-        fetchAuthSession({ forceRefresh: true })
-        .then(({ tokens }) => {
-          console.log("in fetch auth session");
-            const idToken = tokens?.idToken as any;
-            console.log(idToken);
-            const userGroups = idToken.payload['cognito:groups'];
-            const username = idToken.payload["name"] + " " + idToken.payload["family_name"];
-            const fName = idToken.payload["name"];
-            const lName = idToken.payload["family_name"]
-            const id = idToken.payload["sub"];
-            const email = idToken.payload["email"]
-            const address = idToken.payload["address"];
-            setUserAddress(address);
-            setUserEmail(email);
-            setUserID(id);
-            setGroups(userGroups ? userGroups[0] : "No active Groups");
-            setUserName(username);
-            setFname(fName);
-            setUserLName(lName);
-            console.log(username);
-            const userData = {
-                id: idToken.payload["sub"],
-                name: idToken.payload["name"],
-                familyName: idToken.payload["family_name"],
-                email: idToken.payload["email"],
-                address: idToken.payload["address"].formatted
-              };
-              setUser(userData);
-        })
-        .catch(err => {
-            console.log(err);
-        });
-    }, []);
-    useEffect(() => {
-    }, [userName]);
+  useEffect(() => {
+    fetchAuthSession({ forceRefresh: true })
+      .then(({ tokens }) => {
+        console.log("in fetch auth session");
+        const idToken = tokens?.idToken as any;
+        console.log(idToken);
+        const userGroups = idToken.payload['cognito:groups'];
+        const username = idToken.payload["name"] + " " + idToken.payload["family_name"];
+        const fName = idToken.payload["name"];
+        const lName = idToken.payload["family_name"]
+        const id = idToken.payload["sub"];
+        const email = idToken.payload["email"]
+        const address = idToken.payload["address"];
+        setUserAddress(address);
+        setUserEmail(email);
+        setUserID(id);
+        setGroups(userGroups ? userGroups[0] : "No active Groups");
+        setUserName(username);
+        setFname(fName);
+        setUserLName(lName);
+        console.log(username);
+        const userData = {
+          id: idToken.payload["sub"],
+          name: idToken.payload["name"],
+          familyName: idToken.payload["family_name"],
+          email: idToken.payload["email"],
+          address: idToken.payload["address"].formatted
+        };
+        setUser(userData);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, []);
+  useEffect(() => {
+  }, [userName]);
 
-    useEffect(() => {
-        if (!user) {
-          return;
-        }
-        console.log("right before get user")
+  useEffect(() => {
+    if (!user) {
+      return;
+    }
+    console.log("right before get user")
     client.graphql({ query: getUser, variables: { id: userID } })
-    .then(result => {
-      console.log("Inside of get user");
-      if (result.data.getUser) {
-        console.log('User already exists in database');
-        console.log(result.data.getUser);
-        return;
-      }else{
-        client.graphql({ query: createUser, variables: { input: user } })
-        .then(() => {
-          console.log('User added to database');
-        })
-        .catch(error => {
-          console.error('Error adding user to database:', error);
-        });
-      }
+      .then(result => {
+        console.log("Inside of get user");
+        if (result.data.getUser) {
+          console.log('User already exists in database');
+          console.log(result.data.getUser);
+          return;
+        } else {
+          client.graphql({ query: createUser, variables: { input: user } })
+            .then(() => {
+              console.log('User added to database');
+            })
+            .catch(error => {
+              console.error('Error adding user to database:', error);
+            });
+        }
       })
 
-      
-
-  
 
 
-// client.graphql({query: listSponsors}).then(result =>{
-//         console.log(result);
-//       })
-//       .catch(error => {
-//         console.error('Error listing sponsors:', error);
-//       });
-      })
-  
-     
 
-  const {authStatus} = useAuthenticator((context) => [context.authStatus]);
+
+
+    // client.graphql({query: listSponsors}).then(result =>{
+    //         console.log(result);
+    //       })
+    //       .catch(error => {
+    //         console.error('Error listing sponsors:', error);
+    //       });
+  })
+
+
+
+  const { authStatus } = useAuthenticator((context) => [context.authStatus]);
   const Curruser = useAuthenticator((context) => [context.user]);
   const router = useRouter();
- 
+
 
 
 
   useEffect(() => {
     if (authStatus === 'configuring') {
-        router.push('/login');
+      router.push('/login');
     } else if (authStatus !== 'authenticated') {
-        router.push('/login');
+      router.push('/login');
     } else {
-        router.push('/');
+      router.push('/');
     }
-}, [authStatus, router]);
+  }, [authStatus, router]);
 
 
 
@@ -189,8 +190,8 @@ export default function Home() {
   //   }
   // }, [user]);
 
-  const[userDeatails, setUserDetails] = useState(null);
-  
+  const [userDetails, setUserDetails] = useState(null);
+
   // useEffect(() => {
   //   fetchAuthSession({forceRefresh: true})
   //     .then(({tokens}) => {
@@ -205,27 +206,29 @@ export default function Home() {
   //     });
   // }, []);
 
-  client.graphql({ query:listUserSponsors })
-  .then(result => {
-  console.log("UserSponsor");
-  console.log(result);
-  })
+  client.graphql({ query: listUserSponsors })
+    .then(result => {
+      console.log("UserSponsor");
+      console.log(result);
+    })
     .catch(error => {
       console.error('Error listing user Sponsors', error);
     });
 
-    client.graphql({ query:listSponsorApplications })
-  .then(result => {
-  console.log("Sponsor Applications");
-  console.log(result);
-  })
+  client.graphql({ query: listSponsorApplications })
+    .then(result => {
+      console.log("Sponsor Applications");
+      console.log(result);
+    })
     .catch(error => {
       console.error('Error listing user Sponsors', error);
     });
 
-  
+  // console.log("showLeftMenu = ", showLeftMenu);
+
   return (
     <main>
+      <div className='main-content'>
         <h1 className={styles['title']}>About Us</h1>
         <Image
           src="/teamlogo.jpg"
@@ -234,21 +237,21 @@ export default function Home() {
           height={400}
           className="mx-auto"
         />
-        <br/>
+        <br />
         <p className={styles['text']}>
           Welcome to <strong>Team 3&apos;s Website</strong>! We&apos;re dedicated to providing the best experience for our users. <br />
           <strong>Our mission is to innovate and inspire.</strong>
         </p>
         <p className={styles['text']}>
-        <strong>Team Members:  </strong><br />
-          Connor Love <br /> 
-          Rinzo Martinelli <br /> 
-          Jason Senf<br /> 
-          Jackson Henry <br/>
+          <strong>Team Members:  </strong><br />
+          Connor Love <br />
+          Rinzo Martinelli <br />
+          Jason Senf<br />
+          Jackson Henry <br />
           <br />
-          With a focus on quality and community, we strive to bring you the latest in our field.<br/> Our team is made up of passionate professionals committed to excellence in everything we do.
+          With a focus on quality and community, we strive to bring you the latest in our field.<br /> Our team is made up of passionate professionals committed to excellence in everything we do.
           <br />
-          <br/>
+          <br />
         </p>
         {data && (
           <h1 className={styles['text']}>
@@ -259,8 +262,7 @@ export default function Home() {
             Product Description: {data.success[0].ProductDescription}
           </h1>
         )}
-       
-      
+      </div>
     </main>
   );
 }
@@ -290,7 +292,7 @@ function getAboutData() {
       };
 
       console.log(JSON.stringify(formattedResponse));
-      
+
       return formattedResponse; // Return the formatted data
     })
     .catch((error) => {
