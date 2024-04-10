@@ -3,6 +3,7 @@ import React, { useState, useContext, useEffect } from "react";
 import styles from "./styles/catalog.module.css";
 import Image from "next/image";
 import CartContext from "./cart";
+import { useAuthenticator } from '@aws-amplify/ui-react';
 
 interface CatalogUIProps {
   songTitle: string;
@@ -22,8 +23,14 @@ const CatalogUI: React.FC<CatalogUIProps> = ({ songTitle, albumTitle, albumCover
     setIsAdded(itemInCart);
   }, [cart, trackId]);
 
+  const { user } = useAuthenticator((context) => [context.user]); // Assuming this gives you the current user
 
   const handleAddToCart = () => {
+    if (!user) {
+      alert('Please sign in to add items to your cart');
+      return;
+    }
+
     const item = { songTitle, albumTitle, albumCover, price, id: trackId };
     addItem(item);
     setIsAdded(true); // Assume item is added successfully
