@@ -225,7 +225,7 @@ export default function Home() {
 
   
   return (
-    <main>
+    <main className={styles['body']}>
         <h1 className={styles['title']}>About Us</h1>
         <Image
           src="/teamlogo.jpg"
@@ -242,7 +242,7 @@ export default function Home() {
         <p className={styles['text']}>
         <strong>Team Members:  </strong><br />
           Connor Love <br /> 
-          Rinzo Martinelli <br /> 
+          Renzo Muzzarelli <br /> 
           Jason Senf<br /> 
           Jackson Henry <br/>
           <br />
@@ -259,8 +259,7 @@ export default function Home() {
             Product Description: {data.success[0].ProductDescription}
           </h1>
         )}
-       
-      
+       <br/><br/>
     </main>
   );
 }
