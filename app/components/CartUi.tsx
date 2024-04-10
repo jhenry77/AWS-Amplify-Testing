@@ -65,7 +65,7 @@ const [userSponsorId, setUserSponsorId] = useState(String);
   }, [userId])
 
 
-  const { cart, removeItem } = useContext(CartContext); // Use CartContext
+  const { cart, removeItem, clearCart } = useContext(CartContext); // Use CartContext
   const [isOpen, setIsOpen] = useState(false); // State to control dropdown
 
   const handleToggle = () => {
@@ -95,6 +95,7 @@ const [userSponsorId, setUserSponsorId] = useState(String);
     })
     .then(() => {
         updateUserPoints(newPoints);
+        clearCart();
     })
     .catch(error => console.error('Error removing points:', error));
 }

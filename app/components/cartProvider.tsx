@@ -1,4 +1,4 @@
-import React, { ReactNode, useReducer } from 'react';
+import React, { ReactNode, useReducer, useState } from 'react';
 import CartContext from './cart';
 
 const initialState = { cart: [] };
@@ -35,6 +35,8 @@ type CartState = {
       case 'REMOVE_ITEM':
         // Remove item by filtering out the item with the matching id
         return { ...state, cart: state.cart.filter(item => item.id !== action.id) };
+      case 'CLEAR_CART':
+          return{...state, cart: []};
       default:
         // Return the current state if no actions match
         return state;
@@ -44,7 +46,6 @@ type CartState = {
 
   export function CartProvider({ children }: { children: React.ReactNode }) {
     const [state, dispatch] = useReducer(cartReducer, initialState);
-  
     const addItem = (item: Item) => {
       dispatch({ type: 'ADD_ITEM', item });
     };
@@ -52,9 +53,11 @@ type CartState = {
     const removeItem = (id: string) => {
       dispatch({ type: 'REMOVE_ITEM', id });
     };
-  
+    const clearCart = () => {
+      dispatch({ type: 'CLEAR_CART' }); // Clear the cart
+    };
     return (
-      <CartContext.Provider value={{ cart: state.cart, addItem, removeItem }}>
+      <CartContext.Provider value={{ cart: state.cart, addItem, removeItem, clearCart }}>
         {children}
       </CartContext.Provider>
     );
