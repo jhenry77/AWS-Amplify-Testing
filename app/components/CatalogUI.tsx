@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import styles from "./styles/catalog.module.css";
 import Image from "next/image";
 import CartContext from "./cart";
@@ -13,12 +13,20 @@ interface CatalogUIProps {
 }
 
 const CatalogUI: React.FC<CatalogUIProps> = ({ songTitle, albumTitle, albumCover, price, trackId }) => {
-  const { addItem } = useContext(CartContext); // Use CartContext
+  const { cart, addItem } = useContext(CartContext); // Use CartContext
+  const [isAdded, setIsAdded] = useState(false);
+
+  useEffect(() => {
+    // Check if the item is already in the cart on component mount and any time cart changes
+    const itemInCart = cart.some(item => item.id === trackId);
+    setIsAdded(itemInCart);
+  }, [cart, trackId]);
+
 
   const handleAddToCart = () => {
-    // Replace this with the actual item object you want to add to the cart
     const item = { songTitle, albumTitle, albumCover, price, id: trackId };
     addItem(item);
+    setIsAdded(true); // Assume item is added successfully
   };
 
   
@@ -43,7 +51,12 @@ const CatalogUI: React.FC<CatalogUIProps> = ({ songTitle, albumTitle, albumCover
       />
       <div className={styles.bottom}>
         <p className={styles.price}>${price}</p>
-        <button className={styles.button} onClick={handleAddToCart}>Add to cart</button> {/* Add click handler */}
+        <button
+          className={`${styles.button} ${isAdded ? styles.addedToCart : ''}`}
+          onClick={handleAddToCart}
+        >
+          {isAdded ? 'Added to Cart' : 'Add to Cart'}
+        </button>
       </div>
     </div>
   );
