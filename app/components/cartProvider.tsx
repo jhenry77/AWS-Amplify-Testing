@@ -24,13 +24,23 @@ type CartState = {
   function cartReducer(state: CartState, action: CartAction) {
     switch (action.type) {
       case 'ADD_ITEM':
-        return { ...state, cart: [...state.cart, action.item] };
+        // Check if the item already exists in the cart
+        const itemExists = state.cart.some(item => item.id === action.item?.id);
+        if (!itemExists && action.item) {
+          // Item does not exist, so add it
+          return { ...state, cart: [...state.cart, action.item] };
+        }
+        // Item already exists or no item provided, return the state unchanged
+        return state;
       case 'REMOVE_ITEM':
+        // Remove item by filtering out the item with the matching id
         return { ...state, cart: state.cart.filter(item => item.id !== action.id) };
       default:
+        // Return the current state if no actions match
         return state;
     }
   }
+  
 
   export function CartProvider({ children }: { children: React.ReactNode }) {
     const [state, dispatch] = useReducer(cartReducer, initialState);
