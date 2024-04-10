@@ -4,15 +4,18 @@
     top: 48px;
     left: 0;
     bottom: 100%;
-    width: 150px;
-    height: calc(100% - 60px);
+    width: 160px;
+    height: 100%;
     color: inherit;
     background-color: inherit;
-    /* box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5); */
-    transform: translateX(-100%);
+    /*box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+    */transform: translateX(-100%);
     transition: transform 0.3s ease-in-out;
     z-index: 1500;
-    /* A high value to ensure it shows above other elements */
+    -webkit-transition: transform 0.3s ease-in-out;
+    -moz-transition: transform 0.3s ease-in-out;
+    -ms-transition: transform 0.3s ease-in-out;
+    -o-transition: transform 0.3s ease-in-out;
 }
 
 /* Styles for the right menu content */
@@ -21,16 +24,19 @@
     /* Or absolute, depending on your layout needs */
     top: 48px;
     right: 0;
-    width: 200px;
+    width: 180px;
     /* Adjust width as needed */
     height: calc(100% - 60px);
-    background-color: #f0f0f0;
+    background-color: white;
     /* Light grey background, adjust as needed */
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    box-shadow: -2px 0 5px rgba(0.5, 0.5, 0.5, 0.5);
     /* Shadow for depth, adjust as needed */
     transform: translateX(100%);
     transition: transform 0.3s ease-in-out;
     z-index: 1500;
+    overflow-y: auto; 
+    height: 100%;
+    max-height: 90vh; 
     /* A high value to ensure it shows above other elements */
 }
 
@@ -39,22 +45,25 @@
     transform: translateX(0);
 }
 
-.left-menu-header, .right-menu-header {
+.left-menu-header,
+.right-menu-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #eee;
+    /* border-bottom: 1px solid #eee; */
     /* Adjust based on your layout */
 }
 
 
 .left-menu-header {
     padding: 0px 0px 0px 10px;
+    border-bottom: 1px solid white;
 }
 
 .right-menu-header {
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
+    padding: 0px 25px 0px 0px;
+    border-bottom: 1px solid #2C3E50;
+    color: #2C3E50;
     /* Adjust based on your layout */
 }
 
@@ -66,12 +75,20 @@
 .left-menu-title {
     flex-grow: 1;
     color: inherit;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14pt;
 }
 
 
 .right-menu-title {
     flex-grow: 1;
-    color: black;
+    color: #2C3E50;
+    text-align: center;
+    padding-left: 0px;
+    font-weight: bold;
+    font-size: 14pt;
+    cursor: default;
 }
 
 
@@ -98,23 +115,140 @@
     cursor: pointer;
     background: none;
     border: none;
-    color: #333;
+    color: #2C3E50;
     /* Color of the 'X' */
     transition: transform 0.3s ease;
 }
 
 .right-close-button {
     font-size: 24px;
-    /* Adjust the size of the 'X' */
-    cursor: pointer;
+    /*Adjustthesizeofthe'X'*/cursor: pointer;
     background: none;
     border: none;
-    color: #333;
-    padding: 0%;
-    /* Color of the 'X' */
-    transition: transform 0.3s ease;
+    color: #2C3E50;
+    /* padding: 0%; */
+    /*Colorofthe'X'*/
+    transition: transform 0.5s ease;
+    -webkit-transition: transform 0.3s ease;
+    -moz-transition: transform 0.3s ease;
+    -ms-transition: transform 0.3s ease;
+    -o-transition: transform 0.3s ease;
 }
 
-.close-button:hover {
+.right-close-button:hover {
+    color: white;
+    background-color: #2C3E50;
+    transition: transform 1s ease;
+    -webkit-transition: transform 1s ease;
+    -moz-transition: transform 1s ease;
+    -ms-transition: transform 1s ease;
+    -o-transition: transform 1s ease;
+}
+
+
+/* .close-button:hover {
     transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+} */
+
+.menu-section {
+    padding: 10px;
+    border-bottom: 1px solid #2C3E50;
+}
+
+.left-menu-section-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-align: center;
+    color: white;
+    border-bottom: 1px solid white;
+    cursor: default;
+}
+
+.left-menu-section {
+    border-bottom: 1px solid white;
+}
+
+.left-menu-item {
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid white;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+.left-menu-item:hover {
+    background-color: white;
+    color: #2C3E50;
+    text-align: center;
+    cursor: pointer;
+    /* border-bottom: 1px solid red; */
+    transition: background-color .75s ease;
+    text-shadow: none;
+    font-weight: bold;
+    -webkit-transition: background-color .75s ease;
+    -moz-transition: background-color .75s ease;
+    -ms-transition: background-color .75s ease;
+    -o-transition: background-color .75s ease;
+}
+
+.right-menu-section-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-align: center;
+    color: #2C3E50;
+    border-bottom: 1px solid #2C3E50;
+}
+
+.right-menu-item {
+    background-color: #2C3E50;
+    color: white;
+    text-align: center;
+    /* border-bottom: 1px solid #2C3E50; */
+    border: 1px solid #2C3E50;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.right-menu-item:hover {
+    background-color: white;
+    color: #2C3E50;
+    text-align: center;
+    transition: background-color .75s ease;
+    -webkit-transition: background-color .75s ease;
+    -moz-transition: background-color .75s ease;
+    -ms-transition: background-color .75s ease;
+    -o-transition: background-color .75s ease;
+}
+
+
+.popup {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -20%);
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 20px;
+    z-index: 100;
+}
+
+.popup-content {
+    text-align: center;
+}
+
+/* Ensure this media query encompasses the screen sizes you're targeting */
+@media (max-width: 766.5px) {
+    .left-menu-content, .right-menu-content {
+      /* Set a position if not already positioned */
+      top: 72px; /* Align to top or adjust as necessary */
+      /* Set a high z-index value */
+      z-index: 1000; /* Ensure this value is higher than the navbar's z-index */
+    }
 }
