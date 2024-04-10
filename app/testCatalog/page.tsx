@@ -28,9 +28,10 @@ import awsExports from '../../src/aws-exports';
 import AuthClient from '../components/AuthClient';
 import { getUser } from '@/src/graphql/queries';
 import CartContext from '../components/cart';
+Amplify.configure(awsExports);
 const client = generateClient();
 
-Amplify.configure(awsExports);
+
 
 
 
