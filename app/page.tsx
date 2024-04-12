@@ -227,7 +227,7 @@ export default function Home() {
   // console.log("showLeftMenu = ", showLeftMenu);
 
   return (
-    <main>
+    <main className={styles['body']}>
       <div className='main-content'>
         <h1 className={styles['title']}>About Us</h1>
         <Image
@@ -250,6 +250,7 @@ export default function Home() {
           Jackson Henry <br />
           <br />
           With a focus on quality and community, we strive to bring you the latest in our field.<br /> Our team is made up of passionate professionals committed to excellence in everything we do.
+
           <br />
           <br />
         </p>
@@ -262,6 +263,7 @@ export default function Home() {
             Product Description: {data.success[0].ProductDescription}
           </h1>
         )}
+       <br/><br/>
       </div>
     </main>
   );

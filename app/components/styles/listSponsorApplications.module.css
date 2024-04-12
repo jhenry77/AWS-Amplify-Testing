@@ -16,3 +16,10 @@
     margin: .5rem;
     border-color: white;
 }
+
+.inputDetails{
+    border-width: 1px;
+    margin: .5rem;
+    border-color: white;
+    color: black;
+}

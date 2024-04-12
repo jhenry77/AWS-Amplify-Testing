@@ -249,6 +249,16 @@ export const listUserSponsors = /* GraphQL */ `query ListUserSponsors(
     items {
       id
       userId
+      user {
+        id
+        name
+        familyName
+        email
+        address
+        createdAt
+        updatedAt
+        __typename
+      }
       sponsorId
       points
       createdAt
