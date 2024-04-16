@@ -61,22 +61,28 @@ button.amplify-button--fullwidth{
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  /*Stackchildrenvertically*/align-items: center;
-  /*Centerchildrenhorizontally*/justify-content: flex-start;
-  /*Startchildrenfromthetop*/padding: 20px;
-  max-width: 800px;
-  /*Adjusttoyourpreferredmaxwidth*/margin: auto;
+  width: auto;
+  /*Stackchildrenvertically*/
+  align-items: center;
+  /*Centerchildrenhorizontally*/
+  justify-content: flex-start;
+  /* Startchildrenfromthetop */
+  padding: 20px;
+  /* Adjusttoyourpreferredmaxwidth */
+  margin: auto;
+  width: 1000px;
   transition: margin-left 0.3s ease-in-out;
+  background-color: gray;
+  margin-left: 250px; /* Adjust this value to match the width of your menu */
   -webkit-transition: margin-left 0.3s ease-in-out;
   -moz-transition: margin-left 0.3s ease-in-out;
   -ms-transition: margin-left 0.3s ease-in-out;
-  -o-transition: margin-left 0.3s ease-in-out;
 }
 
 /* Class to apply when the left menu is visible */
-.main-content-with-menu {
-  margin-left: 250px; /* Adjust this value to match the width of your menu */
-}
+/* .main-content-left-menu-closed { */
+  /* margin-left: 0px; Adjust this value to match the width of your menu */
+/* } */
 
 /* Navbar Styles */
 /* .Navbar {
@@ -94,6 +100,11 @@ button.amplify-button--fullwidth{
 .settings-menu-button {
   margin-left: auto; /* This will push the settings button to the far right */
 }
+
+/* .footer {
+  position: fixed;
+  bottom: 0;
+} */
 
 /* Navbar Items */
 /* .Navbar a, .Navbar button {
@@ -198,31 +209,40 @@ button.amplify-button--fullwidth{
   }
 }
 
-/* Hamburger Menu Columns */
+/* Hamburger Menu Columns
 .hamburger-menu {
   position: fixed;
   top: 0;
   height: 100vh;
-  /*Fullheight*/width: 250px;
-  /*Fixedwidth*/background-color: #fff;
-  /*Lightbackgroundforthemenu*/box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  /*Subtleshadowfordepth*/z-index: 1000;
-  /*Highz-indextoensureit'saboveothercontent*/display: flex;
-  /*Useflexboxtoarrangechildren*/flex-direction: column;
-  /*Alignchildrenvertically*/justify-content: flex-start;
-  /*Aligncontenttothestart*/transform: translateX(-100%);
-  /*Initiallyoff-screen*/transition: transform 0.3s ease-in-out;
-  /*Smoothtransition*/padding: 1rem;
-  /*Paddingaroundcontent*/padding: 20px;
-  /*Addpaddinginsidethemenu*/background-color: #f8f9fa;
-  /*Lightbackgroundcolor*/color: #333;
-  /*Darktextcolorforcontrast*/font-family: Arial, sans-serif;
-   /* Choose a font-family */;
-  -webkit-transform: translateX(-100%);
-  -moz-transform: translateX(-100%);
-  -ms-transform: translateX(-100%);
-  -o-transform: translateX(-100%);
-}
+  /*Fullheight*//*width: 250px;
+  *//*Fixedwidth*//*background-color: #fff;
+  *//*Lightbackgroundforthemenu*//*box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  *//*Subtleshadowfordepth*//*z-index: 1000;
+  *//*Highz-indextoensureit'saboveothercontent*//*display: flex;
+  *//*Useflexboxtoarrangechildren*//*flex-direction: column;
+  *//*Alignchildrenvertically //justify-content: flex-start;
+  /*Aligncontenttothestart*//*transform: translateX(-100%);
+  Initiallyoff-screentransition: transform 0.3s ease-in-out;
+  /*Smoothtransition*/
+  /* padding: 1rem; */
+  /*Paddingaroundcontent*/
+  /* padding: 20px; */
+  /*Addpaddinginsidethemenu*/
+  /* background-color: #f8f9fa; */
+  /*Lightbackgroundcolor*/
+  /* color: #333; */
+  /*Darktextcolorforcontrast*/
+  /* font-family: Arial, sans-serif; */
+     /* Choose a font-family:; */
+  /* -webkit-transform: translateX(-100%); */
+  /* -moz-transform: translateX(-100%); */
+  /* -ms-transform: translateX(-100%); */
+  /* -o-transform: translateX(-100%); */
+  /* -webkit-transition: transform 0.3s ease-in-out; */
+  /* -moz-transition: transform 0.3s ease-in-out; */
+  /* -ms-transition: transform 0.3s ease-in-out; */
+  /* -o-transition: transform 0.3s ease-in-out; */
+/* } */
 
 .hamburger-menu.right {
   right: 0;
@@ -254,11 +274,15 @@ button.amplify-button--fullwidth{
 /* Style for menu items */
 .menu-item {
   padding: 10px 15px;
-  /*Paddingforeachitem*/margin: 5px 0;
-  /*Spacingbetweenitems*/border-radius: 4px;
-  /*Slightroundingofcorners*/transition: background-color 0.2s ease;
-  /*Smoothbackgroundtransition*/cursor: pointer;
-   /* Change cursor to indicate clickable */;
+  /* Padding for each item*/
+  margin: 5px 0;
+  /* Spacing between items*/
+  border-radius: 4px;
+  /* Slight rounding of corners*/
+  transition: background-color 0.2s ease;
+  /* Smooth background transition*/
+  cursor: pointer;
+  /* Change cursor to indicate clickable */;
   -webkit-transition: background-color 0.2s ease;
   -moz-transition: background-color 0.2s ease;
   -ms-transition: background-color 0.2s ease;
@@ -349,14 +373,6 @@ button.amplify-button--fullwidth{
   min-height: 100vh;
 }
 
-
-.main-content {
-  flex: 1;
-  max-width: 800px; /* Adjust to your preferred max width */
-  margin: auto; /* This centers the content */
-  padding: 20px; /* Adjust padding to your preference */
-}
-
 .grid-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -380,8 +396,8 @@ button.amplify-button--fullwidth{
   display: none; Hide by default and will display on smaller screens
 }*/
 
-/* For smaller screens */
-@media screen and (max-width: 768px) {
+/* For smaller screens or half-screen displays */
+@media screen and (max-width: 766px) {
   .hamburger-menu-button {
     display: none; /* hide the hamburger menu button */
   }
@@ -400,6 +416,7 @@ button.amplify-button--fullwidth{
     width: 100%;
   }
 }
+
 
 
 

@@ -272,7 +272,7 @@ export default function Profile(){
 
             {/* Birthday */}
             <div className={styles['block']}>
-                <p className={styles['blocktext']}>Update Address</p>
+                <p className={styles['blocktext']}>Update Birthday</p>
                 <p className={styles['example']}>YYYY-MM-DD</p>
                 <form onSubmit={handleSubmitBirthday} className={styles['container']}>
                     <label>
