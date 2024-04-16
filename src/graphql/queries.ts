@@ -48,10 +48,9 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
     email
     address
     applications {
-      items {
+      items{
         id
         reason
-        
       }
       nextToken
       __typename
@@ -64,9 +63,9 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
           id
           name
         }
+        __typename
       }
       nextToken
-      __typename
     }
     createdAt
     updatedAt
@@ -166,6 +165,40 @@ export const listSponsorApplications = /* GraphQL */ `query ListSponsorApplicati
   APITypes.ListSponsorApplicationsQueryVariables,
   APITypes.ListSponsorApplicationsQuery
 >;
+export const sponsorApplicationsByUserIdAndId = /* GraphQL */ `query SponsorApplicationsByUserIdAndId(
+  $userId: ID!
+  $id: ModelIDKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelSponsorApplicationFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  sponsorApplicationsByUserIdAndId(
+    userId: $userId
+    id: $id
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      userId
+      sponsorId
+      reason
+      additionalInfo
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.SponsorApplicationsByUserIdAndIdQueryVariables,
+  APITypes.SponsorApplicationsByUserIdAndIdQuery
+>;
 export const getSponsor = /* GraphQL */ `query GetSponsor($id: ID!) {
   getSponsor(id: $id) {
     id
@@ -231,6 +264,10 @@ export const getUserSponsor = /* GraphQL */ `query GetUserSponsor($id: ID!) {
       __typename
     }
     points
+    purchases {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -272,4 +309,201 @@ export const listUserSponsors = /* GraphQL */ `query ListUserSponsors(
 ` as GeneratedQuery<
   APITypes.ListUserSponsorsQueryVariables,
   APITypes.ListUserSponsorsQuery
+>;
+export const userSponsorsByUserIdAndId = /* GraphQL */ `query UserSponsorsByUserIdAndId(
+  $userId: ID!
+  $id: ModelIDKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelUserSponsorFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  userSponsorsByUserIdAndId(
+    userId: $userId
+    id: $id
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      userId
+      sponsorId
+      points
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.UserSponsorsByUserIdAndIdQueryVariables,
+  APITypes.UserSponsorsByUserIdAndIdQuery
+>;
+export const getPurchaseItem = /* GraphQL */ `query GetPurchaseItem($id: ID!) {
+  getPurchaseItem(id: $id) {
+    id
+    purchaseId
+    purchase {
+      id
+      userSponsorId
+      purchaseDate
+      totalAmount
+      createdAt
+      updatedAt
+      __typename
+    }
+    itemName
+    price
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetPurchaseItemQueryVariables,
+  APITypes.GetPurchaseItemQuery
+>;
+export const listPurchaseItems = /* GraphQL */ `query ListPurchaseItems(
+  $filter: ModelPurchaseItemFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listPurchaseItems(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      purchaseId
+      itemName
+      price
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListPurchaseItemsQueryVariables,
+  APITypes.ListPurchaseItemsQuery
+>;
+export const purchaseItemsByPurchaseIdAndId = /* GraphQL */ `query PurchaseItemsByPurchaseIdAndId(
+  $purchaseId: ID!
+  $id: ModelIDKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelPurchaseItemFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  purchaseItemsByPurchaseIdAndId(
+    purchaseId: $purchaseId
+    id: $id
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      purchaseId
+      itemName
+      price
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.PurchaseItemsByPurchaseIdAndIdQueryVariables,
+  APITypes.PurchaseItemsByPurchaseIdAndIdQuery
+>;
+export const getPurchase = /* GraphQL */ `query GetPurchase($id: ID!) {
+  getPurchase(id: $id) {
+    id
+    userSponsorId
+    userSponsor {
+      id
+      userId
+      sponsorId
+      points
+      createdAt
+      updatedAt
+      __typename
+    }
+    purchaseDate
+    totalAmount
+    items {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetPurchaseQueryVariables,
+  APITypes.GetPurchaseQuery
+>;
+export const listPurchases = /* GraphQL */ `query ListPurchases(
+  $filter: ModelPurchaseFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listPurchases(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      userSponsorId
+      purchaseDate
+      totalAmount
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListPurchasesQueryVariables,
+  APITypes.ListPurchasesQuery
+>;
+export const purchasesByUserSponsorIdAndId = /* GraphQL */ `query PurchasesByUserSponsorIdAndId(
+  $userSponsorId: ID!
+  $id: ModelIDKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelPurchaseFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  purchasesByUserSponsorIdAndId(
+    userSponsorId: $userSponsorId
+    id: $id
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      userSponsorId
+      purchaseDate
+      totalAmount
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.PurchasesByUserSponsorIdAndIdQueryVariables,
+  APITypes.PurchasesByUserSponsorIdAndIdQuery
 >;

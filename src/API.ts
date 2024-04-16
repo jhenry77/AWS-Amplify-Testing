@@ -153,6 +153,42 @@ export type UserSponsor = {
   sponsorId: string,
   sponsor?: Sponsor | null,
   points: number,
+  purchases?: ModelPurchaseConnection | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type ModelPurchaseConnection = {
+  __typename: "ModelPurchaseConnection",
+  items:  Array<Purchase | null >,
+  nextToken?: string | null,
+};
+
+export type Purchase = {
+  __typename: "Purchase",
+  id: string,
+  userSponsorId: string,
+  userSponsor?: UserSponsor | null,
+  purchaseDate: string,
+  totalAmount: number,
+  items?: ModelPurchaseItemConnection | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type ModelPurchaseItemConnection = {
+  __typename: "ModelPurchaseItemConnection",
+  items:  Array<PurchaseItem | null >,
+  nextToken?: string | null,
+};
+
+export type PurchaseItem = {
+  __typename: "PurchaseItem",
+  id: string,
+  purchaseId: string,
+  purchase?: Purchase | null,
+  itemName: string,
+  price: number,
   createdAt: string,
   updatedAt: string,
 };
@@ -275,6 +311,72 @@ export type DeleteUserSponsorInput = {
   id: string,
 };
 
+export type CreatePurchaseItemInput = {
+  id?: string | null,
+  purchaseId: string,
+  itemName: string,
+  price: number,
+};
+
+export type ModelPurchaseItemConditionInput = {
+  purchaseId?: ModelIDInput | null,
+  itemName?: ModelStringInput | null,
+  price?: ModelFloatInput | null,
+  and?: Array< ModelPurchaseItemConditionInput | null > | null,
+  or?: Array< ModelPurchaseItemConditionInput | null > | null,
+  not?: ModelPurchaseItemConditionInput | null,
+};
+
+export type ModelFloatInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
+export type UpdatePurchaseItemInput = {
+  id: string,
+  purchaseId?: string | null,
+  itemName?: string | null,
+  price?: number | null,
+};
+
+export type DeletePurchaseItemInput = {
+  id: string,
+};
+
+export type CreatePurchaseInput = {
+  id?: string | null,
+  userSponsorId: string,
+  purchaseDate: string,
+  totalAmount: number,
+};
+
+export type ModelPurchaseConditionInput = {
+  userSponsorId?: ModelIDInput | null,
+  purchaseDate?: ModelStringInput | null,
+  totalAmount?: ModelFloatInput | null,
+  and?: Array< ModelPurchaseConditionInput | null > | null,
+  or?: Array< ModelPurchaseConditionInput | null > | null,
+  not?: ModelPurchaseConditionInput | null,
+};
+
+export type UpdatePurchaseInput = {
+  id: string,
+  userSponsorId?: string | null,
+  purchaseDate?: string | null,
+  totalAmount?: number | null,
+};
+
+export type DeletePurchaseInput = {
+  id: string,
+};
+
 export type ModelTodoFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
@@ -319,6 +421,22 @@ export type ModelSponsorApplicationFilterInput = {
   not?: ModelSponsorApplicationFilterInput | null,
 };
 
+export type ModelIDKeyConditionInput = {
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+};
+
+export enum ModelSortDirection {
+  ASC = "ASC",
+  DESC = "DESC",
+}
+
+
 export type ModelSponsorFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
@@ -341,6 +459,26 @@ export type ModelUserSponsorFilterInput = {
   and?: Array< ModelUserSponsorFilterInput | null > | null,
   or?: Array< ModelUserSponsorFilterInput | null > | null,
   not?: ModelUserSponsorFilterInput | null,
+};
+
+export type ModelPurchaseItemFilterInput = {
+  id?: ModelIDInput | null,
+  purchaseId?: ModelIDInput | null,
+  itemName?: ModelStringInput | null,
+  price?: ModelFloatInput | null,
+  and?: Array< ModelPurchaseItemFilterInput | null > | null,
+  or?: Array< ModelPurchaseItemFilterInput | null > | null,
+  not?: ModelPurchaseItemFilterInput | null,
+};
+
+export type ModelPurchaseFilterInput = {
+  id?: ModelIDInput | null,
+  userSponsorId?: ModelIDInput | null,
+  purchaseDate?: ModelStringInput | null,
+  totalAmount?: ModelFloatInput | null,
+  and?: Array< ModelPurchaseFilterInput | null > | null,
+  or?: Array< ModelPurchaseFilterInput | null > | null,
+  not?: ModelPurchaseFilterInput | null,
 };
 
 export type ModelSubscriptionTodoFilterInput = {
@@ -428,6 +566,36 @@ export type ModelSubscriptionIntInput = {
   between?: Array< number | null > | null,
   in?: Array< number | null > | null,
   notIn?: Array< number | null > | null,
+};
+
+export type ModelSubscriptionPurchaseItemFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  purchaseId?: ModelSubscriptionIDInput | null,
+  itemName?: ModelSubscriptionStringInput | null,
+  price?: ModelSubscriptionFloatInput | null,
+  and?: Array< ModelSubscriptionPurchaseItemFilterInput | null > | null,
+  or?: Array< ModelSubscriptionPurchaseItemFilterInput | null > | null,
+};
+
+export type ModelSubscriptionFloatInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  in?: Array< number | null > | null,
+  notIn?: Array< number | null > | null,
+};
+
+export type ModelSubscriptionPurchaseFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  userSponsorId?: ModelSubscriptionIDInput | null,
+  purchaseDate?: ModelSubscriptionStringInput | null,
+  totalAmount?: ModelSubscriptionFloatInput | null,
+  and?: Array< ModelSubscriptionPurchaseFilterInput | null > | null,
+  or?: Array< ModelSubscriptionPurchaseFilterInput | null > | null,
 };
 
 export type CreateTodoMutationVariables = {
@@ -762,6 +930,10 @@ export type CreateUserSponsorMutation = {
       updatedAt: string,
     } | null,
     points: number,
+    purchases?:  {
+      __typename: "ModelPurchaseConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -796,6 +968,10 @@ export type UpdateUserSponsorMutation = {
       updatedAt: string,
     } | null,
     points: number,
+    purchases?:  {
+      __typename: "ModelPurchaseConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -830,6 +1006,178 @@ export type DeleteUserSponsorMutation = {
       updatedAt: string,
     } | null,
     points: number,
+    purchases?:  {
+      __typename: "ModelPurchaseConnection",
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreatePurchaseItemMutationVariables = {
+  input: CreatePurchaseItemInput,
+  condition?: ModelPurchaseItemConditionInput | null,
+};
+
+export type CreatePurchaseItemMutation = {
+  createPurchaseItem?:  {
+    __typename: "PurchaseItem",
+    id: string,
+    purchaseId: string,
+    purchase?:  {
+      __typename: "Purchase",
+      id: string,
+      userSponsorId: string,
+      purchaseDate: string,
+      totalAmount: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    itemName: string,
+    price: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdatePurchaseItemMutationVariables = {
+  input: UpdatePurchaseItemInput,
+  condition?: ModelPurchaseItemConditionInput | null,
+};
+
+export type UpdatePurchaseItemMutation = {
+  updatePurchaseItem?:  {
+    __typename: "PurchaseItem",
+    id: string,
+    purchaseId: string,
+    purchase?:  {
+      __typename: "Purchase",
+      id: string,
+      userSponsorId: string,
+      purchaseDate: string,
+      totalAmount: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    itemName: string,
+    price: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeletePurchaseItemMutationVariables = {
+  input: DeletePurchaseItemInput,
+  condition?: ModelPurchaseItemConditionInput | null,
+};
+
+export type DeletePurchaseItemMutation = {
+  deletePurchaseItem?:  {
+    __typename: "PurchaseItem",
+    id: string,
+    purchaseId: string,
+    purchase?:  {
+      __typename: "Purchase",
+      id: string,
+      userSponsorId: string,
+      purchaseDate: string,
+      totalAmount: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    itemName: string,
+    price: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreatePurchaseMutationVariables = {
+  input: CreatePurchaseInput,
+  condition?: ModelPurchaseConditionInput | null,
+};
+
+export type CreatePurchaseMutation = {
+  createPurchase?:  {
+    __typename: "Purchase",
+    id: string,
+    userSponsorId: string,
+    userSponsor?:  {
+      __typename: "UserSponsor",
+      id: string,
+      userId: string,
+      sponsorId: string,
+      points: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    purchaseDate: string,
+    totalAmount: number,
+    items?:  {
+      __typename: "ModelPurchaseItemConnection",
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdatePurchaseMutationVariables = {
+  input: UpdatePurchaseInput,
+  condition?: ModelPurchaseConditionInput | null,
+};
+
+export type UpdatePurchaseMutation = {
+  updatePurchase?:  {
+    __typename: "Purchase",
+    id: string,
+    userSponsorId: string,
+    userSponsor?:  {
+      __typename: "UserSponsor",
+      id: string,
+      userId: string,
+      sponsorId: string,
+      points: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    purchaseDate: string,
+    totalAmount: number,
+    items?:  {
+      __typename: "ModelPurchaseItemConnection",
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeletePurchaseMutationVariables = {
+  input: DeletePurchaseInput,
+  condition?: ModelPurchaseConditionInput | null,
+};
+
+export type DeletePurchaseMutation = {
+  deletePurchase?:  {
+    __typename: "Purchase",
+    id: string,
+    userSponsorId: string,
+    userSponsor?:  {
+      __typename: "UserSponsor",
+      id: string,
+      userId: string,
+      sponsorId: string,
+      points: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    purchaseDate: string,
+    totalAmount: number,
+    items?:  {
+      __typename: "ModelPurchaseItemConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -878,39 +1226,36 @@ export type GetUserQueryVariables = {
 };
 
 export type GetUserQuery = {
-  getUser?:  {
-    __typename: "User",
-    id: string,
-    name: string,
-    familyName: string,
-    email: string,
-    address: string,
-    applications?:  {
-      __typename: "ModelSponsorApplicationConnection",
-      items?:  {
-        __typename: "SponsorApplication",
-        id: string,
-        reason: string,
-      }[] | null,
-      nextToken?: string | null,
-    } | null,
-    sponsors?:  {
-      __typename: "ModelUserSponsorConnection",
-      items?:  {
-        __typename: "UserSponsor",
-        id: string,
-        points: number,
+  getUser?: {
+    __typename: "User";
+    id: string;
+    name: string;
+    familyName: string;
+    email: string;
+    address: string;
+    applications?: {
+      items: Array<{
+        id: string;
+        reason: string;
+      }>;
+      nextToken?: string | null;
+      __typename: "ModelSponsorApplicationConnection";
+    } | null;
+    sponsors?: {
+      items: Array<{
+        id: string;
+        points: number;
         sponsor: {
-          __typename: "Sponsor",
-          id: string,
-          name: string,
-        },
-      }[] | null,
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
+          id: string;
+          name: string;
+        };
+      }>;
+      nextToken?: string | null;
+      __typename: "ModelUserSponsorConnection";
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
 };
 
 export type ListUsersQueryVariables = {
@@ -978,6 +1323,32 @@ export type ListSponsorApplicationsQueryVariables = {
 
 export type ListSponsorApplicationsQuery = {
   listSponsorApplications?:  {
+    __typename: "ModelSponsorApplicationConnection",
+    items:  Array< {
+      __typename: "SponsorApplication",
+      id: string,
+      userId: string,
+      sponsorId: string,
+      reason: string,
+      additionalInfo: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type SponsorApplicationsByUserIdAndIdQueryVariables = {
+  userId: string,
+  id?: ModelIDKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelSponsorApplicationFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type SponsorApplicationsByUserIdAndIdQuery = {
+  sponsorApplicationsByUserIdAndId?:  {
     __typename: "ModelSponsorApplicationConnection",
     items:  Array< {
       __typename: "SponsorApplication",
@@ -1063,6 +1434,10 @@ export type GetUserSponsorQuery = {
       updatedAt: string,
     } | null,
     points: number,
+    purchases?:  {
+      __typename: "ModelPurchaseConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1083,6 +1458,179 @@ export type ListUserSponsorsQuery = {
       userId: string,
       sponsorId: string,
       points: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type UserSponsorsByUserIdAndIdQueryVariables = {
+  userId: string,
+  id?: ModelIDKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelUserSponsorFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type UserSponsorsByUserIdAndIdQuery = {
+  userSponsorsByUserIdAndId?:  {
+    __typename: "ModelUserSponsorConnection",
+    items:  Array< {
+      __typename: "UserSponsor",
+      id: string,
+      userId: string,
+      sponsorId: string,
+      points: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetPurchaseItemQueryVariables = {
+  id: string,
+};
+
+export type GetPurchaseItemQuery = {
+  getPurchaseItem?:  {
+    __typename: "PurchaseItem",
+    id: string,
+    purchaseId: string,
+    purchase?:  {
+      __typename: "Purchase",
+      id: string,
+      userSponsorId: string,
+      purchaseDate: string,
+      totalAmount: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    itemName: string,
+    price: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListPurchaseItemsQueryVariables = {
+  filter?: ModelPurchaseItemFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListPurchaseItemsQuery = {
+  listPurchaseItems?:  {
+    __typename: "ModelPurchaseItemConnection",
+    items:  Array< {
+      __typename: "PurchaseItem",
+      id: string,
+      purchaseId: string,
+      itemName: string,
+      price: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type PurchaseItemsByPurchaseIdAndIdQueryVariables = {
+  purchaseId: string,
+  id?: ModelIDKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelPurchaseItemFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type PurchaseItemsByPurchaseIdAndIdQuery = {
+  purchaseItemsByPurchaseIdAndId?:  {
+    __typename: "ModelPurchaseItemConnection",
+    items:  Array< {
+      __typename: "PurchaseItem",
+      id: string,
+      purchaseId: string,
+      itemName: string,
+      price: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetPurchaseQueryVariables = {
+  id: string,
+};
+
+export type GetPurchaseQuery = {
+  getPurchase?:  {
+    __typename: "Purchase",
+    id: string,
+    userSponsorId: string,
+    userSponsor?:  {
+      __typename: "UserSponsor",
+      id: string,
+      userId: string,
+      sponsorId: string,
+      points: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    purchaseDate: string,
+    totalAmount: number,
+    items?:  {
+      __typename: "ModelPurchaseItemConnection",
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListPurchasesQueryVariables = {
+  filter?: ModelPurchaseFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListPurchasesQuery = {
+  listPurchases?:  {
+    __typename: "ModelPurchaseConnection",
+    items:  Array< {
+      __typename: "Purchase",
+      id: string,
+      userSponsorId: string,
+      purchaseDate: string,
+      totalAmount: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type PurchasesByUserSponsorIdAndIdQueryVariables = {
+  userSponsorId: string,
+  id?: ModelIDKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelPurchaseFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type PurchasesByUserSponsorIdAndIdQuery = {
+  purchasesByUserSponsorIdAndId?:  {
+    __typename: "ModelPurchaseConnection",
+    items:  Array< {
+      __typename: "Purchase",
+      id: string,
+      userSponsorId: string,
+      purchaseDate: string,
+      totalAmount: number,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -1409,6 +1957,10 @@ export type OnCreateUserSponsorSubscription = {
       updatedAt: string,
     } | null,
     points: number,
+    purchases?:  {
+      __typename: "ModelPurchaseConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1442,6 +1994,10 @@ export type OnUpdateUserSponsorSubscription = {
       updatedAt: string,
     } | null,
     points: number,
+    purchases?:  {
+      __typename: "ModelPurchaseConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1475,6 +2031,172 @@ export type OnDeleteUserSponsorSubscription = {
       updatedAt: string,
     } | null,
     points: number,
+    purchases?:  {
+      __typename: "ModelPurchaseConnection",
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreatePurchaseItemSubscriptionVariables = {
+  filter?: ModelSubscriptionPurchaseItemFilterInput | null,
+};
+
+export type OnCreatePurchaseItemSubscription = {
+  onCreatePurchaseItem?:  {
+    __typename: "PurchaseItem",
+    id: string,
+    purchaseId: string,
+    purchase?:  {
+      __typename: "Purchase",
+      id: string,
+      userSponsorId: string,
+      purchaseDate: string,
+      totalAmount: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    itemName: string,
+    price: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdatePurchaseItemSubscriptionVariables = {
+  filter?: ModelSubscriptionPurchaseItemFilterInput | null,
+};
+
+export type OnUpdatePurchaseItemSubscription = {
+  onUpdatePurchaseItem?:  {
+    __typename: "PurchaseItem",
+    id: string,
+    purchaseId: string,
+    purchase?:  {
+      __typename: "Purchase",
+      id: string,
+      userSponsorId: string,
+      purchaseDate: string,
+      totalAmount: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    itemName: string,
+    price: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeletePurchaseItemSubscriptionVariables = {
+  filter?: ModelSubscriptionPurchaseItemFilterInput | null,
+};
+
+export type OnDeletePurchaseItemSubscription = {
+  onDeletePurchaseItem?:  {
+    __typename: "PurchaseItem",
+    id: string,
+    purchaseId: string,
+    purchase?:  {
+      __typename: "Purchase",
+      id: string,
+      userSponsorId: string,
+      purchaseDate: string,
+      totalAmount: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    itemName: string,
+    price: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreatePurchaseSubscriptionVariables = {
+  filter?: ModelSubscriptionPurchaseFilterInput | null,
+};
+
+export type OnCreatePurchaseSubscription = {
+  onCreatePurchase?:  {
+    __typename: "Purchase",
+    id: string,
+    userSponsorId: string,
+    userSponsor?:  {
+      __typename: "UserSponsor",
+      id: string,
+      userId: string,
+      sponsorId: string,
+      points: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    purchaseDate: string,
+    totalAmount: number,
+    items?:  {
+      __typename: "ModelPurchaseItemConnection",
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdatePurchaseSubscriptionVariables = {
+  filter?: ModelSubscriptionPurchaseFilterInput | null,
+};
+
+export type OnUpdatePurchaseSubscription = {
+  onUpdatePurchase?:  {
+    __typename: "Purchase",
+    id: string,
+    userSponsorId: string,
+    userSponsor?:  {
+      __typename: "UserSponsor",
+      id: string,
+      userId: string,
+      sponsorId: string,
+      points: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    purchaseDate: string,
+    totalAmount: number,
+    items?:  {
+      __typename: "ModelPurchaseItemConnection",
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeletePurchaseSubscriptionVariables = {
+  filter?: ModelSubscriptionPurchaseFilterInput | null,
+};
+
+export type OnDeletePurchaseSubscription = {
+  onDeletePurchase?:  {
+    __typename: "Purchase",
+    id: string,
+    userSponsorId: string,
+    userSponsor?:  {
+      __typename: "UserSponsor",
+      id: string,
+      userId: string,
+      sponsorId: string,
+      points: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    purchaseDate: string,
+    totalAmount: number,
+    items?:  {
+      __typename: "ModelPurchaseItemConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,

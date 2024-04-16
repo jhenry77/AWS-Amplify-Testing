@@ -39,4 +39,22 @@ type UserSponsor @model @auth(rules: [{allow: public}]) {
   sponsorId: ID!
   sponsor: Sponsor @belongsTo(fields: ["sponsorId"])
   points: Int!
+  purchases: [Purchase] @hasMany(fields: ["id"])
 } 
+
+type PurchaseItem @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  purchaseId: ID! @index(name: "byPurchase", sortKeyFields: ["id"])
+  purchase: Purchase @belongsTo(fields: ["purchaseId"])
+  itemName: String!
+  price: Float!
+}
+
+type Purchase @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  userSponsorId: ID! @index(name: "byUserSponsor", sortKeyFields: ["id"])
+  userSponsor: UserSponsor @belongsTo(fields: ["userSponsorId"])
+  purchaseDate: AWSDateTime!
+  totalAmount: Float!
+  items: [PurchaseItem] @hasMany(fields: ["id"])
+}

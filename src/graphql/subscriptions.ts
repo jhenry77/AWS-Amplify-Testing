@@ -318,6 +318,10 @@ export const onCreateUserSponsor = /* GraphQL */ `subscription OnCreateUserSpons
       __typename
     }
     points
+    purchases {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -352,6 +356,10 @@ export const onUpdateUserSponsor = /* GraphQL */ `subscription OnUpdateUserSpons
       __typename
     }
     points
+    purchases {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -386,6 +394,10 @@ export const onDeleteUserSponsor = /* GraphQL */ `subscription OnDeleteUserSpons
       __typename
     }
     points
+    purchases {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -394,4 +406,166 @@ export const onDeleteUserSponsor = /* GraphQL */ `subscription OnDeleteUserSpons
 ` as GeneratedSubscription<
   APITypes.OnDeleteUserSponsorSubscriptionVariables,
   APITypes.OnDeleteUserSponsorSubscription
+>;
+export const onCreatePurchaseItem = /* GraphQL */ `subscription OnCreatePurchaseItem(
+  $filter: ModelSubscriptionPurchaseItemFilterInput
+) {
+  onCreatePurchaseItem(filter: $filter) {
+    id
+    purchaseId
+    purchase {
+      id
+      userSponsorId
+      purchaseDate
+      totalAmount
+      createdAt
+      updatedAt
+      __typename
+    }
+    itemName
+    price
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreatePurchaseItemSubscriptionVariables,
+  APITypes.OnCreatePurchaseItemSubscription
+>;
+export const onUpdatePurchaseItem = /* GraphQL */ `subscription OnUpdatePurchaseItem(
+  $filter: ModelSubscriptionPurchaseItemFilterInput
+) {
+  onUpdatePurchaseItem(filter: $filter) {
+    id
+    purchaseId
+    purchase {
+      id
+      userSponsorId
+      purchaseDate
+      totalAmount
+      createdAt
+      updatedAt
+      __typename
+    }
+    itemName
+    price
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdatePurchaseItemSubscriptionVariables,
+  APITypes.OnUpdatePurchaseItemSubscription
+>;
+export const onDeletePurchaseItem = /* GraphQL */ `subscription OnDeletePurchaseItem(
+  $filter: ModelSubscriptionPurchaseItemFilterInput
+) {
+  onDeletePurchaseItem(filter: $filter) {
+    id
+    purchaseId
+    purchase {
+      id
+      userSponsorId
+      purchaseDate
+      totalAmount
+      createdAt
+      updatedAt
+      __typename
+    }
+    itemName
+    price
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeletePurchaseItemSubscriptionVariables,
+  APITypes.OnDeletePurchaseItemSubscription
+>;
+export const onCreatePurchase = /* GraphQL */ `subscription OnCreatePurchase($filter: ModelSubscriptionPurchaseFilterInput) {
+  onCreatePurchase(filter: $filter) {
+    id
+    userSponsorId
+    userSponsor {
+      id
+      userId
+      sponsorId
+      points
+      createdAt
+      updatedAt
+      __typename
+    }
+    purchaseDate
+    totalAmount
+    items {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreatePurchaseSubscriptionVariables,
+  APITypes.OnCreatePurchaseSubscription
+>;
+export const onUpdatePurchase = /* GraphQL */ `subscription OnUpdatePurchase($filter: ModelSubscriptionPurchaseFilterInput) {
+  onUpdatePurchase(filter: $filter) {
+    id
+    userSponsorId
+    userSponsor {
+      id
+      userId
+      sponsorId
+      points
+      createdAt
+      updatedAt
+      __typename
+    }
+    purchaseDate
+    totalAmount
+    items {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdatePurchaseSubscriptionVariables,
+  APITypes.OnUpdatePurchaseSubscription
+>;
+export const onDeletePurchase = /* GraphQL */ `subscription OnDeletePurchase($filter: ModelSubscriptionPurchaseFilterInput) {
+  onDeletePurchase(filter: $filter) {
+    id
+    userSponsorId
+    userSponsor {
+      id
+      userId
+      sponsorId
+      points
+      createdAt
+      updatedAt
+      __typename
+    }
+    purchaseDate
+    totalAmount
+    items {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeletePurchaseSubscriptionVariables,
+  APITypes.OnDeletePurchaseSubscription
 >;

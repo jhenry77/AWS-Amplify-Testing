@@ -30,28 +30,28 @@ app.use(function(req, res, next) {
  * Example get method *
  **********************/
 
-// app.get('/about', function(req, res) {
+app.get('/about', function(req, res) {
 //   // Add your code here
 
-//   var con = mysql.createConnection({
-//     host: "team03-amplify-db.cobd8enwsupz.us-east-1.rds.amazonaws.com",
-//     user: "admin",
-//     password: "Spring2024Team03!",
-//     port: 3306,
-//     database: "team03testingDB"
-//   });
+  var con = mysql.createConnection({
+    host: "team03-amplify-db.cobd8enwsupz.us-east-1.rds.amazonaws.com",
+    user: "admin",
+    password: "Spring2024Team03!",
+    port: 3306,
+    database: "team03testingDB"
+  });
 
   
 
-  // con.connect(function(err) {
-  //   if (err) throw err;
-  //   console.log("Connected!");
-  //   var sql = "DELETE FROM about";
-  //   con.query(sql, function (err, result) {
-  //     if (err) res.json({failure: "The error was" + err});
-  //     else res.json({success: "Table deleted"})
-  //   });
-  // });
+  con.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+    var sql = "DELETE FROM about";
+    con.query(sql, function (err, result) {
+      if (err) res.json({failure: "The error was" + err});
+      else res.json({success: "Table deleted"})
+    });
+  });
   // con.connect(function(err) {
   //   if (err) throw err;
   //   console.log("Connected!");
@@ -64,9 +64,9 @@ app.use(function(req, res, next) {
   // });
   // res.json({success: 'JASON!!!!'});
 
-// });
+});
 
-app.get('/about/*', function(req, res) {
+app.get('/about/1', function(req, res) {
   // Add your code here
   var con = mysql.createConnection({
     host: "team03-amplify-db.cobd8enwsupz.us-east-1.rds.amazonaws.com",
@@ -82,6 +82,29 @@ app.get('/about/*', function(req, res) {
       else res.json({success: result});
     });
   });
+
+  
+});
+app.get('/about/update', function(req, res) {
+  // Add your code here
+  var con = mysql.createConnection({
+    host: "team03-amplify-db.cobd8enwsupz.us-east-1.rds.amazonaws.com",
+    user: "admin",
+    password: "Spring2024Team03!",
+    port: 3306,
+    database: "team03testingDB"
+  });
+ con.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+  
+    var sql = "INSERT INTO about (teamNumber, VersionNum, SprintDate, ProductName, ProductDescription) VALUES ('team03', 'Sprint9', '4/12/2024', 'TruckingCatalog','Delivering')";
+    con.query(sql, function (err, result) {
+      if (err) res.json({failure: "The error was" + err});
+      else res.json("1 record inserted");
+    });
+  });
+  res.json({success: 'JASON!!!!'});
 
   
 });

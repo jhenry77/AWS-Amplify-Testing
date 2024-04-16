@@ -104,13 +104,6 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
       __typename
     }
     sponsors {
-      items {
-        id
-        sponsor {
-          id
-          name
-        }
-      }
       nextToken
       __typename
     }
@@ -345,15 +338,6 @@ export const createUserSponsor = /* GraphQL */ `mutation CreateUserSponsor(
       address
       createdAt
       updatedAt
-      sponsors {
-        items {
-          id
-          sponsor {
-            id
-            name
-          }
-        }
-      }
       __typename
     }
     sponsorId
@@ -365,6 +349,10 @@ export const createUserSponsor = /* GraphQL */ `mutation CreateUserSponsor(
       __typename
     }
     points
+    purchases {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -400,6 +388,10 @@ export const updateUserSponsor = /* GraphQL */ `mutation UpdateUserSponsor(
       __typename
     }
     points
+    purchases {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -435,6 +427,10 @@ export const deleteUserSponsor = /* GraphQL */ `mutation DeleteUserSponsor(
       __typename
     }
     points
+    purchases {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -443,4 +439,178 @@ export const deleteUserSponsor = /* GraphQL */ `mutation DeleteUserSponsor(
 ` as GeneratedMutation<
   APITypes.DeleteUserSponsorMutationVariables,
   APITypes.DeleteUserSponsorMutation
+>;
+export const createPurchaseItem = /* GraphQL */ `mutation CreatePurchaseItem(
+  $input: CreatePurchaseItemInput!
+  $condition: ModelPurchaseItemConditionInput
+) {
+  createPurchaseItem(input: $input, condition: $condition) {
+    id
+    purchaseId
+    purchase {
+      id
+      userSponsorId
+      purchaseDate
+      totalAmount
+      createdAt
+      updatedAt
+      __typename
+    }
+    itemName
+    price
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreatePurchaseItemMutationVariables,
+  APITypes.CreatePurchaseItemMutation
+>;
+export const updatePurchaseItem = /* GraphQL */ `mutation UpdatePurchaseItem(
+  $input: UpdatePurchaseItemInput!
+  $condition: ModelPurchaseItemConditionInput
+) {
+  updatePurchaseItem(input: $input, condition: $condition) {
+    id
+    purchaseId
+    purchase {
+      id
+      userSponsorId
+      purchaseDate
+      totalAmount
+      createdAt
+      updatedAt
+      __typename
+    }
+    itemName
+    price
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdatePurchaseItemMutationVariables,
+  APITypes.UpdatePurchaseItemMutation
+>;
+export const deletePurchaseItem = /* GraphQL */ `mutation DeletePurchaseItem(
+  $input: DeletePurchaseItemInput!
+  $condition: ModelPurchaseItemConditionInput
+) {
+  deletePurchaseItem(input: $input, condition: $condition) {
+    id
+    purchaseId
+    purchase {
+      id
+      userSponsorId
+      purchaseDate
+      totalAmount
+      createdAt
+      updatedAt
+      __typename
+    }
+    itemName
+    price
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeletePurchaseItemMutationVariables,
+  APITypes.DeletePurchaseItemMutation
+>;
+export const createPurchase = /* GraphQL */ `mutation CreatePurchase(
+  $input: CreatePurchaseInput!
+  $condition: ModelPurchaseConditionInput
+) {
+  createPurchase(input: $input, condition: $condition) {
+    id
+    userSponsorId
+    userSponsor {
+      id
+      userId
+      sponsorId
+      points
+      createdAt
+      updatedAt
+      __typename
+    }
+    purchaseDate
+    totalAmount
+    items {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreatePurchaseMutationVariables,
+  APITypes.CreatePurchaseMutation
+>;
+export const updatePurchase = /* GraphQL */ `mutation UpdatePurchase(
+  $input: UpdatePurchaseInput!
+  $condition: ModelPurchaseConditionInput
+) {
+  updatePurchase(input: $input, condition: $condition) {
+    id
+    userSponsorId
+    userSponsor {
+      id
+      userId
+      sponsorId
+      points
+      createdAt
+      updatedAt
+      __typename
+    }
+    purchaseDate
+    totalAmount
+    items {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdatePurchaseMutationVariables,
+  APITypes.UpdatePurchaseMutation
+>;
+export const deletePurchase = /* GraphQL */ `mutation DeletePurchase(
+  $input: DeletePurchaseInput!
+  $condition: ModelPurchaseConditionInput
+) {
+  deletePurchase(input: $input, condition: $condition) {
+    id
+    userSponsorId
+    userSponsor {
+      id
+      userId
+      sponsorId
+      points
+      createdAt
+      updatedAt
+      __typename
+    }
+    purchaseDate
+    totalAmount
+    items {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeletePurchaseMutationVariables,
+  APITypes.DeletePurchaseMutation
 >;

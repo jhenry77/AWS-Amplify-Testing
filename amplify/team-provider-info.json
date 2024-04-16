@@ -15,7 +15,7 @@
       "function": {
         "team03amplifytesting9dd32e5e": {
           "deploymentBucketName": "amplify-team03amplifytesting-dev-104425-deployment",
-          "s3Key": "amplify-builds/team03amplifytesting9dd32e5e-346c56733534796d4835-build.zip"
+          "s3Key": "amplify-builds/team03amplifytesting9dd32e5e-63517879333233644a47-build.zip"
         }
       },
       "api": {
