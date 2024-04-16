@@ -63,9 +63,27 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
           id
           name
         }
+        purchases {
+          items {
+            id
+            purchaseDate
+            totalAmount
+            items {
+              items {
+                id
+                itemId
+                itemName
+                price
+              }
+              nextToken
+            }
+          }
+          nextToken
+        }
         __typename
       }
       nextToken
+      __typename
     }
     createdAt
     updatedAt
@@ -409,6 +427,7 @@ export const purchaseItemsByPurchaseIdAndId = /* GraphQL */ `query PurchaseItems
     items {
       id
       purchaseId
+      itemId
       itemName
       price
       createdAt

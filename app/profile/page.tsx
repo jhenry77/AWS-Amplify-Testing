@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { fetchAuthSession } from "aws-amplify/auth";
 import { updateUserAttributes, UpdateUserAttributesOutput } from 'aws-amplify/auth';
 import { updatePassword, type UpdatePasswordInput } from 'aws-amplify/auth';
+import Link from "next/link";
 
 
 async function handleUpdateEmailAttributes(updatedEmail: string) {
@@ -187,6 +188,7 @@ export default function Profile(){
                 <p className={styles['subtext']}>{address.toString()}</p>
                 <p className={styles['blocktext']}>Birthday</p>
                 <p className={styles['subtext']}>{birthday}</p>
+                <Link className = {styles['button']} href = '/purchaseHistory'>My Purchases</Link>
             </div>
             <br/>
 

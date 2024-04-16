@@ -422,6 +422,7 @@ export const onCreatePurchaseItem = /* GraphQL */ `subscription OnCreatePurchase
       updatedAt
       __typename
     }
+    itemId
     itemName
     price
     createdAt
@@ -448,6 +449,7 @@ export const onUpdatePurchaseItem = /* GraphQL */ `subscription OnUpdatePurchase
       updatedAt
       __typename
     }
+    itemId
     itemName
     price
     createdAt
@@ -474,6 +476,7 @@ export const onDeletePurchaseItem = /* GraphQL */ `subscription OnDeletePurchase
       updatedAt
       __typename
     }
+    itemId
     itemName
     price
     createdAt

@@ -456,6 +456,7 @@ export const createPurchaseItem = /* GraphQL */ `mutation CreatePurchaseItem(
       updatedAt
       __typename
     }
+    itemId
     itemName
     price
     createdAt
@@ -483,6 +484,7 @@ export const updatePurchaseItem = /* GraphQL */ `mutation UpdatePurchaseItem(
       updatedAt
       __typename
     }
+    itemId
     itemName
     price
     createdAt
@@ -510,6 +512,7 @@ export const deletePurchaseItem = /* GraphQL */ `mutation DeletePurchaseItem(
       updatedAt
       __typename
     }
+    itemId
     itemName
     price
     createdAt

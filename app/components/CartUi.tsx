@@ -3,7 +3,7 @@ import CartContext from './cart'; // Import CartContext
 import styles from '../components/styles/cartUi.module.css';
 import { Amplify } from 'aws-amplify';
 import { generateClient } from 'aws-amplify/api';
-import {createUser, createSponsorApplication, updateUserSponsor } from "../../src/graphql/mutations"
+import {createUser, createSponsorApplication, updateUserSponsor, createPurchase, createPurchaseItem} from "../../src/graphql/mutations"
 import { getSponsorApplication, getUser, listSponsorApplications, listTodos, listUsers, listUserSponsors } from '../../src/graphql/queries';
 import config from '@/src/amplifyconfiguration.json';
 import { UserPointsContext } from './pointsContext';
@@ -72,26 +72,71 @@ const [userSponsorId, setUserSponsorId] = useState(String);
     setIsOpen(!isOpen); // Toggle dropdown
   };
   const handleRemoveFromCart = (id: any) => {
-    console.log("cart is");
-    console.log(cart);
-    console.log("id is :")
-    console.log(id);
     removeItem(id);
   };
   const totalCost = cart.reduce((total, item) => total + item.price, 0);
 
 
-  function removePoints(userSponsor:any, points:number) {
+  function removePoints(points:number, cart:any) {
+    console.log("cart is");
+    console.log(cart);
     console.log(userSponsor);
     const newPoints = userPoints - points;
+    let totalAmount = 0;
+
+    // Calculate total amount
+    cart.forEach((item: any) => {
+        totalAmount += item.price;
+    });
+    console.log("About to create a purchase");
+    // Create a Purchase
     client.graphql({
-        query: updateUserSponsor,
+        query: createPurchase,
         variables: {
             input: {
-                id: userSponsorId,
-                points: newPoints
+                userSponsorId: userSponsorId,
+                purchaseDate: new Date().toISOString(),
+                totalAmount: totalAmount
             }
         }
+    })
+    .then((purchaseResult) => {
+        console.log("after creating a purchase");
+        const purchaseId = purchaseResult.data.createPurchase.id;
+        console.log("purchase id is");
+        console.log(purchaseId);
+
+        // Create PurchaseItems for each item in the cart
+        const purchaseItemsPromises = cart.map((item: any) => {
+          console.log("item is");
+          console.log(item);
+            return client.graphql({
+                query: createPurchaseItem,
+                variables: {
+                    input: {
+                        purchaseId: purchaseId,
+                        itemName: item.songTitle,
+                        itemId: item.id,
+                        price: item.price
+                    }
+                }
+            });
+        });
+
+        return Promise.all(purchaseItemsPromises);
+    })
+    .then(() => {
+        // Update UserSponsor points
+        console.log("Now were trying to update the usersponsors points")
+        return client.graphql({
+            query: updateUserSponsor,
+            variables: {
+                input: {
+                    id: userSponsorId,
+                    points: newPoints
+                }
+            }
+        });
     })
     .then(() => {
         updateUserPoints(newPoints);
@@ -124,7 +169,7 @@ const [userSponsorId, setUserSponsorId] = useState(String);
             Number of items in the cart: {cart.length}<br></br>
             Total cost: {totalCost}<br></br>
             Balance after purchase: {userPoints - totalCost}
-            <button className={styles["purchaseButton"]} onClick={() => removePoints(userSponsorId, totalCost)}>Purchase</button>
+            <button className={styles["purchaseButton"]} onClick={() => removePoints( totalCost, cart)}>Purchase</button>
           </div>
         </div>
       )}

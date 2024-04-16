@@ -114,6 +114,8 @@ export default function Home() {
       }
   }, [userId])
 
+  
+
   return (
     <main className="min-h-screen flex flex-row p-12 flex-wrap justify-center">
       <div className={styles.searchbar}>

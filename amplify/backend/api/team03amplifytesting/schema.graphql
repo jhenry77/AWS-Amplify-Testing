@@ -39,13 +39,14 @@ type UserSponsor @model @auth(rules: [{allow: public}]) {
   sponsorId: ID!
   sponsor: Sponsor @belongsTo(fields: ["sponsorId"])
   points: Int!
-  purchases: [Purchase] @hasMany(fields: ["id"])
+  purchases: [Purchase] @hasMany(indexName: "byUserSponsor", fields: ["id"])
 } 
 
 type PurchaseItem @model @auth(rules: [{ allow: public }]) {
   id: ID!
   purchaseId: ID! @index(name: "byPurchase", sortKeyFields: ["id"])
   purchase: Purchase @belongsTo(fields: ["purchaseId"])
+  itemId: String!
   itemName: String!
   price: Float!
 }
@@ -56,5 +57,5 @@ type Purchase @model @auth(rules: [{ allow: public }]) {
   userSponsor: UserSponsor @belongsTo(fields: ["userSponsorId"])
   purchaseDate: AWSDateTime!
   totalAmount: Float!
-  items: [PurchaseItem] @hasMany(fields: ["id"])
+  items: [PurchaseItem] @hasMany(indexName: "byPurchase", fields: ["id"])
 }
