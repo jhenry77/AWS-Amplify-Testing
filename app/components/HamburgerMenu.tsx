@@ -18,9 +18,18 @@ const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
   onCloseRightMenu,
 }) => {
   const [showPopup, setShowPopup] = useState(false);
+  const [activePopup, setActivePopup] = useState('');
 
-  const handlePopupOpen = () => setShowPopup(true);
-  const handlePopupClose = () => setShowPopup(false);
+  // const handlePopupOpen = () => setShowPopup(true);
+  // Function to handle opening a popup
+  const handlePopupOpen = (popupType: string) => {
+    setActivePopup(popupType);
+  };
+  // Function to handle closing the currently active popup
+  const handlePopupClose = () => {
+    setActivePopup('');
+  };
+
 
   const [showSponsorPopup, setShowSponsorPopup] = useState(false);
   const toggleSponsorPopup = () => setShowSponsorPopup(!showSponsorPopup);
@@ -62,99 +71,29 @@ const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
           <div className={styles['right-menu-title']}>Dev Tools</div>
         </div>
         {/* Menu Items */}
+
         <div className={styles['menu-section']}>
-          {/* <div className={styles['menu-section']}> */}
-          <div className={styles['right-menu-section-title']}>Points</div>
-          {/* FIXME: Change to toggle AddPointsPopup */}
-          <div className={styles['right-menu-item']} onClick={toggleSponsorPopup}>
-            Add Points
-          </div>
-          {/* FIXME: Change to toggle RemovePointsPopup */}
-          <div className={styles['right-menu-item']} onClick={toggleSponsorPopup}>
-            Remove Points
-          </div>
-          {/* FIXME: Change to toggle EditPointsPopup */}
-          <div className={styles['right-menu-item']} onClick={toggleSponsorPopup}>
-            Edit Points
-          </div>
-        </div>
-        
-        <div className={styles['menu-section']}>
-          {/* <div className={styles['menu-section']}> */}
-          <div className={styles['right-menu-section-title']}>Admins</div>
-          <div className={styles['right-menu-item']} onClick={toggleSponsorPopup}>
-            Get Admins
+          <div className={styles['right-menu-section-title']}>User Sponsors</div>
+          <div className={styles['right-menu-item']} onClick={() => handlePopupOpen('Get User Sponsors')}>
+            Get User Sponsors
           </div>
           {/* FIXME: Change to toggle AddSponsorPopup */}
-          <div className={styles['right-menu-item']} onClick={toggleSponsorPopup}>
-            Add Admin
+          <div className={styles['right-menu-item']} onClick={() => handlePopupOpen('Add User Sponsor')}>
+            Add User Sponsor
           </div>
           {/* FIXME: Change to toggle RemoveSponsorPopup */}
-          <div className={styles['right-menu-item']} onClick={toggleSponsorPopup}>
-            Remove Admin
+          <div className={styles['right-menu-item']} onClick={() => handlePopupOpen('Remove User Sponsor')}>
+            Remove User Sponsor
           </div>
-          <div className={styles['right-menu-item']} onClick={toggleSponsorPopup}>
-            Switch Admin
-          </div>
-        </div>
-
-        <div className={styles['menu-section']}>
-          <div className={styles['right-menu-section-title']}>Drivers</div>
-          <div className={styles['right-menu-item']} onClick={toggleSponsorPopup}>
-            Get Drivers
-          </div>
-          {/* FIXME: Change to toggle AddDriverPopup */}
-          <div className={styles['right-menu-item']} onClick={toggleSponsorPopup}>
-            Add Driver
-          </div>
-          {/* FIXME: Change to toggle RemoveSponsorPopup */}
-          <div className={styles['right-menu-item']} onClick={toggleSponsorPopup}>
-            Remove Driver
-          </div>
-          <div className={styles['right-menu-item']} onClick={toggleSponsorPopup}>
-            Switch Driver
-          </div>
-        </div>
-
-        <div className={styles['menu-section']}>
-          <div className={styles['right-menu-section-title']}>Sponsors</div>
-          <div className={styles['right-menu-item']} onClick={toggleSponsorPopup}>
-            Get Sponsors
-          </div>
-          {/* FIXME: Change to toggle AddSponsorPopup */}
-          <div className={styles['right-menu-item']} onClick={toggleSponsorPopup}>
-            Add Sponsor
-          </div>
-          {/* FIXME: Change to toggle RemoveSponsorPopup */}
-          <div className={styles['right-menu-item']} onClick={toggleSponsorPopup}>
-            Remove Sponsor
-          </div>
-          <div className={styles['right-menu-item']} onClick={toggleSponsorPopup}>
-            Switch Sponsor
-          </div>
-        </div>
-
-        <div className={styles['menu-section']}>
-          <div className={styles['right-menu-section-title']}>Products</div>
-          <div className={styles['right-menu-item']} onClick={handlePopupOpen}>
-            Get Products
-          </div>
-
-          {/* FIXME: Change to toggle AddProductPopup */}
-          <div className={styles['right-menu-item']} onClick={toggleSponsorPopup}>
-            Add Products
-          </div>
-          {/* FIXME: Change to toggle RemoveProductPopup */}
-          <div className={styles['right-menu-item']} onClick={toggleSponsorPopup}>
-            Remove Product
+          <div className={styles['right-menu-item']} onClick={() => handlePopupOpen('Switch User Sponsor')}>
+            Switch User Sponsor
           </div>
         </div>
       </div>
 
-      {showPopup && (
-        <Popup popupTitle="Get Products" onClose={handlePopupClose}>
+      {activePopup === 'Get User Sponsors' && (
+        <Popup isOpen={true} popupTitle="User Sponsors" onClose={handlePopupClose}>
           {/* Content of the Popup, like form inputs and the submit button */}
-          {'popupTitle'}
           <form onSubmit={(e) => {
             e.preventDefault();
             // Handle submit logic here
