@@ -39,26 +39,25 @@ type User = {
 
 
 
-export default function ApplicationListing() {
+export default function SponsorUsers() {
 
 
-    const [applications, setApplications] =useState<any[]>([]);
     const [userGroup, setGroup] = useState(String);
     const [userId, setUserId] =useState(null);
     const [userSponsors, setUserSponsors] = useState<any[]>([]);
     const [pointsToAdd, setPointsToAdd] = useState(0);
     
 
-    useEffect(() => {
-        client.graphql({
-            query: listUserSponsors
-        })
-        .then(result => {
-            console.log(result.data.listUserSponsors.items);
-            setUserSponsors(result.data.listUserSponsors.items);
-        })
-        .catch(error => console.error('Error fetching user sponsors:', error));
-    }, []); // Empty dependency array ensures this runs only on mount
+    // useEffect(() => {
+    //     client.graphql({
+    //         query: listUserSponsors
+    //     })
+    //     .then(result => {
+    //         console.log(result.data.listUserSponsors.items);
+    //         setUserSponsors(result.data.listUserSponsors.items);
+    //     })
+    //     .catch(error => console.error('Error fetching user sponsors:', error));
+    // }, []); // Empty dependency array ensures this runs only on mount
 
     const sponsorIdMapping: { [key: string]: string } = {
         'Sponsors1': '0',
@@ -116,10 +115,42 @@ export default function ApplicationListing() {
         });
     }, []);
 
-    
-
-   
-
+    useEffect(() =>{
+        console.log("In use effect for sponsor mapping");
+        if (userGroup){
+        console.log("In userGroup");
+        console.log(userGroup[0]);
+        const currId = sponsorIdMapping[userGroup[0]];
+        console.log("currid is", currId);
+        if(userGroup[0] == "Admins"){
+            client.graphql({ query: listUserSponsors, 
+            })
+            .then(result => {
+                console.log("setting applications");
+                setUserSponsors(result.data.listUserSponsors.items);
+                console.log(result);
+            })
+            .catch(error => {
+                console.error('Error fetching sponsor applications:', error);
+            });
+        }else if(userGroup[0].toLowerCase().includes('sponsor'.toLowerCase())){
+            console.log("doing the querey for sponsors");
+            client.graphql({ query: listSponsorApplications, variables: { filter: {
+                sponsorId: {
+                    eq: currId} }} })
+            .then(result => {
+                setUserSponsors(result.data.listSponsorApplications.items);
+                console.log(result);
+            })
+            .catch(error => {
+                console.error('Error fetching sponsor applications:', error);
+            });
+        }
+        
+    }else{
+        console.log("couldnt find userGroup");
+    }
+    }, [userGroup])
 
     return (
         <div className={styles["container"]}>

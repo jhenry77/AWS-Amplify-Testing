@@ -1,49 +1,23 @@
-// "use client";
-// import Link from "next/link"
-// import { useAuthenticator } from '@aws-amplify/ui-react';
-// import { signOut } from "aws-amplify/auth";
-// import styles from "./styles/AppNav.module.css";
-// import DropdownMenu from "./DropDown";
 
-// export default function Navbar() {
-//     const { user, signOut } = useAuthenticator((context) => [context.user]);
-//     const {authStatus} = useAuthenticator((context) => [context.authStatus]);
-
-//     if (authStatus !== 'authenticated'){
-//         return null;
-//     }
-
-//     return <nav className={styles['navbar']}>
-
-//             <Link href="/home">Home</Link>
-//             <Link href="/">About</Link>
-//             <Link href="/">Sponsors</Link>
-//             <Link href="/">Catalogs</Link>
-//             <Link href="/">Reports</Link>
-//                 <>
-//                 {authStatus !== 'authenticated' ? <Link href="/login">Login</Link> : <button className = "justify-end" onClick={signOut}>Sign Out</button>}
-//                 </>
-//             <DropdownMenu/>
-//     </nav>
-// };
-// AppNav.tsx
 "use client";
 import Link from "next/link"
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import { signOut } from "aws-amplify/auth";
 import styles from "./styles/AppNav.module.css";
 import HamburgerMenu from "./HamburgerMenu";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { fetchAuthSession } from "aws-amplify/auth";
 import { useRouter } from "next/navigation";
 import CartUi from "./CartUi";
+import CartContext from "./cart";
 
 
 export default function Navbar() {
     const router = useRouter();
+    const { cart, removeItem, clearCart } = useContext(CartContext); // Use CartContext
+
 
     const { user, signOut, authStatus } = useAuthenticator((context) => [context.user, context.signOut, context.authStatus]);
-    // const { user, signOut } = useAuthenticator((context) => [context.user]);
     // const { authStatus } = useAuthenticator((context) => [context.authStatus]);
 
     const [showDropdown, setShowDropdown] = useState(false);
@@ -138,7 +112,11 @@ export default function Navbar() {
                         {showDropdown && (
                             <div className={`${styles['dropdown-menu']} ${showDropdown ? styles['show-dropdown'] : ''}`} role="menu">
                                 <Link href="/profile">Profile</Link>
-                                <button className="sign-out-button" onClick={signOut}>Sign Out</button>
+                                <button className="sign-out-button" onClick={() => {
+                                    clearCart();
+                                    signOut();
+                                    router.push('/login');
+                                }}>Sign Out</button>
                             </div>
                         )}
                     </>
