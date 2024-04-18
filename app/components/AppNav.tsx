@@ -77,7 +77,7 @@ export default function Navbar() {
         <nav className={styles['navbar']}>
             <div className="navbar-left-content">
                 {/* Button that when clicked, will toggle the state of the left hamburger menu */}
-                <button onClick={toggleLeftMenu} className="hamburger-menu-button" aria-label="Open navigation menu">☰</button>
+                {/* <button onClick={toggleLeftMenu} className="hamburger-menu-button" aria-label="Open navigation menu">☰</button> */}
                 {/* <HamburgerMenu showLeftMenu={showLeftMenu} /> */}
 
                 <Link href="/home" className="nav-link">Home</Link>
