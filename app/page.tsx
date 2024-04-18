@@ -21,6 +21,7 @@ import '@aws-amplify/ui-react/styles.css';
 //import AuthUser from './components/AuthUser';
 
 import awsExports from '../src/aws-exports';
+import { CognitoIdentityProviderClient, AdminAddUserToGroupCommand } from "@aws-sdk/client-cognito-identity-provider"; 
 import AuthClient from './components/AuthClient';
 
 import { generateClient } from 'aws-amplify/api';
@@ -30,6 +31,7 @@ import config from '@/src/amplifyconfiguration.json';
 import Link from "next/link"
 import { signOut } from "aws-amplify/auth";
 import HamburgerMenuProps from "./components/HamburgerMenu";
+import { userAgentFromString } from 'next/server';
 Amplify.configure(config);
 
 const client = generateClient();
@@ -70,8 +72,6 @@ export default function Home() {
   const [userAddress, setUserAddress] = useState(String);
 
   const [user, setUser] = useState<User>(null);
-
-
 
   useEffect(() => {
     fetchAuthSession({ forceRefresh: true })
@@ -133,7 +133,40 @@ export default function Home() {
             });
         }
       })
-  })
+  });
+
+  const [response, setResponse] = useState<any>(null);
+
+  useEffect(() => {
+    console.log('HERE: BEFORE IF USER GROUPS' + groups);
+    if(groups == "No active Groups"){
+      console.log('HERE: USER GROUPS');
+      const cogClient = new CognitoIdentityProviderClient({
+        region: config.aws_project_region,
+        credentials: {
+          accessKeyId: 'AKIAT77CFA37X6OYBJN5', 
+          secretAccessKey: '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'
+        }
+      });
+      const input = {
+        UserPoolId: "us-east-1_YSw38Ruze",
+        Username: userID,
+        GroupName: "Drivers",
+      };
+      const command = new AdminAddUserToGroupCommand(input);
+
+      const fetchData = () => {
+        cogClient.send(command)
+          .then(response => {
+            setResponse(response);
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      };
+      fetchData();
+    }
+  }, [groups]); 
 
   const { authStatus } = useAuthenticator((context) => [context.authStatus]);
   const Curruser = useAuthenticator((context) => [context.user]);
