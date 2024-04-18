@@ -7,6 +7,11 @@ import { fetchAuthSession } from "aws-amplify/auth";
 import { updateUserAttributes, UpdateUserAttributesOutput } from 'aws-amplify/auth';
 import { updatePassword, type UpdatePasswordInput } from 'aws-amplify/auth';
 import Link from "next/link";
+import { generateClient } from 'aws-amplify/api';
+import { updateUser } from './../../src/graphql/mutations';
+import { MutableModel } from '@aws-amplify/datastore';
+
+const client = generateClient();
 
 
 async function handleUpdateEmailAttributes(updatedEmail: string) {
@@ -84,6 +89,7 @@ export default function Profile(){
 
     const[groups, setGroups] = useState(undefined);
     const[userName, setUserName] = useState(String);
+    const [userID, setUserID] = useState(String);
     const[email, setEmail] = useState(String);
     const[birthday, setBirthday] = useState(String);
     const[address, setAddress] = useState(Array);
@@ -109,6 +115,10 @@ export default function Profile(){
         e.preventDefault();
         const { Email } = formState;
         handleUpdateEmailAttributes(Email);
+        client.graphql({ query: updateUser, variables: {input: {
+          email: Email,
+          id: userID
+        }}});
         window.location.reload();
     };
 
@@ -124,6 +134,10 @@ export default function Profile(){
         e.preventDefault();
         const { firstName } = formState;
         handleUpdateFirstNameAttributes(firstName);
+        client.graphql({ query: updateUser, variables: {input: {
+          name: firstName,
+          id: userID
+        }}});
         window.location.reload();
     };
 
@@ -132,6 +146,10 @@ export default function Profile(){
         const { lastName } = formState;
         handleUpdateLastNameAttributes(lastName);
         window.location.reload();
+        client.graphql({ query: updateUser, variables: {input: {
+          familyName: lastName,
+          id: userID
+        }}});
     };
 
     const handleSubmitAddress = (e: any) => {
@@ -139,6 +157,10 @@ export default function Profile(){
         const { address } = formState;
         handleUpdateAddressAttributes(address);
         window.location.reload();
+        client.graphql({ query: updateUser, variables: {input: {
+          address: address,
+          id: userID
+        }}});
     };
 
     const handleSubmitBirthday = (e: any) => {
@@ -156,12 +178,14 @@ export default function Profile(){
             console.log(idToken);
             const userGroups = idToken.payload['cognito:groups'];
             const username = idToken.payload["name"] + " " + idToken.payload["family_name"];
+            const id = idToken.payload["sub"];
             const email = idToken.payload["email"];
             const birthday = idToken.payload["birthdate"];
             const address = idToken.payload["address"].formatted;
             setGroups(userGroups ? userGroups[0] : "No active Groups");
             setUserName(username);
             setEmail(email);
+            setUserID(id);
             setBirthday(birthday);
             setAddress(address);
             console.log(username);
