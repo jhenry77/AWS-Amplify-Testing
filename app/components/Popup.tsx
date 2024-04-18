@@ -42,9 +42,8 @@ interface PopupProps {
 }
 
 const Popup: React.FC<PopupProps> = ({ isOpen, popupTitle, onClose, children, users, userSponsors /*sponsorApplications*/ }) => {
-
   // State to hold fetched User Sponsors, initialize as empty array.
-  const [fetchedUserSponsors, setFetchedUserSponsors] = useState([]);
+  const [fetchedUserSponsors, setFetchedUserSponsors] = useState<UserSponsor[]>([]);
 
   // State to hold fetched Sponsor Applications, initialize as empty array.
   const [fetchedSponsorApplications, setFetchedSponsorApplications] = useState([]);
@@ -62,24 +61,14 @@ const Popup: React.FC<PopupProps> = ({ isOpen, popupTitle, onClose, children, us
 
           // Logging each item's details
           items.forEach((item: any, index: number) => {
-            console.log(`Item ${index} ID: ${item.id}`);
+            console.log(`Item #${++index} ID: ${item.id}`);
             console.log(`Item ${index} User ID: ${item.userId}`);
             console.log(`Item ${index} Sponsor ID: ${item.sponsorId}`);
             console.log(`Item ${index} Points: ${item.points}`);
             console.log(`Item ${index} Created At: ${item.createdAt}`);
             console.log(`Item ${index} Updated At: ${item.updatedAt}`);
           });
-
           setFetchedUserSponsors(items);
-          // console.log("result.data.listUserSponsors.items = ", result.data.listUserSponsors.items[0].id);
-          // console.log("result.data.listUserSponsors.items.userId = ", result.data.listUserSponsors.items[0].userId);
-          // console.log("result.data.listUserSponsors.items.sponsorId = ", result.data.listUserSponsors.items[0].sponsorId);
-          // console.log("result.data.listUserSponsors.items.updatedAt = ", result.data.listUserSponsors.items[0].updatedAt);
-          // console.log("result.data.listUserSponsors.items.createdAt = ", result.data.listUserSponsors.items[0].createdAt);
-
-
-          // Update state with the fetched data.
-          // setFetchedUserSponsors(result.data.listUserSponsors.items);
         }).catch((error: any) => {
           console.error('Error listing user Sponsors', error);
         });
@@ -96,18 +85,22 @@ const Popup: React.FC<PopupProps> = ({ isOpen, popupTitle, onClose, children, us
         {/* Render User Sponsors if they are provided or fetched */}
         {(userSponsors || fetchedUserSponsors).length > 0 && (
           <div className={styles.userSponsorList}>
-            {(userSponsors || fetchedUserSponsors).map(sponsor => (
+            {(userSponsors || fetchedUserSponsors).map((sponsor, index) => (
+
               <div key={sponsor.id} className={styles.userSponsorItem}>
                 {/* Displaying sponsor details */}
+                <h3>User Sponsor #{index + 1}</h3>
                 <p><strong>ID:</strong> {sponsor.id}</p>
-                <p><strong>User ID:</strong> {sponsor.userId}</p>
                 <p><strong>Sponsor ID:</strong> {sponsor.sponsorId}</p>
+                <p><strong>User ID:</strong> {sponsor.userId}</p>
                 <p><strong>Points:</strong> {sponsor.points}</p>
                 <p><strong>Created At:</strong> {sponsor.createdAt}</p>
                 <p><strong>Last Updated At:</strong> {new Date(sponsor.updatedAt).toLocaleString()}</p>
               </div>
-            ))}
+            ))
+            }
           </div>
+          
         )}
         {/* Render children if any */}
         {children}
