@@ -85,24 +85,32 @@ const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
           <div className={styles['right-menu-item']} onClick={() => handlePopupOpen('Remove User Sponsor')}>
             Remove User Sponsor
           </div>
-          <div className={styles['right-menu-item']} onClick={() => handlePopupOpen('Switch User Sponsor')}>
-            Switch User Sponsor
+        </div>
+
+        <div className={styles['menu-section']}>
+          <div className={styles['right-menu-section-title']}>Sponsor Applications</div>
+          <div className={styles['right-menu-item']} onClick={() => handlePopupOpen('Get Sponsor Applications')}>
+            Get Sponsor Applications
+          </div>
+          {/* FIXME: Change to toggle AddSponsorPopup */}
+          <div className={styles['right-menu-item']} onClick={() => handlePopupOpen('Add Sponsor Applications')}>
+            Add Sponsor Applications
+          </div>
+          {/* FIXME: Change to toggle RemoveSponsorPopup */}
+          <div className={styles['right-menu-item']} onClick={() => handlePopupOpen('Remove Sponsor Applications')}>
+            Remove Sponsor Applications
           </div>
         </div>
       </div>
 
+      
+
       {activePopup === 'Get User Sponsors' && (
-        <Popup isOpen={true} popupTitle="User Sponsors" onClose={handlePopupClose}>
-          {/* Content of the Popup, like form inputs and the submit button */}
-          <form onSubmit={(e) => {
-            e.preventDefault();
-            // Handle submit logic here
-            handlePopupClose(); // Close the popup on form submission
-          }}>
-            {/* Your form inputs here */}
-            {/* <button type="submit" className="popup-submit-button">Submit</button> */}
-          </form>
-        </Popup>
+        <Popup isOpen={true} popupTitle="User Sponsors" onClose={handlePopupClose}></Popup>
+      )}
+
+      {activePopup === 'Get Sponsor Applications' && (
+        <Popup isOpen={true} popupTitle="Sponsor Applications" onClose={handlePopupClose}></Popup>
       )}
     </>
   );
