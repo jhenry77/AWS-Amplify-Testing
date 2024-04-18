@@ -23,19 +23,24 @@
   z-index: 1001;
 }
 
-.popup-exit-button,
-.popup-submit-button {
+.popupButtons {
+text-align: center;
+width: auto;
+}
+
+.popupExitButton {
+/* .popup-submit-button { */
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
   margin-top: 20px; /* Added space from the content above */
-}
-
-.popup-exit-button {
-  background-color: #e74c3c; /* A red color for exit could be intuitive */
-  color: white;
+  background-color: #2c3e50; /* A red color for exit could be intuitive */
+  color: #2c3e50;
 }
 
 .popup-submit-button {
@@ -44,7 +49,7 @@
   float: right; /* Float the button to the right */
 }
 
-.popup-exit-button:hover,
+.popupExitButton:hover,
 .popup-submit-button:hover {
   opacity: 0.9; /* Slight opacity change on hover */
   transform: scale(1.05); /* Subtle grow effect */
@@ -75,12 +80,28 @@
   margin-bottom: 10px; /* Space out paragraphs */
 }
 
+.popup H3 {
+  color: white;
+  font-weight: bold;
+  background-color: #2c3e50;
+  border-radius: 5px;
+  padding: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
 /* If you have list items, style them as well */
 .popup-list-item {
-  background-color: #ecf0f1; /* Light grey background for each item */
-  padding: 10px;
-  margin-bottom: 10px; /* Space between items */
-  border-radius: 5px;
+  background-color: #ecf0f1;
+  /*Lightgreybackgroundforeachitem*/padding: 10px;
+  margin-bottom: 10px;
+  /*Spacebetweenitems*/border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
 }
 
 /* Additional styles for specific content */
@@ -92,6 +113,17 @@
 .userSponsorList {
   border-top: 2px solid #ecf0f1; /* A top border to separate from the title */
   padding-top: 20px; /* Space from the top border */
+}
+
+.userSponsorItem {
+  border: 2px solid black;
+  padding: 10px;
+  margin-bottom: 5px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
 }
 
 /* Adjusting the height and width for mobile responsiveness */
