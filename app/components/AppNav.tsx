@@ -42,7 +42,7 @@ import CartUi from "./CartUi";
 export default function Navbar() {
     const router = useRouter();
 
-    const { user, signOut, authStatus } = useAuthenticator((context) => [context.user, context.signOut, context.authStatus]);
+    const { user, signOut, authStatus, } = useAuthenticator((context) => [context.user, context.signOut, context.authStatus]);
     // const { user, signOut } = useAuthenticator((context) => [context.user]);
     // const { authStatus } = useAuthenticator((context) => [context.authStatus]);
 
@@ -50,7 +50,18 @@ export default function Navbar() {
     const [showPointsDropdown, setShowPointsDropdown] = useState(false);
     const [showLeftMenu, setShowLeftMenu] = useState(true); /* change to true */
     const [showRightMenu, setShowRightMenu] = useState(false);
+    const [showGetProductsPopup, setShowGetProductsPopup] = useState(false);
+    const [userGroups, setUserGroups] = useState<string[]>([]);
 
+
+    const toggleGetProductsPopup = () => {
+        setShowGetProductsPopup(!showGetProductsPopup);
+    };    
+
+    // The function to call when the 'Exit' button in the popup is clicked
+    const onClosePopup = () => {
+        setShowGetProductsPopup(false);
+    };
     const toggleDropdown = () => {
         setShowDropdown(!showDropdown);
     };
@@ -67,7 +78,7 @@ export default function Navbar() {
         setShowRightMenu(!showRightMenu);
     };
 
-    const [groups, setGroups] = useState(undefined);
+    // const [userGroups, setGroups] = useState([]);
     const [userName, setUserName] = useState(String);
 
     useEffect(() => {
@@ -77,7 +88,7 @@ export default function Navbar() {
                 console.log(idToken);
                 const userGroups = idToken.payload['cognito:groups'];
                 const username = idToken.payload["name"] + " " + idToken.payload["family_name"];
-                setGroups(userGroups ? userGroups[0] : "No active Groups");
+                setUserGroups(userGroups ? userGroups[0] : "No active Groups");
                 setUserName(username);
                 console.log(username);
             })
@@ -90,6 +101,12 @@ export default function Navbar() {
             router.refresh();
         }
     }, [router, userName]);
+
+    const isAdmin = userGroups.includes('Admins');
+
+    if (isAdmin) {
+        console.log("Is the Current User an Admin:", isAdmin)
+    }
 
     // Log the current user object to the console
     return (
@@ -123,10 +140,12 @@ export default function Navbar() {
                                 ▼{/* Dropdown menu icon */}
                             </button>
                         </span>
+                         {isAdmin && (
+                            <button onClick={toggleRightMenu} className="settings-menu-button" aria-label="Open settings">
+                                ⚙️{/* Settings icon */}
+                            </button>
+                         )}
 
-                        <button onClick={toggleRightMenu} className="settings-menu-button" aria-label="Open settings">
-                            ⚙️{/* Settings icon */}
-                        </button>
                         {/* <HamburgerMenu showRightMenu={showRightMenu} /> */}
 
                         {showPointsDropdown && (
