@@ -1,3 +1,5 @@
+// page.tsx
+
 "use client";
 import React, { use } from 'react';
 import { Amplify } from 'aws-amplify';
@@ -32,15 +34,14 @@ Amplify.configure(config);
 
 const client = generateClient();
 
-
 type User = {
-  id: string;
-  name: string;
-  familyName: string;
-  email: string;
-  address: string;
+  id: string
+  name: string
+  familyName: string
+  email: string
+  address: string
+  _typename: string
 } | null;
-
 
 Amplify.configure(awsExports);
 
@@ -98,7 +99,8 @@ export default function Home() {
           name: idToken.payload["name"],
           familyName: idToken.payload["family_name"],
           email: idToken.payload["email"],
-          address: idToken.payload["address"].formatted
+          address: idToken.payload["address"].formatted,
+          _typename: idToken.payload["email"]
         };
         setUser(userData);
       })
@@ -131,21 +133,7 @@ export default function Home() {
             });
         }
       })
-
-
-
-
-
-
-    // client.graphql({query: listSponsors}).then(result =>{
-    //         console.log(result);
-    //       })
-    //       .catch(error => {
-    //         console.error('Error listing sponsors:', error);
-    //       });
   })
-
-
 
   const { authStatus } = useAuthenticator((context) => [context.authStatus]);
   const Curruser = useAuthenticator((context) => [context.user]);
@@ -180,34 +168,12 @@ export default function Home() {
         console.error('Error:', error);
       });
   }, []);
-  // const {user, signOut} = useAuthenticator((context) => [context.user]);
-
-
-  // handleFetchUserAttributes();
-  // useEffect(() => {
-  //   if (user) {
-  //     console.log(user);
-  //   }
-  // }, [user]);
 
   const [userDetails, setUserDetails] = useState(null);
 
-  // useEffect(() => {
-  //   fetchAuthSession({forceRefresh: true})
-  //     .then(({tokens}) => {
-  //       console.log(tokens);
-  //       const groups = tokens?.idToken;
-  //       console.log(groups);
-  //       // console.log(`The userId: ${userId}`);
-  //       // console.log(`The signInDetails: ${signInDetails}`);
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
-  // }, []);
-
   client.graphql({ query: listUserSponsors })
     .then(result => {
+      console.log("In page.tsx; Line: 175");
       console.log("UserSponsor");
       console.log(result);
     })
@@ -217,6 +183,8 @@ export default function Home() {
 
   client.graphql({ query: listSponsorApplications })
     .then(result => {
+      console.log("In page.tsx; Line: 175");
+
       console.log("Sponsor Applications");
       console.log(result);
     })

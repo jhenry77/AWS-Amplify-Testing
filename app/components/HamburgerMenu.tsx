@@ -18,9 +18,18 @@ const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
   onCloseRightMenu,
 }) => {
   const [showPopup, setShowPopup] = useState(false);
+  const [activePopup, setActivePopup] = useState('');
 
-  const handlePopupOpen = () => setShowPopup(true);
-  const handlePopupClose = () => setShowPopup(false);
+  // const handlePopupOpen = () => setShowPopup(true);
+  // Function to handle opening a popup
+  const handlePopupOpen = (popupType: string) => {
+    setActivePopup(popupType);
+  };
+  // Function to handle closing the currently active popup
+  const handlePopupClose = () => {
+    setActivePopup('');
+  };
+
 
   const [showSponsorPopup, setShowSponsorPopup] = useState(false);
   const toggleSponsorPopup = () => setShowSponsorPopup(!showSponsorPopup);
@@ -62,108 +71,83 @@ const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
           <div className={styles['right-menu-title']}>Dev Tools</div>
         </div>
         {/* Menu Items */}
+
         <div className={styles['menu-section']}>
-          {/* <div className={styles['menu-section']}> */}
-          <div className={styles['right-menu-section-title']}>Points</div>
-          {/* FIXME: Change to toggle AddPointsPopup */}
-          <div className={styles['right-menu-item']} onClick={toggleSponsorPopup}>
-            Add Points
-          </div>
-          {/* FIXME: Change to toggle RemovePointsPopup */}
-          <div className={styles['right-menu-item']} onClick={toggleSponsorPopup}>
-            Remove Points
-          </div>
-          {/* FIXME: Change to toggle EditPointsPopup */}
-          <div className={styles['right-menu-item']} onClick={toggleSponsorPopup}>
-            Edit Points
-          </div>
-        </div>
-        
-        <div className={styles['menu-section']}>
-          {/* <div className={styles['menu-section']}> */}
-          <div className={styles['right-menu-section-title']}>Admins</div>
-          <div className={styles['right-menu-item']} onClick={toggleSponsorPopup}>
-            Get Admins
+          <div className={styles['right-menu-section-title']}>User Sponsors</div>
+          <div className={styles['right-menu-item']} onClick={() => handlePopupOpen('Get User Sponsors')}>
+            Get User Sponsors
           </div>
           {/* FIXME: Change to toggle AddSponsorPopup */}
-          <div className={styles['right-menu-item']} onClick={toggleSponsorPopup}>
-            Add Admin
-          </div>
+          {/* <div className={styles['right-menu-item']} onClick={() => handlePopupOpen('Add User Sponsor')}>
+            Add User Sponsor
+          </div> */}
           {/* FIXME: Change to toggle RemoveSponsorPopup */}
-          <div className={styles['right-menu-item']} onClick={toggleSponsorPopup}>
-            Remove Admin
-          </div>
-          <div className={styles['right-menu-item']} onClick={toggleSponsorPopup}>
-            Switch Admin
-          </div>
+          {/* <div className={styles['right-menu-item']} onClick={() => handlePopupOpen('Remove User Sponsor')}>
+            Remove User Sponsor
+          </div> */}
         </div>
 
         <div className={styles['menu-section']}>
-          <div className={styles['right-menu-section-title']}>Drivers</div>
-          <div className={styles['right-menu-item']} onClick={toggleSponsorPopup}>
-            Get Drivers
+          <div className={styles['right-menu-section-title']}>Sponsor Applications</div>
+          <div className={styles['right-menu-item']} onClick={() => handlePopupOpen('Get Sponsor Applications')}>
+            Get Sponsor Applications
           </div>
-          {/* FIXME: Change to toggle AddDriverPopup */}
-          <div className={styles['right-menu-item']} onClick={toggleSponsorPopup}>
-            Add Driver
-          </div>
+          {/* FIXME: Change to toggle AddSponsorPopup */}
+          {/* <div className={styles['right-menu-item']} onClick={() => handlePopupOpen('Add Sponsor Applications')}>
+            Add Sponsor Applications
+          </div> */}
           {/* FIXME: Change to toggle RemoveSponsorPopup */}
-          <div className={styles['right-menu-item']} onClick={toggleSponsorPopup}>
-            Remove Driver
-          </div>
-          <div className={styles['right-menu-item']} onClick={toggleSponsorPopup}>
-            Switch Driver
-          </div>
+          {/* <div className={styles['right-menu-item']} onClick={() => handlePopupOpen('Remove Sponsor Applications')}>
+            Remove Sponsor Applications
+          </div> */}
         </div>
 
         <div className={styles['menu-section']}>
           <div className={styles['right-menu-section-title']}>Sponsors</div>
-          <div className={styles['right-menu-item']} onClick={toggleSponsorPopup}>
+          <div className={styles['right-menu-item']} onClick={() => handlePopupOpen('Get Sponsors')}>
             Get Sponsors
           </div>
           {/* FIXME: Change to toggle AddSponsorPopup */}
-          <div className={styles['right-menu-item']} onClick={toggleSponsorPopup}>
-            Add Sponsor
-          </div>
+          {/* <div className={styles['right-menu-item']} onClick={() => handlePopupOpen('Add Sponsors')}>
+            Add Sponsors
+          </div> */}
           {/* FIXME: Change to toggle RemoveSponsorPopup */}
-          <div className={styles['right-menu-item']} onClick={toggleSponsorPopup}>
-            Remove Sponsor
-          </div>
-          <div className={styles['right-menu-item']} onClick={toggleSponsorPopup}>
-            Switch Sponsor
-          </div>
+          {/* <div className={styles['right-menu-item']} onClick={() => handlePopupOpen('Remove Sponsors')}>
+            Remove Sponsors
+          </div> */}
         </div>
 
         <div className={styles['menu-section']}>
-          <div className={styles['right-menu-section-title']}>Products</div>
-          <div className={styles['right-menu-item']} onClick={handlePopupOpen}>
-            Get Products
+          <div className={styles['right-menu-section-title']}>Users</div>
+          <div className={styles['right-menu-item']} onClick={() => handlePopupOpen('Get Users')}>
+            Get Users
           </div>
-
-          {/* FIXME: Change to toggle AddProductPopup */}
-          <div className={styles['right-menu-item']} onClick={toggleSponsorPopup}>
-            Add Products
-          </div>
-          {/* FIXME: Change to toggle RemoveProductPopup */}
-          <div className={styles['right-menu-item']} onClick={toggleSponsorPopup}>
-            Remove Product
-          </div>
+          {/* FIXME: Change to toggle AddSponsorPopup */}
+          {/* <div className={styles['right-menu-item']} onClick={() => handlePopupOpen('Add Users')}>
+            Add Users
+          </div> */}
+          {/* FIXME: Change to toggle RemoveSponsorPopup */}
+          {/* <div className={styles['right-menu-item']} onClick={() => handlePopupOpen('Remove Users')}>
+            Remove Users
+          </div> */}
         </div>
+
       </div>
 
-      {showPopup && (
-        <Popup popupTitle="Get Products" onClose={handlePopupClose}>
-          {/* Content of the Popup, like form inputs and the submit button */}
-          {'popupTitle'}
-          <form onSubmit={(e) => {
-            e.preventDefault();
-            // Handle submit logic here
-            handlePopupClose(); // Close the popup on form submission
-          }}>
-            {/* Your form inputs here */}
-            <button type="submit" className="popup-submit-button">Submit</button>
-          </form>
-        </Popup>
+      {activePopup === 'Get User Sponsors' && (
+        <Popup isOpen={true} popupTitle="User Sponsors" onClose={handlePopupClose}></Popup>
+      )}
+
+      {activePopup === 'Get Sponsor Applications' && (
+        <Popup isOpen={true} popupTitle="Sponsor Applications" onClose={handlePopupClose}></Popup>
+      )}
+
+      {activePopup === 'Get Sponsors' && (
+        <Popup isOpen={true} popupTitle="Sponsors" onClose={handlePopupClose}></Popup>
+      )}
+
+      {activePopup === 'Get Users' && (
+        <Popup isOpen={true} popupTitle="Users" onClose={handlePopupClose}></Popup>
       )}
     </>
   );
