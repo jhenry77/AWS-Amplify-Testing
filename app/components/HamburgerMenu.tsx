@@ -78,13 +78,13 @@ const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
             Get User Sponsors
           </div>
           {/* FIXME: Change to toggle AddSponsorPopup */}
-          <div className={styles['right-menu-item']} onClick={() => handlePopupOpen('Add User Sponsor')}>
+          {/* <div className={styles['right-menu-item']} onClick={() => handlePopupOpen('Add User Sponsor')}>
             Add User Sponsor
-          </div>
+          </div> */}
           {/* FIXME: Change to toggle RemoveSponsorPopup */}
-          <div className={styles['right-menu-item']} onClick={() => handlePopupOpen('Remove User Sponsor')}>
+          {/* <div className={styles['right-menu-item']} onClick={() => handlePopupOpen('Remove User Sponsor')}>
             Remove User Sponsor
-          </div>
+          </div> */}
         </div>
 
         <div className={styles['menu-section']}>
@@ -93,17 +93,46 @@ const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
             Get Sponsor Applications
           </div>
           {/* FIXME: Change to toggle AddSponsorPopup */}
-          <div className={styles['right-menu-item']} onClick={() => handlePopupOpen('Add Sponsor Applications')}>
+          {/* <div className={styles['right-menu-item']} onClick={() => handlePopupOpen('Add Sponsor Applications')}>
             Add Sponsor Applications
-          </div>
+          </div> */}
           {/* FIXME: Change to toggle RemoveSponsorPopup */}
-          <div className={styles['right-menu-item']} onClick={() => handlePopupOpen('Remove Sponsor Applications')}>
+          {/* <div className={styles['right-menu-item']} onClick={() => handlePopupOpen('Remove Sponsor Applications')}>
             Remove Sponsor Applications
-          </div>
+          </div> */}
         </div>
-      </div>
 
-      
+        <div className={styles['menu-section']}>
+          <div className={styles['right-menu-section-title']}>Sponsors</div>
+          <div className={styles['right-menu-item']} onClick={() => handlePopupOpen('Get Sponsors')}>
+            Get Sponsors
+          </div>
+          {/* FIXME: Change to toggle AddSponsorPopup */}
+          {/* <div className={styles['right-menu-item']} onClick={() => handlePopupOpen('Add Sponsors')}>
+            Add Sponsors
+          </div> */}
+          {/* FIXME: Change to toggle RemoveSponsorPopup */}
+          {/* <div className={styles['right-menu-item']} onClick={() => handlePopupOpen('Remove Sponsors')}>
+            Remove Sponsors
+          </div> */}
+        </div>
+
+        <div className={styles['menu-section']}>
+          <div className={styles['right-menu-section-title']}>Users</div>
+          <div className={styles['right-menu-item']} onClick={() => handlePopupOpen('Get Users')}>
+            Get Users
+          </div>
+          {/* FIXME: Change to toggle AddSponsorPopup */}
+          {/* <div className={styles['right-menu-item']} onClick={() => handlePopupOpen('Add Users')}>
+            Add Users
+          </div> */}
+          {/* FIXME: Change to toggle RemoveSponsorPopup */}
+          {/* <div className={styles['right-menu-item']} onClick={() => handlePopupOpen('Remove Users')}>
+            Remove Users
+          </div> */}
+        </div>
+
+      </div>
 
       {activePopup === 'Get User Sponsors' && (
         <Popup isOpen={true} popupTitle="User Sponsors" onClose={handlePopupClose}></Popup>
@@ -111,6 +140,14 @@ const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
 
       {activePopup === 'Get Sponsor Applications' && (
         <Popup isOpen={true} popupTitle="Sponsor Applications" onClose={handlePopupClose}></Popup>
+      )}
+
+      {activePopup === 'Get Sponsors' && (
+        <Popup isOpen={true} popupTitle="Sponsors" onClose={handlePopupClose}></Popup>
+      )}
+
+      {activePopup === 'Get Users' && (
+        <Popup isOpen={true} popupTitle="Users" onClose={handlePopupClose}></Popup>
       )}
     </>
   );
