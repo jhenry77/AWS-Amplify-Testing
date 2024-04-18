@@ -91,7 +91,7 @@ export default function Navbar() {
                 {authStatus === 'authenticated' && user ? (
                     <>
                         <span className="points-info">
-                            {"0 points"}
+                            {"Points"}
                             {/* {userName} */}
                             <button onClick={togglePointsDropdown} className="points-dropdown-menu-button" aria-label="Open dropdown">
                                 ▼{/* Dropdown menu icon */}
