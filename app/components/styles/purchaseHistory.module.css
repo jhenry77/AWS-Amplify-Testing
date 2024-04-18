@@ -6,7 +6,7 @@
   
   .title {
     text-align: center;
-    color: #333;
+    color: white;
     margin-bottom: 20px;
   }
   
@@ -31,13 +31,13 @@
   }
   
   .purchaseId {
-    color: #666;
+    color: white;
     font-size: 16px;
   }
   
   .purchaseDate,
   .totalAmount {
-    color: #333;
+    color: white;
     font-size: 14px;
   }
   
@@ -50,6 +50,6 @@
   .itemId,
   .itemName,
   .price {
-    color: #333;
+    color: white;
     font-size: 14px;
   }
