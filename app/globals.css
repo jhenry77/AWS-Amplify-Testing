@@ -144,10 +144,10 @@ button.amplify-button--fullwidth{
   margin: 0.25rem 0;
 } */
 
-/* Hamburger Menu Button
+/*Hamburger Menu Button*/
 .hamburger-menu-button {
-  display: none; Hide by default and will display on smaller screens
-} */
+  display: none; /*Hide by default and will display on smaller screens*/
+} 
 
 /* Responsive design for smaller screens */
 @media (max-width: 768px) {
