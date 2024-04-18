@@ -110,12 +110,12 @@ width: auto;
 }
 
 /* Styles for the list container if needed */
-.userSponsorList {
+.popupItemList {
   border-top: 2px solid #ecf0f1; /* A top border to separate from the title */
   padding-top: 20px; /* Space from the top border */
 }
 
-.userSponsorItem {
+.userSponsorItem, .sponsorApplicationItem {
   border: 2px solid black;
   padding: 10px;
   margin-bottom: 5px;
