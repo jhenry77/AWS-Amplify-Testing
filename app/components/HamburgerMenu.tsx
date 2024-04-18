@@ -100,7 +100,7 @@ const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
             handlePopupClose(); // Close the popup on form submission
           }}>
             {/* Your form inputs here */}
-            <button type="submit" className="popup-submit-button">Submit</button>
+            {/* <button type="submit" className="popup-submit-button">Submit</button> */}
           </form>
         </Popup>
       )}
