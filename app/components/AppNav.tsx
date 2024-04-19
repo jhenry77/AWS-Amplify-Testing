@@ -67,10 +67,13 @@ export default function Navbar() {
     }, [router, userName]);
 
     const isAdmin = userGroups.includes('Admins');
+    const isSponsor = userGroups.includes('Sponsors');
+    const isDriver = userGroups.includes('Drivers');
 
-    if (isAdmin) {
-        console.log("Is the Current User an Admin:", isAdmin)
-    }
+    if (isAdmin || isSponsor) {
+        console.log("Is the Current User an Admin:", isAdmin);
+        console.log("Is sponsor: ", isSponsor);
+    };
 
     // Log the current user object to the console
     return (
@@ -82,8 +85,11 @@ export default function Navbar() {
 
                 <Link href="/home" className="nav-link">Home</Link>
                 <Link href="/" className="nav-link">About</Link>
-                <Link href="/sponsorApplication" className="nav-link">Sponsor Applications</Link>
-                <Link href="/testCatalog" className="nav-link">Catalogs</Link>
+                {isDriver && (<Link href="/sponsorApplication" className="nav-link">Sponsor Applications</Link>)}
+                <Link href="/testCatalog" className="nav-link">Catalog</Link>
+                {(isSponsor || isAdmin) && (<Link href="/listSponsorApplications" className="nav-link">Applications</Link>)}
+                {isSponsor && (<Link href="/listSponsorUsers" className="nav-link">Drivers</Link>)}
+                {(isSponsor || isAdmin) && (<Link href="/purchaseHistory" className="nav-link">Purchases</Link>)}
                 <Link href="/" className="nav-link">Reports</Link>
             </div>
 
