@@ -6,6 +6,7 @@
 }
 
 .application{
+    color: white;
     display: flex;
     border-width: 1px;
     margin: 10px;
