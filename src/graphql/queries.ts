@@ -295,7 +295,8 @@ export const getUserSponsor = /* GraphQL */ `query GetUserSponsor($id: ID!) {
   APITypes.GetUserSponsorQueryVariables,
   APITypes.GetUserSponsorQuery
 >;
-export const listUserSponsors = /* GraphQL */ `query ListUserSponsors(
+export const listUserSponsors = /* GraphQL */ `
+query ListUserSponsors(
   $filter: ModelUserSponsorFilterInput
   $limit: Int
   $nextToken: String
@@ -312,6 +313,25 @@ export const listUserSponsors = /* GraphQL */ `query ListUserSponsors(
         address
         createdAt
         updatedAt
+        sponsors {
+          items {
+            purchases {
+              items {
+                id
+                purchaseDate
+                totalAmount
+                items {
+                  items {
+                    id
+                    itemId
+                    itemName
+                    price
+                  }
+                }
+              }
+            }
+          }
+        }
         __typename
       }
       sponsorId

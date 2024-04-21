@@ -135,11 +135,12 @@ export default function SponsorUsers() {
             });
         }else if(userGroup[0].toLowerCase().includes('sponsor'.toLowerCase())){
             console.log("doing the querey for sponsors");
-            client.graphql({ query: listSponsorApplications, variables: { filter: {
+            client.graphql({ query: listUserSponsors, variables: { filter: {
                 sponsorId: {
                     eq: currId} }} })
             .then(result => {
-                setUserSponsors(result.data.listSponsorApplications.items);
+                setUserSponsors(result.data.listUserSponsors.items);
+                console.log("Got this result");
                 console.log(result);
             })
             .catch(error => {

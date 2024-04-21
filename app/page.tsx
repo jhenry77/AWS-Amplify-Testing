@@ -204,27 +204,7 @@ export default function Home() {
 
   const [userDetails, setUserDetails] = useState(null);
 
-  client.graphql({ query: listUserSponsors })
-    .then(result => {
-      console.log("In page.tsx; Line: 175");
-      console.log("UserSponsor");
-      console.log(result);
-    })
-    .catch(error => {
-      console.error('Error listing user Sponsors', error);
-    });
-
-  client.graphql({ query: listSponsorApplications })
-    .then(result => {
-      console.log("In page.tsx; Line: 175");
-
-      console.log("Sponsor Applications");
-      console.log(result);
-    })
-    .catch(error => {
-      console.error('Error listing user Sponsors', error);
-    });
-
+ 
   // console.log("showLeftMenu = ", showLeftMenu);
 
   return (

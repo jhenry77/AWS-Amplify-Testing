@@ -38,7 +38,6 @@ const [userSponsorId, setUserSponsorId] = useState(String);
 }, [])
 
   useEffect(() =>{
-    console.log("In use effect");
     if (userId){
       console.log("about to call getUser");
         client.graphql({ query: getUser, 
@@ -59,7 +58,8 @@ const [userSponsorId, setUserSponsorId] = useState(String);
             }
         })
         .catch(error => {
-            console.error('Error fetching sponsor applications:', error);
+          console.log("error fetching user"); 
+            console.error( error);
         });
       }
   }, [userId])
@@ -78,9 +78,7 @@ const [userSponsorId, setUserSponsorId] = useState(String);
 
 
   function removePoints(points:number, cart:any) {
-    console.log("cart is");
-    console.log(cart);
-    console.log(userSponsor);
+
     const newPoints = userPoints - points;
     let totalAmount = 0;
 
@@ -88,7 +86,6 @@ const [userSponsorId, setUserSponsorId] = useState(String);
     cart.forEach((item: any) => {
         totalAmount += item.price;
     });
-    console.log("About to create a purchase");
     // Create a Purchase
     client.graphql({
         query: createPurchase,
@@ -101,14 +98,10 @@ const [userSponsorId, setUserSponsorId] = useState(String);
         }
     })
     .then((purchaseResult) => {
-        console.log("after creating a purchase");
         const purchaseId = purchaseResult.data.createPurchase.id;
-        console.log("purchase id is");
-        console.log(purchaseId);
 
         // Create PurchaseItems for each item in the cart
         const purchaseItemsPromises = cart.map((item: any) => {
-          console.log("item is");
           console.log(item);
             return client.graphql({
                 query: createPurchaseItem,
