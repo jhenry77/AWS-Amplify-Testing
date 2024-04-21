@@ -32,6 +32,21 @@ import { UserPointsContext } from '../components/pointsContext';
 Amplify.configure(awsExports);
 const client = generateClient();
 
+function SearchiTunes(url: string) {
+
+  return fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      // Return the response data
+      console.log(data.results);
+      return data.results;
+    })
+    .catch(error => {
+      // Handle the error here
+      console.error(error);
+    });
+}
+
 
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -58,32 +73,33 @@ export default function Home() {
   };
 
   const handleSearchSubmit = (event: any) => {
+    console.log("just entered handle search submit");
     const group = userSponsorId;
     console.log(userSponsorId);
-    setUrl(`https://itunes.apple.com/search?term=${searchTerm}`);
-    console.log("Sponor "+group);
+    let newUrl = "https://itunes.apple.com/search?term=${searchTerm}";
+    console.log("our url before the if's is" + newUrl);
     if(group == '0'){
-      console.log(searchTerm);
-      setUrl(`https://itunes.apple.com/search?term=${searchTerm}&entity=song`);
+      newUrl = `https://itunes.apple.com/search?term=${searchTerm}&entity=song`;
     }
     else if(group == '1'){
-      console.log("Sponor 1");
-      setUrl(`https://itunes.apple.com/search?term=${searchTerm}&entity=podcast`);
+      newUrl = `https://itunes.apple.com/search?term=${searchTerm}&entity=podcast`;
     }
     else if(group == '2'){
-      console.log("Sponor 2 ");
-      setUrl(`https://itunes.apple.com/search?term=${searchTerm}&entity=movie`);
+      newUrl = `https://itunes.apple.com/search?term=${searchTerm}&entity=movie`;
     }
-
+    console.log("after this if's and our url is");
+    console.log(newUrl);
+  
+    setUrl(newUrl); // Set the state once after determining the correct URL
+  
     event.preventDefault();
     setLoading(false); // Initially set loading to false
-
+  
     const timeoutId = setTimeout(() => {
       setLoading(true); // Set loading to true if API call hasn't completed within 200ms
     }, 200);
-
-    SearchiTunes(url).then(results => {
-      console.log(url);
+  
+    SearchiTunes(newUrl).then(results => {
       setData(results);
       clearTimeout(timeoutId); // Clear the timeout if search completes in time
       setLoading(false); // Set loading to false as search has completed
@@ -97,9 +113,6 @@ export default function Home() {
 
   const [data, setData] = useState<any[]>([]);
 
-  useEffect(() => {
-    SearchiTunes('').then(data => setData(data));
-  }, []);
 
   // Other useEffect hooks and function definitions remain unchanged
   useEffect(() => {
@@ -110,32 +123,23 @@ export default function Home() {
         const group = idToken.payload["cognito:groups"]
         setGroup(group);
         setUserId(id);
-        console.log("USer id is", id);
     })
     .catch(err => {
         console.log(err);
     });
 }, [])
 
-useEffect(() => {
 
-})
 
   useEffect(() =>{
-    console.log("In use effect");
     if (userId){
-      console.log("about to call getUser");
         client.graphql({ query: getUser, 
             variables: {
                   id: userId
             }
         })
         .then(result => {
-          console.log("got this userSponsor")
-            console.log(result);
             if (result.data.getUser && result.data.getUser.sponsors?.items) {
-              console.log(result);
-              console.log(result.data.getUser.sponsors);
               const sponsorId = result.data.getUser.sponsors.items[0].sponsor.id;
               const points = result.data.getUser.sponsors.items[0].points;
               updateUserPoints(points);
@@ -178,17 +182,3 @@ useEffect(() => {
   );
 }
 
-function SearchiTunes(url: string) {
-
-  return fetch(url)
-    .then(response => response.json())
-    .then(data => {
-      // Return the response data
-      console.log(data.results);
-      return data.results;
-    })
-    .catch(error => {
-      // Handle the error here
-      console.error(error);
-    });
-}
