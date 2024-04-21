@@ -33,11 +33,6 @@ Amplify.configure(awsExports);
 const client = generateClient();
 
 
-
-
-
-
-
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState('');
   const [userId, setUserId] = useState(null);
@@ -45,12 +40,41 @@ export default function Home() {
   const { cart, addItem, removeItem } = useContext(CartContext);
   const [loading, setLoading] = useState(false);
   const { userPoints, updateUserPoints } = useContext(UserPointsContext);
+  const [userGroup, setGroup] = useState(String);
+  const [userSponsorId, setUserSponsorId] = useState(String);
+  const [url, setUrl] = useState(String);
+
+  const sponsorIdMapping: { [key: string]: string } = {
+    'Sponsors1': '0',
+    'Sponsors2': '1',
+    'Sponsors3': '2'
+  };
+
+  const currId = sponsorIdMapping[userGroup[0]];
+
 
   const handleSearchChange = (event: any) => {
     setSearchTerm(event.target.value);
   };
 
   const handleSearchSubmit = (event: any) => {
+    const group = userSponsorId;
+    console.log(userSponsorId);
+    setUrl(`https://itunes.apple.com/search?term=${searchTerm}`);
+    console.log("Sponor "+group);
+    if(group == '0'){
+      console.log(searchTerm);
+      setUrl(`https://itunes.apple.com/search?term=${searchTerm}&entity=song`);
+    }
+    else if(group == '1'){
+      console.log("Sponor 1");
+      setUrl(`https://itunes.apple.com/search?term=${searchTerm}&entity=podcast`);
+    }
+    else if(group == '2'){
+      console.log("Sponor 2 ");
+      setUrl(`https://itunes.apple.com/search?term=${searchTerm}&entity=movie`);
+    }
+
     event.preventDefault();
     setLoading(false); // Initially set loading to false
 
@@ -58,7 +82,8 @@ export default function Home() {
       setLoading(true); // Set loading to true if API call hasn't completed within 200ms
     }, 200);
 
-    searchiTunes(searchTerm).then(results => {
+    SearchiTunes(url).then(results => {
+      console.log(url);
       setData(results);
       clearTimeout(timeoutId); // Clear the timeout if search completes in time
       setLoading(false); // Set loading to false as search has completed
@@ -73,7 +98,7 @@ export default function Home() {
   const [data, setData] = useState<any[]>([]);
 
   useEffect(() => {
-    searchiTunes('').then(data => setData(data));
+    SearchiTunes('').then(data => setData(data));
   }, []);
 
   // Other useEffect hooks and function definitions remain unchanged
@@ -82,6 +107,8 @@ export default function Home() {
     .then(({ tokens }) => {
         const idToken = tokens?.idToken as any;
         const id = idToken.payload["sub"];
+        const group = idToken.payload["cognito:groups"]
+        setGroup(group);
         setUserId(id);
         console.log("USer id is", id);
     })
@@ -89,6 +116,10 @@ export default function Home() {
         console.log(err);
     });
 }, [])
+
+useEffect(() => {
+
+})
 
   useEffect(() =>{
     console.log("In use effect");
@@ -103,9 +134,12 @@ export default function Home() {
           console.log("got this userSponsor")
             console.log(result);
             if (result.data.getUser && result.data.getUser.sponsors?.items) {
+              console.log(result);
               console.log(result.data.getUser.sponsors);
+              const sponsorId = result.data.getUser.sponsors.items[0].sponsor.id;
               const points = result.data.getUser.sponsors.items[0].points;
               updateUserPoints(points);
+              setUserSponsorId(sponsorId);
             }
         })
         .catch(error => {
@@ -113,8 +147,6 @@ export default function Home() {
         });
       }
   }, [userId])
-
-  
 
   return (
     <main className="min-h-screen flex flex-row p-12 flex-wrap justify-center">
@@ -126,7 +158,7 @@ export default function Home() {
             type="text"
             value={searchTerm}
             onChange={handleSearchChange}
-            placeholder="Search iTunes"
+            placeholder="Search Catalog"
           />
           <button type="submit" className={styles.searchButton}>Search</button>
         </form>
@@ -145,13 +177,8 @@ export default function Home() {
     </main>
   );
 }
-    
 
-
-
-
-function searchiTunes(term: string) {
-  const url = `https://itunes.apple.com/search?term=${term}&media=music&entity=song`;
+function SearchiTunes(url: string) {
 
   return fetch(url)
     .then(response => response.json())
