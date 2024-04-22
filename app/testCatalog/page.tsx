@@ -76,16 +76,16 @@ export default function Home() {
     console.log("just entered handle search submit");
     const group = userSponsorId;
     console.log(userSponsorId);
-    let newUrl = "https://itunes.apple.com/search?term=${searchTerm}";
+    let newUrl = 'https://itunes.apple.com/search?term=' + searchTerm;
     console.log("our url before the if's is" + newUrl);
     if(group == '0'){
-      newUrl = `https://itunes.apple.com/search?term=${searchTerm}&entity=song`;
+      newUrl = `https://itunes.apple.com/search?term=${searchTerm}&entity=song&explicit=N`;
     }
     else if(group == '1'){
-      newUrl = `https://itunes.apple.com/search?term=${searchTerm}&entity=audiobook`;
+      newUrl = `https://itunes.apple.com/search?term=${searchTerm}&entity=audiobook&explicit=N`;
     }
     else if(group == '2'){
-      newUrl = `https://itunes.apple.com/search?term=${searchTerm}&entity=movie`;
+      newUrl = `https://itunes.apple.com/search?term=${searchTerm}&entity=movie&explicit=N`;
     }
     console.log("after this if's and our url is");
     console.log(newUrl);
