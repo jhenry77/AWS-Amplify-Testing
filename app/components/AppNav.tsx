@@ -89,7 +89,7 @@ export default function Navbar() {
                 <Link href="/testCatalog" className="nav-link">Catalog</Link>
                 {(isSponsor || isAdmin) && (<Link href="/listSponsorApplications" className="nav-link">Applications</Link>)}
                 {(isSponsor || isAdmin) && (<Link href="/listSponsorUsers" className="nav-link">Drivers</Link>)}
-                {(isSponsor || isAdmin) && (<Link href="/purchaseHistory" className="nav-link">Purchases</Link>)}
+                <Link href="/purchaseHistory" className="nav-link">Purchases</Link>
                 <Link href="/" className="nav-link">Reports</Link>
             </div>
 
