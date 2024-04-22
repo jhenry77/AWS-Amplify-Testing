@@ -90,7 +90,6 @@ export default function Navbar() {
                 {(isSponsor || isAdmin) && (<Link href="/listSponsorApplications" className="nav-link">Applications</Link>)}
                 {(isSponsor || isAdmin) && (<Link href="/listSponsorUsers" className="nav-link">Drivers</Link>)}
                 <Link href="/purchaseHistory" className="nav-link">Purchases</Link>
-                <Link href="/" className="nav-link">Reports</Link>
             </div>
 
             <div className={styles["navbar-right-content"]}>
