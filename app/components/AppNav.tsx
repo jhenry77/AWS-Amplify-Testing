@@ -89,20 +89,12 @@ export default function Navbar() {
                 <Link href="/testCatalog" className="nav-link">Catalog</Link>
                 {(isSponsor || isAdmin) && (<Link href="/listSponsorApplications" className="nav-link">Applications</Link>)}
                 {(isSponsor || isAdmin) && (<Link href="/listSponsorUsers" className="nav-link">Drivers</Link>)}
-                {(isSponsor || isAdmin) && (<Link href="/purchaseHistory" className="nav-link">Purchases</Link>)}
-                <Link href="/" className="nav-link">Reports</Link>
+                <Link href="/purchaseHistory" className="nav-link">Purchases</Link>
             </div>
 
             <div className={styles["navbar-right-content"]}>
                 {authStatus === 'authenticated' && user ? (
                     <>
-                        <span className="points-info">
-                            {"Points"}
-                            {/* {userName} */}
-                            <button onClick={togglePointsDropdown} className="points-dropdown-menu-button" aria-label="Open dropdown">
-                                ▼{/* Dropdown menu icon */}
-                            </button>
-                        </span>
                         <CartUi/>
                         <span className="user-info">
                             {userName}
@@ -116,13 +108,6 @@ export default function Navbar() {
                                 ⚙️{/* Settings icon */}
                             </button>
                          )}
-
-                        {showPointsDropdown && (
-                            <div className={`${styles['points-dropdown-menu']} ${showPointsDropdown ? styles['show-dropdown'] : ''}`} role="menu">
-                                <Link href="/points">My Points</Link>
-                            </div>
-                        )}
-
                         {showDropdown && (
                             <div className={`${styles['dropdown-menu']} ${showDropdown ? styles['show-dropdown'] : ''}`} role="menu">
                                 <Link href="/profile">Profile</Link>
