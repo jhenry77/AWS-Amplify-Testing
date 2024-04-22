@@ -6,6 +6,7 @@ import CartContext from "./cart";
 import { useAuthenticator } from '@aws-amplify/ui-react';
 
 interface CatalogUIProps {
+  itemType: string;
   songTitle: string;
   albumTitle: string;
   albumCover: string;
@@ -13,7 +14,7 @@ interface CatalogUIProps {
   trackId: string;
 }
 
-const CatalogUI: React.FC<CatalogUIProps> = ({ songTitle, albumTitle, albumCover, price, trackId }) => {
+const CatalogUI: React.FC<CatalogUIProps> = ({itemType, songTitle, albumTitle, albumCover, price, trackId }) => {
   const { cart, addItem } = useContext(CartContext); // Use CartContext
   const [isAdded, setIsAdded] = useState(false);
 
@@ -40,14 +41,19 @@ const CatalogUI: React.FC<CatalogUIProps> = ({ songTitle, albumTitle, albumCover
   
   
   
-  if (!songTitle || !albumTitle || !albumCover || price === undefined || !trackId || Number.isNaN(price)) {
+  if (!songTitle || !albumTitle || !albumCover || price === undefined || !trackId || Number.isNaN(price) || price == 0) {
+    console.log("Returned null instead");
     return null;
   }
   return (
     <div className={styles.container}>
       <div className={styles.details}>
         <h2 className={styles.songTitle}>{songTitle}</h2>
-        <p className={styles.albumTitle}>{albumTitle}</p>
+        {itemType === 'audiobook' ? (
+          <p className={styles.albumTitle}>Title: {albumTitle}</p>
+        ) : (
+          <p className={styles.albumTitle}>Album: {albumTitle}</p>
+        )}
       </div>
       <Image
         src={albumCover}
@@ -67,6 +73,6 @@ const CatalogUI: React.FC<CatalogUIProps> = ({ songTitle, albumTitle, albumCover
       </div>
     </div>
   );
-}
+};
 
 export default CatalogUI;

@@ -82,7 +82,7 @@ export default function Home() {
       newUrl = `https://itunes.apple.com/search?term=${searchTerm}&entity=song`;
     }
     else if(group == '1'){
-      newUrl = `https://itunes.apple.com/search?term=${searchTerm}&entity=podcast`;
+      newUrl = `https://itunes.apple.com/search?term=${searchTerm}&entity=audiobook`;
     }
     else if(group == '2'){
       newUrl = `https://itunes.apple.com/search?term=${searchTerm}&entity=movie`;
@@ -170,12 +170,13 @@ export default function Home() {
       </div>
       {data && data.map((item, index) => (
         <CatalogUI
-          key={index}
-          songTitle={item.trackName}
-          albumTitle={item.collectionName}
-          albumCover={item.artworkUrl100}
-          price={item.collectionPrice * 100}
-          trackId={item.trackId}
+        key={index}
+        itemType={item.wrapperType}
+        songTitle={item.trackName || item.artistName} // Use artistName for audiobooks
+        albumTitle={item.collectionName}
+        albumCover={item.artworkUrl100}
+        price={item.collectionPrice * 100}
+        trackId={item.wrapperType === 'audiobook' ? item.collectionId : item.trackId}      
         />
       ))}
     </main>
