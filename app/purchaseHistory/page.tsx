@@ -86,6 +86,13 @@ function PurchaseHistory() {
           .catch(error => {
             console.error('Error fetching sponsor users:', error);
           });
+      }else{
+        if (userId){
+          client.graphql({query: getUser, variables: {id: userId}})
+          .then(result => {
+            setUserData(result.data.getUser)
+          })
+        }
       }
 
     } else {
@@ -96,6 +103,8 @@ function PurchaseHistory() {
   
   const user = userData;
   const sponsors = user && user.sponsors ? user.sponsors.items : [];
+  console.log(sponsors);
+  console.log("that was sponsors");
 
   
   return (
@@ -144,6 +153,7 @@ function PurchaseHistory() {
         ))
       ) : (
         sponsors.map((sponsor:any, index:any) => (
+          
           <div key={index} className={styles.sponsor}>
             <h1 className={styles.title}>Purchases for {user.name} {user.familyName}</h1>
             <h2 className={styles.sponsorName}>Sponsor: {sponsor.sponsor.name}</h2>
