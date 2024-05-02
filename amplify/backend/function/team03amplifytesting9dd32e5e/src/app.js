@@ -98,7 +98,7 @@ app.get('/about/update', function(req, res) {
     if (err) throw err;
     console.log("Connected!");
   
-    var sql = "INSERT INTO about (teamNumber, VersionNum, SprintDate, ProductName, ProductDescription) VALUES ('team03', 'Sprint9', '4/12/2024', 'TruckingCatalog','Delivering')";
+    var sql = "INSERT INTO about (teamNumber, VersionNum, SprintDate, ProductName, ProductDescription) VALUES ('team03', 'FinalDemo', '5/03/2024', 'TruckingCatalog','Delivering')";
     con.query(sql, function (err, result) {
       if (err) res.json({failure: "The error was" + err});
       else res.json("1 record inserted");

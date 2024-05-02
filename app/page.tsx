@@ -42,7 +42,7 @@ type User = {
   familyName: string
   email: string
   address: string
-  _typename: string
+  
 } | null;
 
 Amplify.configure(awsExports);
@@ -99,8 +99,7 @@ export default function Home() {
           name: idToken.payload["name"],
           familyName: idToken.payload["family_name"],
           email: idToken.payload["email"],
-          address: idToken.payload["address"].formatted,
-          _typename: idToken.payload["email"]
+          address: idToken.payload["address"].formatted
         };
         setUser(userData);
       })
@@ -129,6 +128,8 @@ export default function Home() {
               console.log('User added to database');
             })
             .catch(error => {
+              console.log("input is");
+              console.log(user);
               console.error('Error adding user to database:', error);
             });
         }
